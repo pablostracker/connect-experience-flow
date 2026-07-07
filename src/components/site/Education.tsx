@@ -18,36 +18,22 @@ export function Education() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.8, delay: i * 0.08, ease: [0.2, 0.7, 0.2, 1] }}
-            className="bg-background p-8"
+            transition={{ duration: 0.8, delay: i * 0.07, ease: [0.2, 0.7, 0.2, 1] }}
+            className="flex min-h-[180px] flex-col justify-between bg-background p-7"
           >
             <div className="flex items-baseline justify-between text-eyebrow">
               <span>0{i + 1}</span>
-              <span className="text-copper">{e.inst}</span>
+              <span className="text-copper">{e.period}</span>
             </div>
-            <div className="mt-5 font-display text-xl leading-tight text-foreground md:text-2xl">
-              {e.title}
+            <div className="mt-6">
+              <div className="font-display text-lg leading-tight text-foreground md:text-xl">
+                {e.title}
+              </div>
+              <div className="mt-2 text-sm text-silver-dim">{e.inst}</div>
             </div>
           </motion.li>
         ))}
       </ol>
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.9, delay: 0.2, ease: [0.2, 0.7, 0.2, 1] }}
-        className="mt-12"
-      >
-        <div className="text-eyebrow">Formação de base</div>
-        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-display text-lg text-silver-dim md:text-xl">
-          {t.edu.secondary.map((s, i) => (
-            <span key={s} className="flex items-baseline gap-6">
-              {i > 0 && <span aria-hidden className="text-hairline">·</span>}
-              <span>{s}</span>
-            </span>
-          ))}
-        </div>
-      </motion.div>
     </SectionShell>
   );
 }
