@@ -1,0 +1,151 @@
+import { motion, useReducedMotion } from "framer-motion";
+import { useT } from "@/i18n";
+
+const words = ["PEOPLE", "OPERATIONS", "DATA", "AI"] as const;
+
+export function Hero() {
+  const t = useT();
+  const reduce = useReducedMotion();
+
+  return (
+    <section
+      id="top"
+      className="grain relative overflow-hidden px-6 pb-24 pt-36 md:px-10 md:pb-32 md:pt-40"
+    >
+      {/* radial vignette */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-70"
+        style={{
+          background:
+            "radial-gradient(ellipse at 30% 20%, oklch(0.22 0.01 260 / 0.6), transparent 60%), radial-gradient(ellipse at 80% 80%, oklch(0.20 0.02 45 / 0.25), transparent 55%)",
+        }}
+      />
+      <div className="relative mx-auto max-w-[1440px]">
+        <motion.div
+          initial={reduce ? undefined : { opacity: 0, y: 12 }}
+          animate={reduce ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.2, 0.7, 0.2, 1] }}
+          className="text-eyebrow"
+        >
+          {t.hero.eyebrow}
+        </motion.div>
+
+        <motion.h1
+          initial={reduce ? undefined : { opacity: 0, y: 20 }}
+          animate={reduce ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.1, ease: [0.2, 0.7, 0.2, 1] }}
+          className="mt-6 font-display font-black uppercase leading-[0.88] tracking-[-0.03em] text-foreground"
+          style={{ fontSize: "clamp(2.75rem, 12vw, 11rem)" }}
+        >
+          Pablo
+          <br />
+          <span className="text-silver-dim">Silva</span> Dutra
+        </motion.h1>
+
+        <div className="mt-12 grid gap-12 md:grid-cols-12">
+          <motion.p
+            initial={reduce ? undefined : { opacity: 0, y: 16 }}
+            animate={reduce ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.25 }}
+            className="font-display text-2xl leading-tight text-foreground md:col-span-7 md:text-4xl"
+          >
+            {t.hero.headline}
+          </motion.p>
+
+          <div className="md:col-span-5">
+            <motion.p
+              initial={reduce ? undefined : { opacity: 0 }}
+              animate={reduce ? undefined : { opacity: 1 }}
+              transition={{ duration: 0.9, delay: 0.4 }}
+              className="max-w-md text-silver-dim md:text-lg"
+            >
+              {t.hero.support}
+            </motion.p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="#impact"
+                className="group inline-flex items-center gap-3 border border-silver px-5 py-3 text-eyebrow text-foreground transition-colors hover:bg-silver hover:text-primary-foreground"
+              >
+                <span>{t.hero.ctaPrimary}</span>
+                <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-3 px-2 py-3 text-eyebrow text-silver-dim transition-colors hover:text-foreground"
+              >
+                <span className="h-px w-8 bg-current" aria-hidden />
+                {t.hero.ctaSecondary}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <ConnectedKeywords reduce={!!reduce} words={words} />
+
+        <div className="hairline-t mt-20 pt-6 text-eyebrow text-silver-dim">
+          {t.hero.positioning}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ConnectedKeywords({
+  words,
+  reduce,
+}: {
+  words: readonly string[];
+  reduce: boolean;
+}) {
+  // Positions on a square canvas (viewBox 0..100)
+  const pts = [
+    { x: 12, y: 22 }, // PEOPLE
+    { x: 88, y: 30 }, // OPERATIONS
+    { x: 18, y: 82 }, // DATA
+    { x: 82, y: 78 }, // AI
+  ];
+  const pairs: Array<[number, number]> = [
+    [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3],
+  ];
+
+  return (
+    <div className="relative mt-20 aspect-[16/7] w-full">
+      <svg
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        className="absolute inset-0 h-full w-full"
+        aria-hidden
+      >
+        {pairs.map(([a, b], i) => (
+          <line
+            key={i}
+            x1={pts[a].x}
+            y1={pts[a].y}
+            x2={pts[b].x}
+            y2={pts[b].y}
+            stroke="var(--silver)"
+            strokeOpacity="0.25"
+            strokeWidth="0.15"
+            className={reduce ? undefined : "pulse-line"}
+            style={{ animationDelay: `${i * 0.4}s` }}
+          />
+        ))}
+        {pts.map((p, i) => (
+          <circle key={i} cx={p.x} cy={p.y} r="0.6" fill="var(--copper)" />
+        ))}
+      </svg>
+      {words.map((w, i) => (
+        <span
+          key={w}
+          className="absolute -translate-x-1/2 -translate-y-1/2 font-mono text-[0.7rem] tracking-[0.3em] text-foreground md:text-sm"
+          style={{ left: `${pts[i].x}%`, top: `${pts[i].y}%` }}
+        >
+          <span className="mr-2 text-silver-dim">0{i + 1}</span>
+          {w}
+        </span>
+      ))}
+    </div>
+  );
+}
