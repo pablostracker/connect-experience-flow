@@ -6,23 +6,25 @@ export function SideQuests() {
   const t = useT();
   const q = t.quests.items;
   return (
-    <SectionShell
-      id="projects"
-      label={t.quests.label}
-      title={t.quests.title}
-    >
+    <SectionShell id="projects" label={t.quests.label} title={t.quests.title}>
       <div className="space-y-24">
-        <QuestBlock name={q.falcoes.name} theme={q.falcoes.theme} body={q.falcoes.body}>
+        <QuestBlock name={q.falcoes.name} role={q.falcoes.role} theme={q.falcoes.theme} body={q.falcoes.body}>
           <PullRow items={q.falcoes.pulls} />
         </QuestBlock>
 
-        <QuestBlock name={q.loud.name} theme={q.loud.theme} body={q.loud.body}>
+        <QuestBlock name={q.loud.name} role={q.loud.role} theme={q.loud.theme} body={q.loud.body}>
           <PullRow items={q.loud.pulls} mono />
         </QuestBlock>
 
-        <NarutoScene name={q.naruto.name} theme={q.naruto.theme} body={q.naruto.body} value={q.naruto.value} />
+        <NarutoScene
+          name={q.naruto.name}
+          role={q.naruto.role}
+          theme={q.naruto.theme}
+          body={q.naruto.body}
+          value={q.naruto.value}
+        />
 
-        <QuestBlock name={q.sports.name} theme={q.sports.theme} body={q.sports.body}>
+        <QuestBlock name={q.sports.name} role={q.sports.role} theme={q.sports.theme} body={q.sports.body}>
           <PullRow items={q.sports.pulls} />
         </QuestBlock>
       </div>
@@ -32,11 +34,13 @@ export function SideQuests() {
 
 function QuestBlock({
   name,
+  role,
   theme,
   body,
   children,
 }: {
   name: string;
+  role: string;
   theme: string;
   body: string;
   children?: React.ReactNode;
@@ -47,6 +51,7 @@ function QuestBlock({
       <h3 className="mt-3 font-display text-3xl leading-tight text-foreground md:text-5xl">
         {name}
       </h3>
+      <div className="mt-3 font-mono text-sm text-copper">{role}</div>
       <p className="mt-6 max-w-2xl text-silver-dim md:text-lg">{body}</p>
       {children && <div className="mt-8">{children}</div>}
     </article>
@@ -59,9 +64,11 @@ function PullRow({ items, mono }: { items: readonly string[]; mono?: boolean }) 
       {items.map((i) => (
         <span
           key={i}
-          className={`${
-            mono ? "font-mono text-sm text-silver-dim" : "font-display text-xl text-foreground"
-          }`}
+          className={
+            mono
+              ? "font-mono text-sm text-silver-dim"
+              : "font-display text-xl text-foreground"
+          }
         >
           {i}
         </span>
@@ -72,11 +79,13 @@ function PullRow({ items, mono }: { items: readonly string[]; mono?: boolean }) 
 
 function NarutoScene({
   name,
+  role,
   theme,
   body,
   value,
 }: {
   name: string;
+  role: string;
   theme: string;
   body: string;
   value: readonly string[];
@@ -99,6 +108,7 @@ function NarutoScene({
           <h3 className="mt-3 font-display text-4xl leading-[1.05] text-foreground md:text-6xl">
             {name}
           </h3>
+          <div className="mt-3 font-mono text-sm text-silver-dim">{role}</div>
           <p className="mt-6 max-w-md text-silver-dim md:text-lg">{body}</p>
           <ul className="mt-8 grid grid-cols-1 gap-2 sm:grid-cols-2">
             {value.map((v) => (
@@ -131,7 +141,6 @@ function NarutoScene({
               </radialGradient>
             </defs>
             <circle cx="100" cy="105" r="80" fill="url(#leaf-glow)" />
-            {/* Abstract leaf: asymmetric almond with a spiral vein — original, no IP */}
             <path
               d="M100 25 C 150 55, 165 120, 100 180 C 45 130, 55 60, 100 25 Z"
               fill="none"
@@ -144,14 +153,12 @@ function NarutoScene({
               stroke="oklch(0.9 0.02 250 / 0.6)"
               strokeWidth="0.6"
             />
-            {/* Spiral inside */}
             <path
               d="M100 110 m -18 0 a 18 18 0 1 0 36 0 a 14 14 0 1 1 -28 0 a 10 10 0 1 0 20 0 a 6 6 0 1 1 -12 0"
               fill="none"
               stroke="url(#leaf-metal)"
               strokeWidth="0.9"
             />
-            {/* micro veins */}
             {[40, 60, 80, 100, 120, 140].map((y, i) => (
               <path
                 key={y}
