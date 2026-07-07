@@ -1,6 +1,9 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useT } from "@/i18n";
 import { ContactStrip } from "./ContactStrip";
+import { StarfieldBackground } from "./StarfieldBackground";
+
+
 
 const words = ["PEOPLE", "OPERATIONS", "DATA", "AI"] as const;
 
