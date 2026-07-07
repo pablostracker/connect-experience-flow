@@ -315,7 +315,144 @@ export function SelectedImpact() {
             </div>
           </div>
         </div>
+
+        {/* ROI Club — Low Touch */}
+        <div className="hairline-t pt-20">
+          <div className="text-eyebrow">{t.impact.roiClub.company}</div>
+          <div className="mt-2 font-display text-lg text-silver-dim md:text-xl">
+            {t.impact.roiClub.kicker}
+          </div>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: [0.2, 0.7, 0.2, 1] }}
+            className="mt-8 max-w-2xl font-display text-2xl leading-snug text-foreground md:text-3xl"
+          >
+            {t.impact.roiClub.intro}
+          </motion.p>
+
+          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
+            {t.impact.roiClub.totals.map((c, i) => (
+              <motion.div
+                key={c.label}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.8, delay: i * 0.1, ease: [0.2, 0.7, 0.2, 1] }}
+                className="group relative overflow-hidden border border-hairline bg-graphite/40 p-5 backdrop-blur-sm"
+              >
+                <div className="text-eyebrow">{c.label}</div>
+                <div className="mt-3 font-display text-2xl leading-none text-foreground md:text-3xl">
+                  {c.value}
+                </div>
+                <div className="mt-2 text-xs text-silver-dim">{c.meta}</div>
+                <div className="mt-4 h-[2px] w-full overflow-hidden bg-hairline">
+                  <motion.div
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: c.pct }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.6, delay: 0.3 + i * 0.1, ease: [0.2, 0.7, 0.2, 1] }}
+                    style={{
+                      transformOrigin: "left",
+                      background:
+                        "linear-gradient(90deg, oklch(0.7 0.19 250), oklch(0.78 0.16 180), oklch(0.72 0.18 45))",
+                    }}
+                    className="h-full w-full"
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-14 space-y-4">
+            {t.impact.roiClub.analysts.map((a, i) => {
+              const pct = a.meta > 0 ? Math.min(1, a.real / a.meta) : 0;
+              const color =
+                a.status === "CRITICO"
+                  ? "oklch(0.65 0.22 25)"
+                  : a.status === "ATENCAO"
+                  ? "oklch(0.78 0.16 75)"
+                  : "oklch(0.72 0.17 150)";
+              const statusLabel =
+                a.status === "CRITICO" ? "Crítico" : a.status === "ATENCAO" ? "Atenção" : "On Track";
+              const fmt = (v: number) =>
+                v.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                  maximumFractionDigits: 0,
+                });
+              return (
+                <motion.div
+                  key={a.name}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.8, delay: i * 0.1, ease: [0.2, 0.7, 0.2, 1] }}
+                  className="grid gap-3 border border-hairline bg-graphite/30 p-5 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-center md:gap-8"
+                >
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span
+                        aria-hidden
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ background: color, boxShadow: `0 0 10px ${color}` }}
+                      />
+                      <span className="text-eyebrow" style={{ color }}>
+                        {statusLabel}
+                      </span>
+                    </div>
+                    <div className="mt-2 font-display text-xl text-foreground md:text-2xl">
+                      {a.name}
+                    </div>
+                    <div className="mt-1 text-xs text-silver-dim">
+                      {a.carteira} lojas na carteira
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-baseline justify-between font-mono text-xs text-silver-dim">
+                      <span>Realizado {fmt(a.real)}</span>
+                      <span>Meta {a.meta > 0 ? fmt(a.meta) : "—"}</span>
+                    </div>
+                    <div className="relative mt-3 h-2 w-full overflow-hidden rounded-full bg-hairline">
+                      <motion.div
+                        initial={{ scaleX: 0 }}
+                        whileInView={{ scaleX: pct }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 1.6,
+                          delay: 0.2 + i * 0.1,
+                          ease: [0.2, 0.7, 0.2, 1],
+                        }}
+                        style={{
+                          transformOrigin: "left",
+                          background: `linear-gradient(90deg, ${color} 0%, oklch(0.72 0.11 45) 100%)`,
+                        }}
+                        className="absolute inset-y-0 left-0 w-full"
+                      />
+                    </div>
+                    <div className="mt-2 flex items-start gap-2 text-xs text-silver-dim">
+                      <span className="mt-1 h-px w-3 flex-shrink-0 bg-copper" aria-hidden />
+                      <span>{a.insight}</span>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.9, delay: 0.2 }}
+            className="mt-10 max-w-2xl text-silver-dim md:text-lg"
+          >
+            {t.impact.roiClub.closing}
+          </motion.p>
+        </div>
       </div>
     </SectionShell>
   );
 }
+

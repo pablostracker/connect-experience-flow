@@ -1,6 +1,9 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useT } from "@/i18n";
 import { ContactStrip } from "./ContactStrip";
+import { StarfieldBackground } from "./StarfieldBackground";
+
+
 
 const words = ["PEOPLE", "OPERATIONS", "DATA", "AI"] as const;
 
@@ -21,6 +24,7 @@ export function Hero() {
             "radial-gradient(ellipse at 30% 20%, oklch(0.22 0.01 260 / 0.6), transparent 60%), radial-gradient(ellipse at 80% 80%, oklch(0.20 0.02 45 / 0.25), transparent 55%)",
         }}
       />
+      <StarfieldBackground className="opacity-80" />
       <div className="relative mx-auto max-w-[1440px]">
         <motion.div
           initial={reduce ? undefined : { opacity: 0, y: 12 }}
@@ -31,17 +35,38 @@ export function Hero() {
           {t.hero.eyebrow}
         </motion.div>
 
-        <motion.h1
-          initial={reduce ? undefined : { opacity: 0, y: 20 }}
-          animate={reduce ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.1, ease: [0.2, 0.7, 0.2, 1] }}
+        <h1
           className="mt-6 font-display font-black uppercase leading-[0.88] tracking-[-0.03em] text-foreground"
           style={{ fontSize: "clamp(2.75rem, 12vw, 11rem)" }}
         >
-          Pablo
-          <br />
-          <span className="text-silver-dim">Silva</span> Dutra
-        </motion.h1>
+          <motion.span
+            initial={reduce ? undefined : { opacity: 0, y: 24, filter: "blur(12px)" }}
+            animate={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.2, 0.7, 0.2, 1] }}
+            className="block"
+          >
+            Pablo
+          </motion.span>
+          <span className="block">
+            <motion.span
+              initial={reduce ? undefined : { opacity: 0, x: -20, filter: "blur(10px)" }}
+              animate={reduce ? undefined : { opacity: 1, x: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.9, delay: 0.55, ease: [0.2, 0.7, 0.2, 1] }}
+              className="inline-block text-silver-dim"
+            >
+              Silva
+            </motion.span>{" "}
+            <motion.span
+              initial={reduce ? undefined : { opacity: 0, y: 30, filter: "blur(16px)", letterSpacing: "0.2em" }}
+              animate={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)", letterSpacing: "-0.03em" }}
+              transition={{ duration: 1.4, delay: 1.1, ease: [0.2, 0.7, 0.2, 1] }}
+              className="inline-block"
+            >
+              Dutra
+            </motion.span>
+          </span>
+        </h1>
+
 
         <div className="mt-14 grid gap-12 md:grid-cols-12">
           <motion.p

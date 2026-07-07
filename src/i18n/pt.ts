@@ -125,7 +125,28 @@ export const pt = {
         { label: "CES", value: 2, suffix: "/5" },
       ],
     },
+    roiClub: {
+      company: "ROI Ventures · Squad Low Touch",
+      kicker: "Painel Mentoria Low Touch · Maio/2026",
+      intro:
+        "Dashboard tático que criei para ler a operação em tempo real: quatro analistas, 365 lojas na carteira, meta consolidada de R$ 820 mil em faturamento e 156 oportunidades de renovação abertas.",
+      totals: [
+        { label: "Faturamento realizado", value: "R$ 251.554", meta: "Meta R$ 820.349", pct: 0.307 },
+        { label: "Importação realizada", value: "R$ 75.479", meta: "Meta R$ 164.070", pct: 0.46 },
+        { label: "Lojas na carteira", value: "365", meta: "4 analistas", pct: 1 },
+        { label: "Renovações", value: "0 / 62", meta: "156 oportunidades", pct: 0 },
+      ],
+      analysts: [
+        { name: "Breno Guimarães", carteira: 109, real: 102895.61, meta: 345033.51, status: "CRITICO" as const, insight: "Maior potencial de receita da squad — priorizar ativação de contas dormentes." },
+        { name: "Lauryen Honiele", carteira: 132, real: 86984.39, meta: 250863.66, status: "CRITICO" as const, insight: "% lojas faturando em 35,6% (meta 60%) — playbook de ativação da base." },
+        { name: "Vivian Alvarenga", carteira: 110, real: 61674.05, meta: 224452.33, status: "CRITICO" as const, insight: "Renovação parada em 55 oportunidades — rotina de contato com carteira em risco." },
+        { name: "Talles Hanrry", carteira: 14, real: 7610.64, meta: 0, status: "ATENCAO" as const, insight: "Carteira em rampagem — foco em primeira compra e onboarding." },
+      ],
+      closing:
+        "O painel não é decoração. Cada indicador virou um insight e cada insight virou um próximo passo do time — do playbook de ativação à rotina de renovação.",
+    },
   },
+
   journey: {
     label: "Experiência profissional",
     title: "Cada passagem foi um problema de negócio, não um cargo.",
