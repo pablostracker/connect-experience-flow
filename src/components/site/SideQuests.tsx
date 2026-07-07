@@ -686,3 +686,140 @@ function CustomerInsightsScene({
     </article>
   );
 }
+
+/* ============================================================
+   GERANDO FALCÕES · flapping falcon
+   ============================================================ */
+function FalconWings({ reduce }: { reduce: boolean }) {
+  // Two symmetric wings + small body triangle, wings flap on Y axis.
+  const wingLeft = "M 200 130 C 150 90, 90 100, 30 140 C 90 130, 140 140, 200 150 Z";
+  const wingRight = "M 200 130 C 250 90, 310 100, 370 140 C 310 130, 260 140, 200 150 Z";
+  const flap = reduce ? {} : { scaleY: [1, 0.35, 1] };
+  return (
+    <svg viewBox="0 0 400 260" className="h-full w-full max-w-[520px]" aria-hidden>
+      <defs>
+        <linearGradient id="falcon-metal" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="oklch(0.28 0.005 260)" />
+          <stop offset="50%" stopColor="oklch(0.92 0.01 80)" />
+          <stop offset="100%" stopColor="oklch(0.28 0.005 260)" />
+        </linearGradient>
+        <radialGradient id="falcon-sun" cx="0.5" cy="0.55" r="0.5">
+          <stop offset="0%" stopColor="oklch(0.72 0.11 45 / 0.35)" />
+          <stop offset="100%" stopColor="oklch(0.72 0.11 45 / 0)" />
+        </radialGradient>
+      </defs>
+
+      {/* warm glow behind */}
+      <circle cx="200" cy="150" r="150" fill="url(#falcon-sun)" />
+
+      {/* horizon line */}
+      <motion.line
+        x1="20"
+        y1="220"
+        x2="380"
+        y2="220"
+        stroke="oklch(0.86 0.008 250 / 0.15)"
+        strokeWidth="0.8"
+        initial={{ pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: [0.2, 0.7, 0.2, 1] }}
+      />
+
+      {/* trailing motion arcs */}
+      {!reduce &&
+        [0, 1, 2].map((i) => (
+          <motion.path
+            key={i}
+            d={`M ${60 + i * 8} ${180 + i * 6} Q 200 ${160 - i * 8}, ${340 - i * 8} ${180 + i * 6}`}
+            fill="none"
+            stroke="oklch(0.86 0.008 250 / 0.12)"
+            strokeWidth="0.6"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: [0, 1, 0], opacity: [0, 0.6, 0] }}
+            transition={{ duration: 3.2, delay: i * 0.5, repeat: Infinity, ease: "easeInOut" }}
+          />
+        ))}
+
+      {/* flapping bird — wings share the same origin at 200,140 */}
+      <motion.g
+        initial={reduce ? undefined : { y: -6 }}
+        animate={reduce ? undefined : { y: [-6, 4, -6] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformOrigin: "200px 140px" }}
+      >
+        {/* left wing */}
+        <motion.path
+          d={wingLeft}
+          fill="url(#falcon-metal)"
+          animate={flap}
+          transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+          style={{ transformOrigin: "200px 140px", transformBox: "fill-box" as const }}
+        />
+        {/* right wing */}
+        <motion.path
+          d={wingRight}
+          fill="url(#falcon-metal)"
+          animate={flap}
+          transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+          style={{ transformOrigin: "200px 140px", transformBox: "fill-box" as const }}
+        />
+        {/* body / head triangle */}
+        <path
+          d="M 188 140 L 212 140 L 200 168 Z"
+          fill="oklch(0.18 0.005 260)"
+          stroke="oklch(0.92 0.01 80 / 0.5)"
+          strokeWidth="0.6"
+        />
+      </motion.g>
+    </svg>
+  );
+}
+
+function FalcoesScene({
+  name,
+  role,
+  theme,
+  body,
+  pulls,
+}: {
+  name: string;
+  role: string;
+  theme: string;
+  body: string;
+  pulls: readonly string[];
+}) {
+  const reduce = !!useReducedMotion();
+  return (
+    <article className="relative overflow-hidden border border-hairline bg-graphite/30">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 70% 40%, oklch(0.72 0.11 45 / 0.14), transparent 55%), radial-gradient(circle at 15% 80%, oklch(0.28 0.02 260 / 0.4), transparent 60%)",
+        }}
+      />
+      <div className="relative grid gap-10 p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-16 md:p-14">
+        <div>
+          <div className="text-eyebrow text-copper">{theme}</div>
+          <h3 className="mt-3 font-display text-4xl leading-[1.05] text-foreground md:text-6xl">
+            {name}
+          </h3>
+          <div className="mt-3 font-mono text-sm text-copper">{role}</div>
+          <p className="mt-6 max-w-md text-silver-dim md:text-lg">{body}</p>
+          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+            {pulls.map((p) => (
+              <span key={p} className="font-display text-xl text-foreground">
+                {p}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="relative flex min-h-[280px] items-center justify-center md:min-h-[360px]">
+          <FalconWings reduce={reduce} />
+        </div>
+      </div>
+    </article>
+  );
+}
