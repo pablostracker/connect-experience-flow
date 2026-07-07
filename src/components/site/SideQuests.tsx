@@ -8,9 +8,14 @@ export function SideQuests() {
   return (
     <SectionShell id="projects" label={t.quests.label} title={t.quests.title}>
       <div className="space-y-24">
-        <QuestBlock name={q.falcoes.name} role={q.falcoes.role} theme={q.falcoes.theme} body={q.falcoes.body}>
-          <PullRow items={q.falcoes.pulls} />
-        </QuestBlock>
+        <FalcoesScene
+          name={q.falcoes.name}
+          role={q.falcoes.role}
+          theme={q.falcoes.theme}
+          body={q.falcoes.body}
+          pulls={q.falcoes.pulls}
+        />
+
 
         <QuestBlock name={q.loud.name} role={q.loud.role} theme={q.loud.theme} body={q.loud.body}>
           <PullRow items={q.loud.pulls} mono />
