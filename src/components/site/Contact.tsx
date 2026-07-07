@@ -4,10 +4,10 @@ import { SectionShell } from "./SectionShell";
 export function Contact() {
   const t = useT();
   const actions = [
-    { label: t.contact.actions.whatsapp, href: t.contact.whatsappHref, detail: t.contact.whatsappDisplay },
-    { label: t.contact.actions.sms, href: t.contact.smsHref, detail: t.contact.whatsappDisplay },
-    { label: t.contact.actions.email, href: `mailto:${t.contact.email}`, detail: t.contact.email },
-    { label: t.contact.actions.linkedin, href: t.contact.linkedinHref, detail: t.contact.linkedin },
+    { label: t.contact.actions.whatsapp, href: t.contact.whatsappHref, detail: t.contact.whatsappDisplay, external: true },
+    { label: t.contact.actions.sms, href: t.contact.smsHref, detail: t.contact.whatsappDisplay, external: false },
+    { label: t.contact.actions.email, href: `mailto:${t.contact.email}`, detail: t.contact.email, external: false },
+    { label: t.contact.actions.linkedin, href: t.contact.linkedinHref, detail: t.contact.linkedin, external: true },
   ];
   return (
     <SectionShell
@@ -21,8 +21,8 @@ export function Contact() {
           <li key={a.label} className="hairline-b">
             <a
               href={a.href}
-              target={a.href.startsWith("http") ? "_blank" : undefined}
-              rel={a.href.startsWith("http") ? "noreferrer" : undefined}
+              target={a.external ? "_blank" : undefined}
+              rel={a.external ? "noreferrer" : undefined}
               className="group grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-6 py-6 transition-colors hover:text-copper md:py-8"
             >
               <span className="text-eyebrow text-silver-dim group-hover:text-copper">→</span>
