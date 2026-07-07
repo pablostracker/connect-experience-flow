@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useT } from "@/i18n";
+import { ContactStrip } from "./ContactStrip";
 
 const words = ["PEOPLE", "OPERATIONS", "DATA", "AI"] as const;
 
@@ -10,9 +11,8 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="grain relative overflow-hidden px-6 pb-24 pt-36 md:px-10 md:pb-32 md:pt-40"
+      className="grain relative overflow-hidden px-6 pb-32 pt-36 md:px-10 md:pb-40 md:pt-44"
     >
-      {/* radial vignette */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-70"
@@ -43,12 +43,12 @@ export function Hero() {
           <span className="text-silver-dim">Silva</span> Dutra
         </motion.h1>
 
-        <div className="mt-12 grid gap-12 md:grid-cols-12">
+        <div className="mt-14 grid gap-12 md:grid-cols-12">
           <motion.p
             initial={reduce ? undefined : { opacity: 0, y: 16 }}
             animate={reduce ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.25 }}
-            className="font-display text-2xl leading-tight text-foreground md:col-span-7 md:text-4xl"
+            className="font-display text-2xl leading-tight text-foreground md:col-span-7 md:text-3xl"
           >
             {t.hero.headline}
           </motion.p>
@@ -79,6 +79,8 @@ export function Hero() {
                 {t.hero.ctaSecondary}
               </a>
             </div>
+
+            <ContactStrip />
           </div>
         </div>
 
@@ -99,17 +101,15 @@ function ConnectedKeywords({
   words: readonly string[];
   reduce: boolean;
 }) {
-  // Positions on a square canvas (viewBox 0..100)
   const pts = [
-    { x: 12, y: 22 }, // PEOPLE
-    { x: 88, y: 30 }, // OPERATIONS
-    { x: 18, y: 82 }, // DATA
-    { x: 82, y: 78 }, // AI
+    { x: 12, y: 22 },
+    { x: 88, y: 30 },
+    { x: 18, y: 82 },
+    { x: 82, y: 78 },
   ];
   const pairs: Array<[number, number]> = [
     [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3],
   ];
-
   return (
     <div className="relative mt-20 aspect-[16/7] w-full">
       <svg

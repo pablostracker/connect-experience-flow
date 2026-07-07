@@ -1,8 +1,9 @@
 export const pt = {
   nav: {
-    work: "Trabalho",
+    profile: "Perfil",
+    work: "Experiência",
     connect: "Conexões",
-    lab: "Laboratório",
+    lab: "Stack",
     projects: "Projetos",
     education: "Formação",
     contact: "Contato",
@@ -11,13 +12,31 @@ export const pt = {
     eyebrow: "Customer Success · Operations · CX · AI & Automation",
     name: "Pablo Silva Dutra",
     headline:
-      "Eu transformo complexidade em sistemas que pessoas conseguem usar e negócios conseguem escalar.",
+      "Líder multidisciplinar que conecta experiência do cliente, operações, receita, dados e inteligência artificial para destravar times, carteiras e processos.",
     support:
       "Liderança, experiência do cliente, operações, dados e inteligência artificial trabalhando como um único sistema.",
     ctaPrimary: "Conheça meu trabalho",
     ctaSecondary: "Fale comigo",
     positioning:
       "Conectando pessoas, operações, dados e inteligência artificial para transformar complexidade em performance.",
+  },
+  profile: {
+    label: "Perfil executivo",
+    title: "Estratégia, receita, cliente, dados e tecnologia — em um único sistema.",
+    p1:
+      "Líder de Customer Success, Customer Experience e Operações com experiência em gestão de times, carteiras e jornadas de alta complexidade. Atua conectando estratégia, receita, experiência do cliente, dados e tecnologia para diagnosticar gargalos, estruturar processos e acelerar performance.",
+    p2:
+      "Trajetória construída em operações de tecnologia, e-commerce, consumo, mobilidade, franquias e economia digital, com experiência em liderança, onboarding e ongoing, Revenue Operations, projetos, dashboards executivos, automação e inteligência artificial aplicada ao negócio.",
+    areasLabel: "Áreas de atuação",
+    areas: [
+      "Customer Success",
+      "Customer Experience",
+      "Operations",
+      "Revenue Operations",
+      "Projetos",
+      "Dados & Performance",
+      "AI & Automation",
+    ],
   },
   connect: {
     label: "O que eu conecto",
@@ -53,144 +72,219 @@ export const pt = {
   },
   impact: {
     label: "Impacto selecionado",
-    title: "Números que existiram, contados sem enfeite.",
+    title: "Resultados que existiram, contados sem enfeite.",
     roi: {
       company: "ROI Ventures",
-      kicker: "Time comercial · dois dias úteis",
+      kicker: "Painel operacional · junho",
       metrics: [
-        { value: "+10,04%", caption: "Crescimento de receita do time em dois dias úteis" },
-        { value: "177,79%", caption: "Atingimento da meta de receita de importação" },
-        { value: "115,20%", caption: "Atingimento da meta de SKUs ativos" },
-        { value: "103,86%", caption: "Atingimento da meta de conclusão de onboarding" },
+        {
+          value: "+10,04%",
+          caption:
+            "Crescimento do faturamento do time em 2 dias úteis, de R$ 469.417,98 para R$ 516.566,38.",
+        },
+        {
+          value: "177,79%",
+          caption:
+            "Atingimento da meta de faturamento de importação, totalizando R$ 291.242,60.",
+        },
+        {
+          value: "115,20%",
+          caption: "Atingimento da meta de SKUs ativos por cliente.",
+        },
+        {
+          value: "103,86%",
+          caption: "Atingimento da meta de preenchimento de onboarding.",
+        },
       ],
+      totalValue: "R$ 663.239,16",
+      totalCaption: "Faturamento da base ativa no painel operacional de junho.",
     },
     v4: {
       company: "V4 Company · Hicryo",
-      kicker: "De Customer Success à expansão de novos negócios",
+      kicker: "Case franquias · medicina regenerativa",
       body:
-        "A jornada começou dentro do sucesso do cliente e evoluiu para abertura de novas frentes comerciais — traduzindo relacionamento em receita.",
+        "Participação na implantação da frente de franquias no segmento de medicina regenerativa — traduzindo relacionamento e diagnóstico em receita nova.",
       pulls: [
-        { value: "5", caption: "Franquias vendidas" },
-        { value: "R$16K", caption: "Capital por unidade" },
-        { value: "~R$80K", caption: "Capital gerado" },
+        { value: "5", caption: "Franquias comercializadas" },
+        { value: "R$ 16 mil", caption: "Capital por unidade" },
+        { value: "~R$ 80 mil", caption: "Capital gerado" },
       ],
     },
     ambev: {
       company: "Ambev · Zé Delivery",
-      kicker: "Meta vs. realizado",
+      kicker: "Meta vs. realizado · indicadores de experiência",
       rows: [
         { target: 380000, achieved: 479000 },
         { target: 372000, achieved: 415000 },
         { target: 395600, achieved: 423000 },
       ],
+      indicators: [
+        { label: "CSAT", value: 90, suffix: "" },
+        { label: "Resolutividade", value: 80, suffix: "" },
+        { label: "Satisfação do Cliente", value: 87, suffix: "" },
+        { label: "CES", value: 2, suffix: "/5" },
+      ],
     },
   },
   journey: {
-    label: "Trajetória",
+    label: "Experiência profissional",
     title: "Cada passagem foi um problema de negócio, não um cargo.",
     intro: "Clique para abrir o case por trás de cada experiência.",
     items: [
       {
         id: "roi",
         company: "ROI Ventures",
-        role: "Customer Success & Operations",
-        period: "Atual",
+        role: "Supervisor de Customer Success Ongoing",
+        period: "abr/2026 – atual",
         context:
-          "Operação comercial com múltiplos SKUs de importação, meta agressiva de receita e time em ramp-up.",
-        challenge:
-          "Reduzir o gap entre onboarding, ativação de SKU e receita real, mantendo o time em ritmo saudável.",
-        did: "Estruturei rituais curtos de performance, redesenhei o funil de onboarding e conectei dashboards aos gatilhos de decisão diária.",
+          "Liderança direta de quatro profissionais de Customer Success em diferentes tiers de carteira, com responsabilidade sobre performance, desenvolvimento, segmentação estratégica, ativação, expansão de receita e evolução da jornada do cliente.",
+        scopeLabel: "Escopo estratégico",
+        scope: [
+          "Desbloqueio e alavancagem de carteiras por estágio de maturidade, primeira compra e potencial de expansão.",
+          "Gestão de performance, PDI quinzenal e desenvolvimento do time.",
+          "Análise de sentimento, tickets, sellers, webinars, mentorias, lives e pontos de conflito da jornada.",
+          "Construção de dashboards táticos e painéis consultivos para Mentoria, Consultoria e diretoria.",
+          "Desenvolvimento da jornada em parceria com Produto.",
+          "Atuação como guardião da comunicação estratégica.",
+        ],
         result:
-          "+10,04% de receita do time em dois dias úteis, 177,79% da meta de importação, 115,20% de SKUs ativos e 103,86% de onboarding concluído.",
+          "Resultados detalhados na seção de Impacto — crescimento, atingimento de meta de importação, SKUs ativos, onboarding e faturamento da base ativa.",
       },
       {
         id: "v4",
-        company: "V4 Company · Hicryo",
-        role: "Customer Success → Novos Negócios",
+        company: "V4 Company",
+        role: "Customer Success · Estratégia de Clientes, Franquias e Novos Negócios",
         period: "Passagem",
         context:
-          "Rede em expansão de franquias com necessidade de traduzir relacionamento em receita nova.",
-        challenge: "Sair do modo de retenção reativa e abrir frente comercial de expansão.",
-        did: "Reposicionei o papel do CS como origem de pipeline, qualifiquei leads de franqueados e conduzi as tratativas comerciais.",
-        result: "5 franquias vendidas · R$16K de capital por unidade · aproximadamente R$80K gerados.",
+          "Gestão estratégica de clientes e oportunidades, conectando diagnóstico, ICP, relacionamento, reputação, satisfação e expansão de negócios.",
+        scopeLabel: "Escopo",
+        scope: [
+          "Qualificação e segmentação de carteira por ICP e potencial.",
+          "Gestão de relacionamento e satisfação.",
+          "Análise de reputação e Reclame Aqui.",
+          "Desenvolvimento da jornada de potenciais franqueados.",
+          "Envio da Circular de Oferta de Franquia — COF.",
+          "Acompanhamento das etapas de expansão.",
+        ],
+        result:
+          "Case Hicryo: 5 franquias comercializadas, R$ 16 mil de capital por unidade, ~R$ 80 mil em negócios gerados.",
       },
       {
         id: "ambev",
         company: "Ambev · Zé Delivery",
-        role: "Operação & Performance",
+        role: "Gestor de Canal → Analista Pleno de Experiência do Usuário",
         period: "Passagem",
-        context: "Operação de alto volume com metas comerciais mensais escalonadas.",
-        challenge: "Bater metas crescentes em ciclos curtos, sem sacrificar a experiência do cliente.",
-        did: "Alinhei rotina operacional, leitura de dados diária e priorização de ofertas às janelas de maior conversão.",
-        result: "R$380K → R$479K · R$372K → R$415K · R$395,6K → R$423K.",
+        context:
+          "Gestão de aproximadamente 20 unidades de negócio, conectando performance comercial, relacionamento, logística, portfólio, upselling, cross-selling e experiência. Posterior atuação no ecossistema Zé Delivery com foco em omnicanalidade, satisfação, criticidade, auditoria, tickets e experiência do usuário.",
+        scopeLabel: "Frentes",
+        scope: [
+          "Performance comercial de ~20 unidades: portfólio, upselling e cross-selling.",
+          "Relacionamento, logística e reposição integrados à rotina de vendas.",
+          "Omnicanalidade e experiência do usuário no ecossistema Zé Delivery.",
+          "Auditoria, tickets e tratativa de criticidade.",
+        ],
+        result:
+          "Metas superadas em três ciclos (R$479K/380K · R$415K/372K · R$423K/395,6K). CSAT 90 · Resolutividade 80 · Satisfação 87 · CES 2/5.",
       },
       {
         id: "atento",
         company: "Atento · Grupo JCA",
-        role: "CX & Operações",
-        period: "Base",
-        context: "Grandes operações de atendimento com forte pressão por SLA e experiência.",
-        challenge: "Equilibrar métrica dura de operação com percepção real do cliente.",
-        did: "Aproximei os times de linha de frente da leitura de dados e do desenho de processo, transformando reclamação recorrente em melhoria estrutural.",
-        result: "Base sólida para tudo que vem depois: escuta, processo, operação e liderança de pessoas.",
+        role: "Especialista em Relacionamento Digital Sênior",
+        period: "dez/2019 – dez/2021",
+        context:
+          "Operação multicanal para o ecossistema do Grupo JCA, incluindo Viação Cometa, 1001, Expresso do Sul, Catarinense, BUSLOG e Wemobi.",
+        scopeLabel: "Frentes",
+        scope: [
+          "Gestão de relacionamento e reputação.",
+          "Atendimento multicanal.",
+          "Análise de sentimento.",
+          "Gestão de tickets e Reclame Aqui.",
+          "Desenvolvimento de comunicação.",
+          "Backoffice.",
+          "Aproximadamente 700 tickets mensais.",
+          "Participação na implantação da experiência e dos canais digitais da Wemobi.",
+        ],
+        result:
+          "Base sólida para tudo que vem depois: escuta, processo, operação e liderança de pessoas.",
       },
     ],
   },
   lab: {
-    label: "AI & Business Lab",
+    label: "Stack tecnológico",
     title: "Ferramentas viram resultado quando alguém sabe conectá-las.",
     intro:
-      "Não é uma parede de logos. É um mapa de capacidades — o que uso, para que uso, e qual resultado de negócio isso gera.",
+      "Um mapa de capacidades — o que uso, para que uso, e qual resultado de negócio isso gera.",
     clusters: [
       {
-        id: "research",
-        name: "Modelos & Pesquisa",
-        tools: ["ChatGPT", "Claude", "Perplexity", "Gemini", "DeepSeek"],
-        outcome: "Insight",
+        id: "crm",
+        name: "CRM & CX",
+        tools: ["HubSpot", "Digisac", "Reclame Aqui", "Omnichannel", "Gestão de Tickets"],
+        outcome: "Relacionamento",
       },
       {
-        id: "agents",
-        name: "Agentes & Automação",
-        tools: ["MCP", "n8n", "Workflows", "Multi-Agent Systems"],
-        outcome: "Automação de operação",
+        id: "ai",
+        name: "AI & Automation",
+        tools: [
+          "ChatGPT",
+          "Claude",
+          "Perplexity",
+          "Gemini",
+          "DeepSeek",
+          "Manus",
+          "n8n",
+          "MCP",
+          "Workflows",
+          "Multi-Agent Systems",
+        ],
+        outcome: "Automação e inteligência",
+      },
+      {
+        id: "data",
+        name: "Data & Performance",
+        tools: [
+          "Dashboards",
+          "Customer Insights",
+          "Sentiment Analysis",
+          "KPIs",
+          "Data Storytelling",
+          "Performance Analysis",
+        ],
+        outcome: "Decisão",
       },
       {
         id: "creative",
-        name: "IA Criativa",
-        tools: ["Freepik", "Magnific", "Canva", "Gamma", "CapCut"],
+        name: "Creative & Design",
+        tools: ["Canva", "Gamma", "Freepik", "Magnific", "CapCut", "Lovable"],
         outcome: "Comunicação visual",
-      },
-      {
-        id: "product",
-        name: "Produto & Construção",
-        tools: ["Lovable", "Dashboards", "Process Design", "Business Rules"],
-        outcome: "Produto",
       },
     ],
   },
   quests: {
-    label: "Side quests",
+    label: "Projetos & atuação multidisciplinar",
     title: "Projetos que existem porque a curiosidade paga.",
     items: {
       falcoes: {
         name: "Gerando Falcões",
+        role: "Professor Adjunto",
         theme: "Educação × Tecnologia × Impacto Social",
         body:
-          "Cerca de três anos envolvido em educação com crianças e adolescentes. Mais de 180 crianças impactadas por programas corporativos, princípios de programação e agora uma evolução para ensinar métricas, jornada e performance de marketing.",
+          "Atuação há aproximadamente três anos em educação e desenvolvimento, com mais de 180 crianças impactadas em educação corporativa e princípios de programação. Evolução da atuação para ensino de métricas, jornada e performance aplicada ao marketing.",
         pulls: ["~3 anos", "180+ crianças", "Educação → Métricas"],
       },
       loud: {
         name: "LOUD · iGame · Short Video",
+        role: "Marketing de Conteúdo · Performance · Customer Insights",
         theme: "Gaming × Conteúdo × Performance × Customer Insights",
         body:
-          "Cultura gamer lida como laboratório de comportamento: como conteúdo curto performa, como audiência decide e o que isso ensina sobre o cliente real fora do jogo.",
+          "Atuação em marketing de conteúdo, performance e customer insights dentro do segmento iGame e do setor de Short Video, conectando análise de comportamento, conteúdo e inteligência de dados.",
         pulls: ["Cultura", "Performance", "Comportamento"],
       },
       naruto: {
         name: "Naruto Brasil",
+        role: "Creator e Analista de IA",
         theme: "Fandom × Hiper-realismo × IA × Tecnologia Criativa",
         body:
-          "Um estúdio pessoal para levar IA generativa ao limite: hiper-realismo, direção visual, vídeo e enhancement de imagem. Fandom como pretexto, fluência criativa em IA como resultado.",
+          "Aplicação de inteligência artificial, criação visual, hiper-realismo e produção digital. Uso de ferramentas e técnicas de geração e aprimoramento visual para transformar conhecimento criativo em capacidade aplicada ao negócio.",
         value: [
           "Experimentação criativa",
           "Comunicação visual",
@@ -201,26 +295,61 @@ export const pt = {
       },
       sports: {
         name: "Customer Insights · Sports Tech",
+        role: "Insights de Comunidade · Product Perception",
         theme: "Triathlon × Comunidade × Product Insight",
         body:
-          "Ser triatleta é um método de pesquisa: escuta de comunidade, percepção de produto, wearables, comportamento esportivo — tudo devolvido como insight de cliente.",
+          "Atuação em insights de comunidade e comportamento para produtos esportivos e tecnologia, conectando experiência como triatleta à análise de necessidades, percepção de produto e oportunidades de evolução.",
         pulls: ["Comunidade", "Wearables", "Percepção de produto"],
       },
     },
   },
   edu: {
-    label: "Formação",
+    label: "Formação acadêmica",
     title: "Uma constelação, não um cronograma.",
     intro: "Formações que se cruzam mais do que se enfileiram.",
     primary: [
-      { title: "Mestrado em Gestão de Projetos", inst: "UFMG" },
-      { title: "AI Engineering", inst: "Atlanta College" },
-      { title: "MBA em Gestão de Projetos", inst: "CENES" },
-      { title: "MBA UX & UI Design", inst: "—" },
-      { title: "MBA Varejo & Mercado de Consumo", inst: "FGV" },
-      { title: "MBA Data Science", inst: "IGTI" },
+      {
+        title: "Mestrado em Project Management",
+        inst: "Universidade Federal de Minas Gerais",
+        period: "2025–2029 · Em andamento",
+      },
+      {
+        title: "Engenharia de IA",
+        inst: "Atlanta College of Liberal Arts and Sciences",
+        period: "2026",
+      },
+      {
+        title: "MBA em Gerenciamento de Projetos",
+        inst: "CENES",
+        period: "2025",
+      },
+      {
+        title: "MBA em User Experience e UI Design",
+        inst: "Faculdade de Minas",
+        period: "2024–2025",
+      },
+      {
+        title: "MBA em Varejo e Mercado de Consumo",
+        inst: "Fundação Getulio Vargas",
+        period: "2024–2025",
+      },
+      {
+        title: "MBA em Marketing Digital",
+        inst: "Faculdade de Minas",
+        period: "2023–2024",
+      },
+      { title: "MBA em Ciência dos Dados", inst: "IGTI", period: "2018" },
+      {
+        title: "Marketing",
+        inst: "Universidade Anhembi Morumbi",
+        period: "2019–2024",
+      },
+      {
+        title: "Engenharia de Telecomunicações",
+        inst: "Universidade FUMEC",
+        period: "2011–2016",
+      },
     ],
-    secondary: ["Marketing", "Marketing Digital", "Engenharia de Telecomunicações"],
   },
   contact: {
     label: "Contato",
@@ -233,17 +362,21 @@ export const pt = {
     smsHref: "sms:+5531984668908",
     linkedin: "linkedin.com/in/pablo-dutra-38501875",
     linkedinHref: "https://linkedin.com/in/pablo-dutra-38501875",
+    portfolioHref: "#projects",
     actions: {
       whatsapp: "WhatsApp",
       sms: "SMS",
       email: "E-mail",
       linkedin: "LinkedIn",
+      portfolio: "Portfólio",
     },
   },
   footer: {
     tagline: "Pessoas · Operação · Dados · IA",
     rights: "Todos os direitos reservados.",
     built: "Feito à mão, com IA quando faz sentido.",
+    cta: "Conheça meus projetos",
+    ctaAction: "Explorar portfólio",
   },
 } as const;
 

@@ -45,7 +45,6 @@ function Percent({
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
-  // width for bar: scale visually — 100% = full bar
   const cap = Math.min(200, Math.abs(num));
   const barPct = (cap / 200) * 100;
   return (
@@ -120,7 +119,6 @@ function AmbevBar({
           }}
           className="absolute inset-y-0 left-0 w-full"
         />
-        {/* shimmer sweep */}
         <motion.div
           initial={{ x: "-100%" }}
           animate={{ x: active ? "200%" : "-100%" }}
@@ -131,17 +129,74 @@ function AmbevBar({
               "linear-gradient(90deg, transparent 0%, oklch(1 0 0 / 0.5) 50%, transparent 100%)",
           }}
         />
-        {/* target tick */}
         <div
           aria-hidden
           className="absolute top-1/2 h-4 w-px -translate-y-1/2 bg-foreground"
           style={{ left: `${targetPos * 100}%` }}
-          title="Meta"
         />
       </div>
       <div className="mt-3 text-eyebrow text-copper">
         +{((scale - 1) * 100).toFixed(1).replace(".", ",")}% vs meta
       </div>
+    </motion.div>
+  );
+}
+
+function IndicatorRing({
+  label,
+  value,
+  suffix,
+  active,
+  index,
+  maxValue = 100,
+}: {
+  label: string;
+  value: number;
+  suffix: string;
+  active: boolean;
+  index: number;
+  maxValue?: number;
+}) {
+  const pct = Math.min(1, value / maxValue);
+  const r = 42;
+  const c = 2 * Math.PI * r;
+  const n = useCountUp(value, active, 1400);
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, delay: index * 0.1 }}
+      className="flex flex-col items-center gap-3"
+    >
+      <div className="relative h-28 w-28">
+        <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
+          <defs>
+            <linearGradient id={`ring-${label}`} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="oklch(0.78 0.16 200)" />
+              <stop offset="100%" stopColor="oklch(0.72 0.18 45)" />
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r={r} fill="none" stroke="var(--hairline)" strokeWidth="4" />
+          <motion.circle
+            cx="50"
+            cy="50"
+            r={r}
+            fill="none"
+            stroke={`url(#ring-${label})`}
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeDasharray={c}
+            initial={{ strokeDashoffset: c }}
+            animate={{ strokeDashoffset: active ? c * (1 - pct) : c }}
+            transition={{ duration: 1.6, delay: 0.15 + index * 0.1, ease: [0.2, 0.7, 0.2, 1] }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center font-display text-2xl text-foreground">
+          {suffix ? `${Math.round(n)}${suffix}` : Math.round(n)}
+        </div>
+      </div>
+      <div className="text-eyebrow text-center">{label}</div>
     </motion.div>
   );
 }
@@ -172,6 +227,26 @@ export function SelectedImpact() {
               </div>
             ))}
           </div>
+
+          {/* Faturamento total */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 1, delay: 0.6, ease: [0.2, 0.7, 0.2, 1] }}
+            className="hairline-t mt-12 pt-10"
+          >
+            <div className="text-eyebrow">Base ativa · junho</div>
+            <div
+              className="mt-3 font-display font-light leading-none tracking-tight text-foreground"
+              style={{ fontSize: "clamp(2.5rem, 8vw, 7rem)" }}
+            >
+              {t.impact.roi.totalValue}
+            </div>
+            <div className="mt-4 max-w-lg text-silver-dim md:text-lg">
+              {t.impact.roi.totalCaption}
+            </div>
+          </motion.div>
         </div>
 
         {/* V4 / Hicryo */}
@@ -189,7 +264,7 @@ export function SelectedImpact() {
           >
             {t.impact.v4.body}
           </motion.p>
-          <div className="mt-12 grid grid-cols-3 gap-8">
+          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
             {t.impact.v4.pulls.map((p, i) => (
               <motion.div
                 key={p.caption}
@@ -198,7 +273,7 @@ export function SelectedImpact() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.9, delay: i * 0.15, ease: [0.2, 0.7, 0.2, 1] }}
               >
-                <div className="font-display text-4xl text-copper md:text-6xl">{p.value}</div>
+                <div className="font-display text-3xl text-copper md:text-5xl">{p.value}</div>
                 <div className="mt-3 text-eyebrow">{p.caption}</div>
               </motion.div>
             ))}
@@ -221,6 +296,23 @@ export function SelectedImpact() {
                 index={i}
               />
             ))}
+          </div>
+
+          <div className="mt-14">
+            <div className="text-eyebrow">Indicadores de experiência</div>
+            <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-4">
+              {t.impact.ambev.indicators.map((ind, i) => (
+                <IndicatorRing
+                  key={ind.label}
+                  label={ind.label}
+                  value={ind.value}
+                  suffix={ind.suffix}
+                  active={inView}
+                  index={i}
+                  maxValue={ind.label === "CES" ? 5 : 100}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useT } from "@/i18n";
 
 const links = [
+  { to: "#profile", key: "profile" },
   { to: "#connect", key: "connect" },
   { to: "#impact", key: "work" },
   { to: "#lab", key: "lab" },
@@ -23,7 +24,7 @@ export function Nav() {
           <span className="font-black">PSD</span>
           <span className="hidden text-eyebrow sm:inline">Pablo Silva Dutra</span>
         </Link>
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Seções">
+        <nav className="hidden items-center gap-6 md:flex" aria-label="Seções">
           {links.map((l) => (
             <a
               key={l.key}
