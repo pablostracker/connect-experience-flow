@@ -17,9 +17,14 @@ export function SideQuests() {
         />
 
 
-        <QuestBlock name={q.loud.name} role={q.loud.role} theme={q.loud.theme} body={q.loud.body}>
-          <PullRow items={q.loud.pulls} mono />
-        </QuestBlock>
+        <LoudScene
+          name={q.loud.name}
+          role={q.loud.role}
+          theme={q.loud.theme}
+          body={q.loud.body}
+          pulls={q.loud.pulls}
+        />
+
 
         <NarutoScene
           name={q.naruto.name}
