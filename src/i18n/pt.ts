@@ -250,7 +250,43 @@ export const pt = {
           "Base sólida para tudo que vem depois: escuta, processo, operação e liderança de pessoas.",
       },
     ],
+    trajectoryLabel: "Trajetória completa",
+    trajectoryIntro:
+      "Dezessete passagens conectando telecom, e-commerce, mobilidade, SaaS, franquias, iGaming e economia digital — a linha do tempo por trás dos cases.",
+    trajectory: [
+      { period: "abr/2026 – atual", company: "Grupo ROI", role: "Supervisor de Sucesso do Cliente Ongoing", tag: "Liderança" },
+      { period: "mar/2025 – fev/2026", company: "EstrelaBet", role: "Consultor de Customer Experience · iGaming", tag: "iGaming" },
+      { period: "jun/2025 – dez/2025", company: "Onfly", role: "Operações", tag: "Travel Tech" },
+      { period: "out/2023 – abr/2025", company: "V4 Company", role: "Expert de Franquias · CS · Reclame Aqui", tag: "Franquias" },
+      { period: "abr/2023 – set/2024", company: "Epow Party", role: "Diretor de Marketing · Board Member", tag: "Board" },
+      { period: "dez/2022 – set/2023", company: "Ambev · Zé Delivery", role: "Branding · UX · Analista Sr CX", tag: "CX" },
+      { period: "ago/2022 – jan/2023", company: "Oracle", role: "Analista Sr C.S. & UX · LATAM", tag: "SaaS · LATAM" },
+      { period: "dez/2019 – dez/2021", company: "Atento · Grupo JCA", role: "Especialista Relacionamento Sênior", tag: "Multicanal" },
+      { period: "fev/2021 – nov/2021", company: "Azul Linhas Aéreas", role: "Analista de Sucesso do Cliente", tag: "Aviação" },
+      { period: "abr/2020 – jan/2021", company: "4mti", role: "Customer Success · Implantação de time", tag: "SaaS" },
+      { period: "abr/2019 – dez/2019", company: "PicPay", role: "Projetista · UX de produto digital", tag: "Fintech" },
+      { period: "jan/2018 – fev/2019", company: "Gerencial Brasil", role: "Backoffice · Canal Vivo", tag: "Vendas" },
+      { period: "out/2016 – nov/2017", company: "Vivo · Telefônica Brasil", role: "Analista de Operações · CX", tag: "Telecom" },
+      { period: "ago/2014 – ago/2016", company: "Claro Brasil", role: "Engenheiro de Telecomunicações · QoE", tag: "Engenharia" },
+      { period: "fev/2013 – jul/2014", company: "Oi", role: "Técnico de Telecomunicações", tag: "Rede" },
+      { period: "set/2011 – jan/2013", company: "TIM Brasil", role: "Analista de Suporte de Negócios", tag: "Varejo" },
+      { period: "fev/2010 – jul/2011", company: "AeC", role: "Analista de Backoffice", tag: "Início" },
+    ],
   },
+  languages: {
+    label: "Idiomas",
+    title: "Cinco idiomas, cinco portas.",
+    intro:
+      "Comunicação real com times, clientes e comunidades — do compliance regulatório em iGaming à sala de aula em Libras.",
+    items: [
+      { name: "Português", level: "Nativo", pct: 1.0 },
+      { name: "Italiano", level: "Nativo", pct: 1.0 },
+      { name: "Inglês", level: "Fluente profissional", pct: 0.92 },
+      { name: "Espanhol", level: "Profissional avançado", pct: 0.82 },
+      { name: "Libras", level: "Fluente profissional", pct: 0.9 },
+    ],
+  },
+
   lab: {
     label: "Stack tecnológico",
     title: "Ferramentas viram resultado quando alguém sabe conectá-las.",
