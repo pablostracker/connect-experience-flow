@@ -84,9 +84,63 @@ export function Journey() {
           );
         })}
       </div>
+
+      {/* Full trajectory timeline */}
+      <div className="mt-24">
+        <div className="flex items-baseline justify-between gap-6">
+          <div>
+            <div className="text-eyebrow text-copper">{t.journey.trajectoryLabel}</div>
+            <p className="mt-3 max-w-2xl text-silver-dim md:text-lg">
+              {t.journey.trajectoryIntro}
+            </p>
+          </div>
+          <div aria-hidden className="font-mono text-xs text-silver-dim">
+            {String(t.journey.trajectory.length).padStart(2, "0")} passagens
+          </div>
+        </div>
+
+        <ol className="relative mt-10 border-l border-hairline pl-6 md:pl-10">
+          {t.journey.trajectory.map((item, i) => (
+            <motion.li
+              key={`${item.company}-${item.period}`}
+              initial={{ opacity: 0, x: -12 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.55, delay: i * 0.04, ease: [0.2, 0.7, 0.2, 1] }}
+              className="group relative py-4"
+            >
+              <span
+                aria-hidden
+                className="absolute -left-[27px] top-6 h-2 w-2 rounded-full bg-silver-dim/40 transition-all duration-300 group-hover:scale-150 group-hover:bg-copper md:-left-[43px]"
+                style={{ boxShadow: "0 0 0 3px hsl(var(--background))" }}
+              />
+              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-4 md:grid-cols-[9rem_minmax(0,1fr)_auto]">
+                <span className="hidden font-mono text-xs uppercase tracking-[0.14em] text-silver-dim md:inline">
+                  {item.period}
+                </span>
+                <span className="min-w-0">
+                  <span className="block font-display text-lg leading-tight text-foreground md:text-xl">
+                    {item.company}
+                  </span>
+                  <span className="mt-1 block text-sm text-silver-dim md:text-[0.95rem]">
+                    {item.role}
+                  </span>
+                  <span className="mt-1 block text-[0.65rem] uppercase tracking-[0.2em] text-silver-dim md:hidden">
+                    {item.period}
+                  </span>
+                </span>
+                <span className="shrink-0 border border-hairline px-2 py-1 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-copper">
+                  {item.tag}
+                </span>
+              </div>
+            </motion.li>
+          ))}
+        </ol>
+      </div>
     </SectionShell>
   );
 }
+
 
 function Block({ label, body, accent }: { label: string; body: string; accent?: boolean }) {
   return (
