@@ -174,6 +174,24 @@ export const pt = {
           "Resultados detalhados na seção de Impacto — crescimento, atingimento de meta de importação, SKUs ativos, onboarding e faturamento da base ativa.",
       },
       {
+        id: "estrelabet",
+        company: "EstrelaBet",
+        role: "Consultor de Customer Experience Pleno · iGaming",
+        period: "mar/2025 – fev/2026",
+        context:
+          "Atuação estratégica em uma das maiores operadoras de iGaming do país, responsável pela gestão técnica da jornada do jogador e por operações de suporte N2/N3 — com foco em integridade de apostas, compliance, retenção e satisfação.",
+        scopeLabel: "Frentes técnicas",
+        scope: [
+          "Gestão técnica de Sportsbook: validação de odds, liquidação de mercados complexos (Handicap Asiático/Europeu, Totals, Player Props) e regras de Cash Out em parceria com Trading e Risco.",
+          "KYC, risco e compliance: verificação de identidade, prevenção à fraude, análise documental e liberação de fluxos financeiros.",
+          "Jogo Responsável: monitoramento de comportamento, acolhimento de jogadores vulneráveis, autoexclusões e limites conforme regulação.",
+          "Atendimento multicanal via Blip e Buzzmonitor; gestão de crise e reputação no Reclame Aqui via Hugme, com foco em reversão de nota e retenção de VIPs.",
+          "Inteligência operacional: chamados técnicos via Jira/ServiceNow entre Pagamentos, Plataforma e Sportsbook.",
+        ],
+        result:
+          "Régua de relacionamento com o jogador redesenhada com base em dados, integrando compliance, integridade de apostas e retenção em um só fluxo operacional.",
+      },
+
         id: "v4",
         company: "V4 Company",
         role: "Customer Success · Estratégia de Clientes, Franquias e Novos Negócios",
