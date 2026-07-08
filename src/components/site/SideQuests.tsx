@@ -1203,12 +1203,66 @@ function LoudScene({
       />
 
       <div className="relative grid gap-10 p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:gap-16 md:p-14">
-        <div>
+        <div className="relative">
           <div className="text-eyebrow text-copper">{theme}</div>
-          <h3 className="mt-3 font-display text-4xl leading-[1.05] text-foreground md:text-6xl">
-            {name}
-          </h3>
-          <div className="mt-3 font-mono text-sm text-silver-dim">{role}</div>
+          {/* League-of-Legends-inspired golden title with teal atmospheric glow */}
+          <div className="relative mt-3">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -inset-x-8 -inset-y-6 -z-10 blur-3xl"
+              style={{
+                background:
+                  "radial-gradient(60% 55% at 30% 55%, oklch(0.55 0.10 200 / 0.55), transparent 70%), radial-gradient(45% 45% at 75% 45%, oklch(0.35 0.08 220 / 0.45), transparent 70%)",
+              }}
+            />
+            <motion.h3
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9, ease: [0.2, 0.7, 0.2, 1] }}
+              className="relative font-display text-5xl font-black uppercase leading-[0.95] tracking-tight md:text-7xl"
+              style={{
+                backgroundImage:
+                  "linear-gradient(180deg, oklch(0.96 0.09 90) 0%, oklch(0.88 0.14 82) 35%, oklch(0.70 0.15 65) 55%, oklch(0.55 0.13 55) 78%, oklch(0.82 0.13 85) 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+                WebkitTextStroke: "1px oklch(0.28 0.06 55 / 0.9)",
+                filter:
+                  "drop-shadow(0 2px 0 oklch(0.22 0.04 45)) drop-shadow(0 8px 22px oklch(0.55 0.14 65 / 0.45)) drop-shadow(0 0 32px oklch(0.55 0.10 200 / 0.35))",
+              }}
+            >
+              {name}
+            </motion.h3>
+            {/* subtle horizontal sheen sweep */}
+            {!reduce && (
+              <motion.div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 overflow-hidden"
+                style={{
+                  WebkitMaskImage:
+                    "linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%)",
+                }}
+              >
+                <motion.div
+                  className="absolute inset-y-0 w-1/3"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent, oklch(1 0 0 / 0.18), transparent)",
+                  }}
+                  initial={{ x: "-120%" }}
+                  animate={{ x: "320%" }}
+                  transition={{
+                    duration: 4.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    repeatDelay: 1.2,
+                  }}
+                />
+              </motion.div>
+            )}
+          </div>
+          <div className="mt-4 font-mono text-sm text-silver-dim">{role}</div>
           <p className="mt-6 max-w-md text-silver-dim md:text-lg">{body}</p>
           <ul className="mt-8 grid grid-cols-1 gap-2 sm:grid-cols-2">
             {pulls.map((v) => (
