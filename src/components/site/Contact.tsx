@@ -15,6 +15,7 @@ export function Contact() {
       label={t.contact.label}
       title={t.contact.title}
       intro={t.contact.body}
+      titleFx="rainbow-bounce"
     >
       <ul className="hairline-t">
         {actions.map((a) => (

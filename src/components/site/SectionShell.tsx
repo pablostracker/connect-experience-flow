@@ -7,12 +7,14 @@ export function SectionShell({
   title,
   intro,
   children,
+  titleFx,
 }: {
   id: string;
   label: string;
   title: string;
   intro?: string;
   children: ReactNode;
+  titleFx?: "rainbow-bounce";
 }) {
   const reduce = useReducedMotion();
   const rise = (delay = 0) =>
@@ -24,6 +26,43 @@ export function SectionShell({
           viewport: { once: true, margin: "-120px" },
           transition: { duration: 1, delay, ease: [0.2, 0.7, 0.2, 1] as const },
         };
+
+  const rainbow = [
+    "oklch(0.72 0.20 25)",
+    "oklch(0.78 0.19 55)",
+    "oklch(0.86 0.18 95)",
+    "oklch(0.75 0.19 145)",
+    "oklch(0.72 0.17 200)",
+    "oklch(0.60 0.22 265)",
+    "oklch(0.58 0.25 305)",
+    "oklch(0.70 0.22 350)",
+  ];
+
+  const renderTitle = () => {
+    if (titleFx !== "rainbow-bounce") return title;
+    const chars = Array.from(title);
+    return (
+      <span className="group/title inline-block cursor-default">
+        {chars.map((ch, i) => (
+          <span
+            key={i}
+            className="inline-block transition-[color,transform] duration-300 ease-out group-hover/title:-translate-y-2 group-hover/title:[animation:letter-bounce_0.9s_ease-in-out_infinite]"
+            style={
+              {
+                transitionDelay: `${i * 25}ms`,
+                animationDelay: `${i * 60}ms`,
+                ["--rainbow" as string]: rainbow[i % rainbow.length],
+              } as React.CSSProperties
+            }
+          >
+            <span className="inline-block group-hover/title:text-[color:var(--rainbow)]">
+              {ch === " " ? "\u00A0" : ch}
+            </span>
+          </span>
+        ))}
+      </span>
+    );
+  };
 
   return (
     <section
@@ -43,7 +82,7 @@ export function SectionShell({
               id={`${id}-title`}
               className="font-display text-4xl leading-[1.02] tracking-tight text-foreground md:text-6xl"
             >
-              {title}
+              {renderTitle()}
             </motion.h2>
             {intro && (
               <motion.p
