@@ -9,6 +9,7 @@ import { Journey } from "@/components/site/Journey";
 import { AILab } from "@/components/site/AILab";
 import { SideQuests } from "@/components/site/SideQuests";
 import { Education } from "@/components/site/Education";
+import { Languages } from "@/components/site/Languages";
 import { Contact } from "@/components/site/Contact";
 
 export const Route = createFileRoute("/")({
@@ -28,9 +29,11 @@ function Index() {
         <AILab />
         <SideQuests />
         <Education />
+        <Languages />
         <Contact />
       </main>
       <Footer />
     </>
   );
 }
+
