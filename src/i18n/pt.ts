@@ -191,8 +191,9 @@ export const pt = {
         result:
           "Régua de relacionamento com o jogador redesenhada com base em dados, integrando compliance, integridade de apostas e retenção em um só fluxo operacional.",
       },
-
+      {
         id: "v4",
+
         company: "V4 Company",
         role: "Customer Success · Estratégia de Clientes, Franquias e Novos Negócios",
         period: "Passagem",
