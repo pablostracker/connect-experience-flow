@@ -121,16 +121,23 @@ function KonohaSymbol({ reduce }: { reduce: boolean }) {
           <feGaussianBlur stdDeviation="1.4" />
         </filter>
         <mask id="k-mask">
-          {/* Konoha silhouette: shield/leaf with pointed hook at top-right */}
+          {/* Konoha leaf: rounded body with a pointed hook tail to lower-right */}
           <path
-            d="M110 260 L200 90 C 245 60, 275 78, 275 100 L 258 132 L 300 250 C 300 275, 275 285, 245 285 L 145 285 C 118 285, 108 275, 110 260 Z"
+            d="M 130 260
+               C 90 210, 100 120, 195 92
+               C 285 68, 330 140, 312 218
+               L 348 250
+               C 358 262, 350 278, 332 278
+               L 285 278
+               C 240 300, 165 302, 138 282
+               C 118 268, 118 268, 130 260 Z"
             fill="white"
           />
         </mask>
       </defs>
 
       {/* atmospheric glow */}
-      <circle cx="205" cy="210" r="170" fill="url(#k-glow)" />
+      <circle cx="215" cy="200" r="180" fill="url(#k-glow)" />
 
       {/* metallic fill inside konoha silhouette */}
       <g mask="url(#k-mask)">
@@ -169,12 +176,20 @@ function KonohaSymbol({ reduce }: { reduce: boolean }) {
 
       {/* etched outline */}
       <path
-        d="M110 260 L200 90 C 245 60, 275 78, 275 100 L 258 132 L 300 250 C 300 275, 275 285, 245 285 L 145 285 C 118 285, 108 275, 110 260 Z"
+        d="M 130 260
+           C 90 210, 100 120, 195 92
+           C 285 68, 330 140, 312 218
+           L 348 250
+           C 358 262, 350 278, 332 278
+           L 285 278
+           C 240 300, 165 302, 138 282
+           C 118 268, 118 268, 130 260 Z"
         fill="none"
         stroke="oklch(0.95 0.02 250 / 0.55)"
         strokeWidth="1.2"
         filter="url(#k-inner)"
       />
+
 
       {/* animated spiral inside */}
       <motion.path
