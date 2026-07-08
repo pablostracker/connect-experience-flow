@@ -560,101 +560,126 @@ function NarutoScene({
    CUSTOMER INSIGHTS SCENE
    ============================================================ */
 function CommunityPulse({ reduce }: { reduce: boolean }) {
+  // Splash-art runner — colorful particles bursting off a running silhouette.
+  const rand = (seed: number) => {
+    const x = Math.sin(seed * 9301 + 49297) * 233280;
+    return x - Math.floor(x);
+  };
+  const palette = [
+    "oklch(0.72 0.20 25)",
+    "oklch(0.78 0.19 55)",
+    "oklch(0.86 0.18 95)",
+    "oklch(0.75 0.19 145)",
+    "oklch(0.72 0.17 200)",
+    "oklch(0.60 0.22 265)",
+    "oklch(0.58 0.25 305)",
+    "oklch(0.70 0.22 350)",
+  ];
+  const dots = Array.from({ length: 110 }).map((_, i) => {
+    const t = rand(i + 1);
+    const t2 = rand(i + 77);
+    const t3 = rand(i + 133);
+    const x = 30 + t * 220;
+    const y = 70 + t2 * 170;
+    const r = 1.1 + t3 * 3.8;
+    return {
+      x,
+      y,
+      r,
+      color: palette[i % palette.length],
+      delay: t * 2.4,
+      dur: 1.8 + t2 * 2.4,
+    };
+  });
+
   return (
-    <svg viewBox="0 0 400 300" className="h-full w-full max-w-[440px]" aria-hidden>
+    <svg viewBox="0 0 400 300" className="h-full w-full max-w-[520px]" aria-hidden>
       <defs>
-        <radialGradient id="ci-glow" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="oklch(0.78 0.16 200 / 0.4)" />
-          <stop offset="100%" stopColor="oklch(0.78 0.16 200 / 0)" />
+        <linearGradient id="ci-runner" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="oklch(0.60 0.22 265)" />
+          <stop offset="25%" stopColor="oklch(0.72 0.17 200)" />
+          <stop offset="50%" stopColor="oklch(0.75 0.19 145)" />
+          <stop offset="75%" stopColor="oklch(0.78 0.19 55)" />
+          <stop offset="100%" stopColor="oklch(0.72 0.20 25)" />
+        </linearGradient>
+        <radialGradient id="ci-halo" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stopColor="oklch(0.86 0.008 250 / 0.10)" />
+          <stop offset="100%" stopColor="oklch(0.86 0.008 250 / 0)" />
         </radialGradient>
       </defs>
-      <rect width="400" height="300" fill="transparent" />
-      <circle cx="200" cy="150" r="140" fill="url(#ci-glow)" />
 
-      {/* concentric pulse rings */}
-      {[40, 70, 100, 130].map((r, i) => (
+      <circle cx="240" cy="160" r="150" fill="url(#ci-halo)" />
+
+      {/* colorful splash particles trailing behind the runner */}
+      {dots.map((d, i) => (
         <motion.circle
-          key={r}
-          cx="200"
-          cy="150"
-          r={r}
-          fill="none"
-          stroke="oklch(0.86 0.008 250 / 0.35)"
-          strokeWidth="0.6"
-          initial={{ scale: reduce ? 1 : 0.6, opacity: 0 }}
-          animate={{ scale: reduce ? 1 : [0.6, 1.15, 0.6], opacity: reduce ? 0.4 : [0, 0.55, 0] }}
-          transition={{ duration: 4, delay: i * 0.8, repeat: Infinity, ease: "easeOut" }}
-          style={{ transformOrigin: "200px 150px" }}
+          key={i}
+          cx={d.x}
+          cy={d.y}
+          r={d.r}
+          fill={d.color}
+          initial={reduce ? { opacity: 0.7 } : { opacity: 0, scale: 0.4 }}
+          animate={
+            reduce
+              ? { opacity: 0.7 }
+              : { opacity: [0, 0.9, 0], x: [-24, 0, 24], scale: [0.4, 1, 0.4] }
+          }
+          transition={{
+            duration: d.dur,
+            delay: d.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
         />
       ))}
 
-      {/* center atlete node */}
-      <circle cx="200" cy="150" r="6" fill="oklch(0.72 0.11 45)" />
-      <circle cx="200" cy="150" r="12" fill="none" stroke="oklch(0.72 0.11 45 / 0.5)" strokeWidth="0.8" />
+      {/* faint speed streaks */}
+      {!reduce &&
+        [0, 1, 2, 3, 4].map((i) => (
+          <motion.line
+            key={`s-${i}`}
+            x1={20}
+            y1={110 + i * 18}
+            x2={200}
+            y2={110 + i * 18}
+            stroke={palette[(i * 2) % palette.length]}
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            opacity="0.4"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: [0, 1, 0], opacity: [0, 0.55, 0] }}
+            transition={{
+              duration: 2.4,
+              delay: i * 0.35,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
 
-      {/* orbiting community nodes */}
-      {Array.from({ length: 10 }).map((_, i) => {
-        const angle = (i / 10) * Math.PI * 2;
-        const r = 110 + (i % 3) * 10;
-        const x = 200 + Math.cos(angle) * r;
-        const y = 150 + Math.sin(angle) * r * 0.75;
-        return (
-          <g key={i}>
-            <line
-              x1="200"
-              y1="150"
-              x2={x}
-              y2={y}
-              stroke="oklch(0.86 0.008 250 / 0.15)"
-              strokeWidth="0.5"
-            />
-            <motion.circle
-              cx={x}
-              cy={y}
-              r="3"
-              fill="oklch(0.86 0.008 250)"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 0.9 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 + i * 0.08 }}
-            />
-          </g>
-        );
-      })}
-
-      {/* sentiment micro-bars bottom */}
-      <g transform="translate(60,240)">
-        {["Cadência", "Wearable", "Nutrição", "Recuperação", "Comunidade"].map((label, i) => {
-          const w = [58, 42, 66, 34, 72][i];
-          return (
-            <g key={label} transform={`translate(${i * 58},0)`}>
-              <rect x="0" y="0" width="48" height="4" fill="oklch(0.86 0.008 250 / 0.15)" />
-              <motion.rect
-                x="0"
-                y="0"
-                height="4"
-                fill={
-                  ["oklch(0.72 0.11 45)", "oklch(0.78 0.16 200)", "oklch(0.72 0.17 150)", "oklch(0.78 0.16 75)", "oklch(0.86 0.008 250)"][i]
-                }
-                initial={{ width: 0 }}
-                whileInView={{ width: (w / 100) * 48 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, delay: 0.2 + i * 0.12, ease: [0.2, 0.7, 0.2, 1] }}
-              />
-              <text
-                x="0"
-                y="16"
-                fill="oklch(0.62 0.008 250)"
-                fontSize="6"
-                fontFamily="ui-monospace, monospace"
-                letterSpacing="0.15em"
-              >
-                {label.toUpperCase()}
-              </text>
-            </g>
-          );
-        })}
-      </g>
+      {/* stylized running silhouette (right-facing sprinter) */}
+      <motion.g
+        style={{ transformOrigin: "300px 170px" }}
+        animate={reduce ? undefined : { y: [0, -5, 0] }}
+        transition={{ duration: 1.3, repeat: Infinity, ease: "easeInOut" }}
+      >
+        {/* head */}
+        <circle cx="320" cy="78" r="14" fill="url(#ci-runner)" />
+        {/* torso, arms, legs — thick strokes for a bold silhouette */}
+        <path
+          d="M320 92 L306 150 L286 172 M320 92 L340 138 L360 118 M306 150 L282 210 L262 232 M306 150 L332 200 L360 218 M282 210 L296 244"
+          fill="none"
+          stroke="url(#ci-runner)"
+          strokeWidth="16"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {/* small dark accents */}
+        <circle cx="286" cy="172" r="5" fill="oklch(0.20 0.02 260)" />
+        <circle cx="360" cy="118" r="5" fill="oklch(0.20 0.02 260)" />
+        <circle cx="262" cy="232" r="6" fill="oklch(0.20 0.02 260)" />
+        <circle cx="360" cy="218" r="6" fill="oklch(0.20 0.02 260)" />
+      </motion.g>
     </svg>
   );
 }
