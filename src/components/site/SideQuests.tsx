@@ -843,3 +843,325 @@ function FalcoesScene({
     </article>
   );
 }
+
+/* ============================================================
+   LOUD · gaming / short-video / iGame capability scene
+   ============================================================ */
+function HextechCrystal({ reduce }: { reduce: boolean }) {
+  return (
+    <svg viewBox="0 0 120 90" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="lo-crystal" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="oklch(0.85 0.14 200)" />
+          <stop offset="55%" stopColor="oklch(0.55 0.14 240)" />
+          <stop offset="100%" stopColor="oklch(0.32 0.08 260)" />
+        </linearGradient>
+        <radialGradient id="lo-glow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stopColor="oklch(0.78 0.16 220 / 0.5)" />
+          <stop offset="100%" stopColor="oklch(0.78 0.16 220 / 0)" />
+        </radialGradient>
+      </defs>
+      <rect width="120" height="90" fill="oklch(0.1 0.01 260)" />
+      <circle cx="60" cy="45" r="34" fill="url(#lo-glow)" />
+      <motion.g
+        style={{ transformOrigin: "60px 45px" }}
+        animate={reduce ? undefined : { rotate: [0, 360] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+      >
+        <polygon
+          points="60,20 80,45 60,70 40,45"
+          fill="url(#lo-crystal)"
+          stroke="oklch(0.9 0.02 220 / 0.7)"
+          strokeWidth="0.6"
+        />
+        <polygon
+          points="60,28 74,45 60,62 46,45"
+          fill="none"
+          stroke="oklch(0.95 0.04 220 / 0.5)"
+          strokeWidth="0.4"
+        />
+      </motion.g>
+      {/* orbiting sparks */}
+      {!reduce &&
+        [0, 1, 2].map((i) => (
+          <motion.circle
+            key={i}
+            r="1.2"
+            fill="oklch(0.95 0.08 200)"
+            initial={{ offsetDistance: `${i * 33}%` }}
+            animate={{ offsetDistance: [`${i * 33}%`, `${i * 33 + 100}%`] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+            style={{
+              offsetPath: `path("M 60 15 A 30 30 0 1 1 59.9 15")`,
+            } as React.CSSProperties}
+          />
+        ))}
+    </svg>
+  );
+}
+
+function HeatmapMinimap({ reduce }: { reduce: boolean }) {
+  return (
+    <svg viewBox="0 0 120 90" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
+      <rect width="120" height="90" fill="oklch(0.1 0.01 260)" />
+      {/* minimap frame */}
+      <rect x="18" y="8" width="84" height="74" fill="oklch(0.14 0.01 260)" stroke="oklch(0.9 0.02 220 / 0.2)" strokeWidth="0.4" />
+      {/* diagonal river */}
+      <path d="M 18 82 L 102 8" stroke="oklch(0.5 0.08 220 / 0.35)" strokeWidth="1.2" fill="none" />
+      {/* heatmap cells */}
+      {Array.from({ length: 7 }).map((_, r) =>
+        Array.from({ length: 8 }).map((_, c) => {
+          const dx = c - 3.5;
+          const dy = r - 3;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const heat = Math.max(0, 1 - dist / 5);
+          const hue = 20 + heat * 40;
+          return (
+            <motion.rect
+              key={`${r}-${c}`}
+              x={20 + c * 10}
+              y={10 + r * 10}
+              width="9"
+              height="9"
+              fill={`oklch(${0.3 + heat * 0.4} ${0.08 + heat * 0.14} ${hue})`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: reduce ? 0.8 : heat * 0.9 + 0.05 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.02 * (r + c) }}
+            />
+          );
+        })
+      )}
+    </svg>
+  );
+}
+
+function EngagementFunnel({ reduce }: { reduce: boolean }) {
+  const bars = [
+    { label: "IMP", v: 1.0, color: "oklch(0.5 0.14 240)" },
+    { label: "CTR", v: 0.62, color: "oklch(0.65 0.15 200)" },
+    { label: "ENG", v: 0.4, color: "oklch(0.72 0.15 60)" },
+    { label: "CONV", v: 0.18, color: "oklch(0.72 0.18 30)" },
+  ];
+  return (
+    <svg viewBox="0 0 120 90" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
+      <rect width="120" height="90" fill="oklch(0.1 0.01 260)" />
+      {bars.map((b, i) => (
+        <g key={b.label}>
+          <rect x="10" y={12 + i * 18} width="100" height="10" fill="oklch(0.2 0.01 260)" />
+          <motion.rect
+            x="10"
+            y={12 + i * 18}
+            height="10"
+            fill={b.color}
+            initial={{ width: reduce ? 100 * b.v : 0 }}
+            whileInView={{ width: 100 * b.v }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: 0.2 + i * 0.15, ease: [0.2, 0.7, 0.2, 1] }}
+          />
+          <text x="10" y={10 + i * 18} fill="oklch(0.86 0.008 250 / 0.7)" fontSize="4.5" fontFamily="monospace">
+            {b.label}
+          </text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function ShortVideoStack({ reduce }: { reduce: boolean }) {
+  const thumbs = [
+    { x: 12, tone: "oklch(0.32 0.06 260)" },
+    { x: 46, tone: "oklch(0.38 0.08 220)" },
+    { x: 80, tone: "oklch(0.34 0.1 30)" },
+  ];
+  return (
+    <svg viewBox="0 0 120 90" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
+      <rect width="120" height="90" fill="oklch(0.1 0.01 260)" />
+      {thumbs.map((t, i) => (
+        <motion.g
+          key={i}
+          initial={reduce ? undefined : { y: 8, opacity: 0 }}
+          whileInView={reduce ? undefined : { y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.15 + i * 0.15 }}
+        >
+          {/* 9:16 vertical thumbnail */}
+          <rect x={t.x} y="10" width="28" height="70" fill={t.tone} stroke="oklch(0.9 0.02 220 / 0.2)" strokeWidth="0.4" />
+          {/* play triangle */}
+          <polygon points={`${t.x + 12},34 ${t.x + 12},50 ${t.x + 22},42`} fill="oklch(0.95 0.02 80 / 0.85)" />
+          {/* progress bar */}
+          <rect x={t.x + 3} y="74" width="22" height="1.2" fill="oklch(0.9 0.02 220 / 0.15)" />
+          <motion.rect
+            x={t.x + 3}
+            y="74"
+            height="1.2"
+            fill="oklch(0.72 0.11 45)"
+            initial={{ width: 0 }}
+            whileInView={{ width: 22 * (0.5 + i * 0.2) }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, delay: 0.4 + i * 0.15 }}
+          />
+        </motion.g>
+      ))}
+    </svg>
+  );
+}
+
+function LoudHexShield({ reduce }: { reduce: boolean }) {
+  // Big hex crystal shield for the hero side of the Loud scene
+  const hex = "M 200 60 L 340 145 L 340 275 L 200 360 L 60 275 L 60 145 Z";
+  return (
+    <svg viewBox="0 0 400 420" className="h-full w-full max-w-[480px]" aria-hidden>
+      <defs>
+        <linearGradient id="loud-metal" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="oklch(0.95 0.04 220)" />
+          <stop offset="45%" stopColor="oklch(0.42 0.1 240)" />
+          <stop offset="100%" stopColor="oklch(0.2 0.03 260)" />
+        </linearGradient>
+        <radialGradient id="loud-glow" cx="0.5" cy="0.55" r="0.55">
+          <stop offset="0%" stopColor="oklch(0.72 0.16 220 / 0.4)" />
+          <stop offset="100%" stopColor="oklch(0.72 0.16 220 / 0)" />
+        </radialGradient>
+        <linearGradient id="loud-shimmer" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="oklch(1 0 0 / 0)" />
+          <stop offset="50%" stopColor="oklch(1 0 0 / 0.55)" />
+          <stop offset="100%" stopColor="oklch(1 0 0 / 0)" />
+        </linearGradient>
+        <mask id="loud-mask">
+          <path d={hex} fill="white" />
+        </mask>
+      </defs>
+
+      <circle cx="200" cy="220" r="190" fill="url(#loud-glow)" />
+
+      <g mask="url(#loud-mask)">
+        <rect x="0" y="0" width="400" height="420" fill="url(#loud-metal)" />
+        {Array.from({ length: 30 }).map((_, i) => (
+          <line
+            key={i}
+            x1={-40 + i * 16}
+            y1="0"
+            x2={40 + i * 16}
+            y2="420"
+            stroke="oklch(1 0 0 / 0.05)"
+            strokeWidth="0.6"
+          />
+        ))}
+        {!reduce && (
+          <motion.rect
+            x="-200"
+            y="0"
+            width="180"
+            height="420"
+            fill="url(#loud-shimmer)"
+            initial={{ x: -220 }}
+            animate={{ x: 440 }}
+            transition={{ duration: 3.4, repeat: Infinity, repeatDelay: 2.2, ease: "easeInOut" }}
+          />
+        )}
+      </g>
+
+      <path d={hex} fill="none" stroke="oklch(0.95 0.04 220 / 0.55)" strokeWidth="1.2" />
+
+      {/* inner LOUD-style diamond mark */}
+      <motion.g
+        style={{ transformOrigin: "200px 210px" }}
+        initial={reduce ? undefined : { scale: 0.85, opacity: 0 }}
+        whileInView={reduce ? undefined : { scale: 1, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.4, delay: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
+      >
+        <polygon
+          points="200,140 260,210 200,280 140,210"
+          fill="oklch(0.14 0.01 260 / 0.6)"
+          stroke="oklch(0.95 0.04 220 / 0.8)"
+          strokeWidth="1.4"
+        />
+        <polygon
+          points="200,168 240,210 200,252 160,210"
+          fill="none"
+          stroke="oklch(0.72 0.16 220 / 0.8)"
+          strokeWidth="0.9"
+        />
+        <circle cx="200" cy="210" r="6" fill="oklch(0.9 0.14 220)" />
+      </motion.g>
+    </svg>
+  );
+}
+
+function LoudScene({
+  name,
+  role,
+  theme,
+  body,
+  pulls,
+}: {
+  name: string;
+  role: string;
+  theme: string;
+  body: string;
+  pulls: readonly string[];
+}) {
+  const reduce = !!useReducedMotion();
+
+  const capabilities = [
+    { title: "Sinal do jogador", caption: "Meta, patch, comportamento in-game em tempo real.", node: <HextechCrystal reduce={reduce} /> },
+    { title: "Mapa de atenção", caption: "Onde o público reage, luta e converte no mapa.", node: <HeatmapMinimap reduce={reduce} /> },
+    { title: "Funil de engajamento", caption: "Do impression ao lead — leitura por etapa.", node: <EngagementFunnel reduce={reduce} /> },
+    { title: "Short Video stack", caption: "Formatos verticais testados, medidos e ranqueados.", node: <ShortVideoStack reduce={reduce} /> },
+  ];
+
+  return (
+    <article className="relative overflow-hidden border border-hairline bg-black">
+      <div className="grain absolute inset-0" aria-hidden />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 78% 35%, oklch(0.55 0.14 240 / 0.28), transparent 55%), radial-gradient(circle at 12% 85%, oklch(0.28 0.02 260 / 0.5), transparent 60%)",
+        }}
+      />
+
+      <div className="relative grid gap-10 p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:gap-16 md:p-14">
+        <div>
+          <div className="text-eyebrow text-copper">{theme}</div>
+          <h3 className="mt-3 font-display text-4xl leading-[1.05] text-foreground md:text-6xl">
+            {name}
+          </h3>
+          <div className="mt-3 font-mono text-sm text-silver-dim">{role}</div>
+          <p className="mt-6 max-w-md text-silver-dim md:text-lg">{body}</p>
+          <ul className="mt-8 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {pulls.map((v) => (
+              <li key={v} className="flex items-baseline gap-2 text-eyebrow">
+                <span aria-hidden className="text-copper">◆</span>
+                <span className="text-foreground normal-case tracking-normal">{v}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="relative flex min-h-[320px] items-center justify-center md:min-h-[420px]">
+          <LoudHexShield reduce={reduce} />
+        </div>
+      </div>
+
+      <div className="hairline-t relative border-t border-hairline p-8 md:p-14 md:pt-12">
+        <div className="flex items-baseline justify-between">
+          <div className="text-eyebrow text-copper">Repertório aplicado</div>
+          <div className="font-mono text-[0.6rem] uppercase tracking-[0.24em] text-silver-dim">
+            iGame · LoL · Short Video · Performance
+          </div>
+        </div>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {capabilities.map((c, i) => (
+            <CapCard key={c.title} title={c.title} caption={c.caption} index={i}>
+              {c.node}
+            </CapCard>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
+
