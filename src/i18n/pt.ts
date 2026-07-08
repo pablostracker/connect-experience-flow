@@ -6,8 +6,10 @@ export const pt = {
     lab: "Stack",
     projects: "Projetos",
     education: "Formação",
+    languages: "Idiomas",
     contact: "Contato",
   },
+
   hero: {
     eyebrow: "Customer Success · Operations · CX · AI & Automation",
     name: "Pablo Silva Dutra",
