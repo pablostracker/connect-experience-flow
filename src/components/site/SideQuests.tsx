@@ -846,7 +846,9 @@ function FalcoesScene({
         }}
       />
       <div className="relative grid gap-10 p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-16 md:p-14">
-        <div>
+        <div className="relative">
+          {/* Small bird flying across the header */}
+          <FlyingBird reduce={reduce} />
           <div className="text-eyebrow text-copper">{theme}</div>
           <h3 className="mt-3 font-display text-4xl leading-[1.05] text-foreground md:text-6xl">
             {name}
@@ -866,6 +868,58 @@ function FalcoesScene({
         </div>
       </div>
     </article>
+  );
+}
+
+function FlyingBird({ reduce }: { reduce: boolean }) {
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none absolute -top-4 left-0 text-copper"
+      initial={reduce ? undefined : { x: -40, y: 0, opacity: 0 }}
+      animate={
+        reduce
+          ? { opacity: 0.9 }
+          : {
+              x: ["-10%", "110%"],
+              y: [0, -14, 8, -10, 0],
+              opacity: [0, 1, 1, 1, 0],
+            }
+      }
+      transition={{
+        duration: 9,
+        repeat: Infinity,
+        ease: "easeInOut",
+        times: [0, 0.15, 0.5, 0.85, 1],
+      }}
+    >
+      <motion.svg
+        viewBox="0 0 40 24"
+        className="h-6 w-10 md:h-8 md:w-12"
+        animate={reduce ? undefined : { rotate: [-4, 4, -4] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <motion.path
+          d="M2 12 Q10 2, 20 12 Q30 2, 38 12"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          animate={
+            reduce
+              ? undefined
+              : {
+                  d: [
+                    "M2 12 Q10 2, 20 12 Q30 2, 38 12",
+                    "M2 12 Q10 20, 20 12 Q30 20, 38 12",
+                    "M2 12 Q10 2, 20 12 Q30 2, 38 12",
+                  ],
+                }
+          }
+          transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.svg>
+    </motion.div>
   );
 }
 
