@@ -539,7 +539,6 @@ function NarutoScene({
 /* ============================================================
    CUSTOMER INSIGHTS SCENE
    ============================================================ */
-import triathlonImg from "@/assets/triathlon-splash.jpg.asset.json";
 
 function TriathlonScene({ reduce }: { reduce: boolean }) {
   return (
