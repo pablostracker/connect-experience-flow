@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useT } from "@/i18n";
 import { SectionShell } from "./SectionShell";
+import triathlonImg from "@/assets/triathlon-splash.jpg.asset.json";
 
 export function SideQuests() {
   const t = useT();
@@ -538,128 +539,56 @@ function NarutoScene({
 /* ============================================================
    CUSTOMER INSIGHTS SCENE
    ============================================================ */
-function CommunityPulse({ reduce }: { reduce: boolean }) {
-  // Splash-art runner — colorful particles bursting off a running silhouette.
-  const rand = (seed: number) => {
-    const x = Math.sin(seed * 9301 + 49297) * 233280;
-    return x - Math.floor(x);
-  };
-  const palette = [
-    "oklch(0.72 0.20 25)",
-    "oklch(0.78 0.19 55)",
-    "oklch(0.86 0.18 95)",
-    "oklch(0.75 0.19 145)",
-    "oklch(0.72 0.17 200)",
-    "oklch(0.60 0.22 265)",
-    "oklch(0.58 0.25 305)",
-    "oklch(0.70 0.22 350)",
-  ];
-  const dots = Array.from({ length: 110 }).map((_, i) => {
-    const t = rand(i + 1);
-    const t2 = rand(i + 77);
-    const t3 = rand(i + 133);
-    const x = 30 + t * 220;
-    const y = 70 + t2 * 170;
-    const r = 1.1 + t3 * 3.8;
-    return {
-      x,
-      y,
-      r,
-      color: palette[i % palette.length],
-      delay: t * 2.4,
-      dur: 1.8 + t2 * 2.4,
-    };
-  });
 
+function TriathlonScene({ reduce }: { reduce: boolean }) {
   return (
-    <svg viewBox="0 0 400 300" className="h-full w-full max-w-[520px]" aria-hidden>
-      <defs>
-        <linearGradient id="ci-runner" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="oklch(0.60 0.22 265)" />
-          <stop offset="25%" stopColor="oklch(0.72 0.17 200)" />
-          <stop offset="50%" stopColor="oklch(0.75 0.19 145)" />
-          <stop offset="75%" stopColor="oklch(0.78 0.19 55)" />
-          <stop offset="100%" stopColor="oklch(0.72 0.20 25)" />
-        </linearGradient>
-        <radialGradient id="ci-halo" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="oklch(0.86 0.008 250 / 0.10)" />
-          <stop offset="100%" stopColor="oklch(0.86 0.008 250 / 0)" />
-        </radialGradient>
-      </defs>
-
-      <circle cx="240" cy="160" r="150" fill="url(#ci-halo)" />
-
-      {/* colorful splash particles trailing behind the runner */}
-      {dots.map((d, i) => (
-        <motion.circle
-          key={i}
-          cx={d.x}
-          cy={d.y}
-          r={d.r}
-          fill={d.color}
-          initial={reduce ? { opacity: 0.7 } : { opacity: 0, scale: 0.4 }}
-          animate={
-            reduce
-              ? { opacity: 0.7 }
-              : { opacity: [0, 0.9, 0], x: [-24, 0, 24], scale: [0.4, 1, 0.4] }
-          }
-          transition={{
-            duration: d.dur,
-            delay: d.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-
-      {/* faint speed streaks */}
-      {!reduce &&
-        [0, 1, 2, 3, 4].map((i) => (
-          <motion.line
-            key={`s-${i}`}
-            x1={20}
-            y1={110 + i * 18}
-            x2={200}
-            y2={110 + i * 18}
-            stroke={palette[(i * 2) % palette.length]}
-            strokeWidth="1.2"
-            strokeLinecap="round"
-            opacity="0.4"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: [0, 1, 0], opacity: [0, 0.55, 0] }}
+    <div className="relative h-full w-full overflow-hidden">
+      <motion.img
+        src={triathlonImg.url}
+        alt="Ilustração de triathlon: nadador, ciclista e corredor em ação com respingos de tinta coloridos"
+        width={1536}
+        height={1024}
+        loading="lazy"
+        className="h-full w-full object-cover"
+        initial={reduce ? undefined : { scale: 1.06, opacity: 0 }}
+        whileInView={reduce ? undefined : { scale: 1, opacity: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 1.6, ease: [0.2, 0.7, 0.2, 1] }}
+      />
+      {/* readability + edge fade to blend into the section */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(90deg, oklch(0.14 0 0 / 0.55) 0%, oklch(0.14 0 0 / 0) 35%, oklch(0.14 0 0 / 0) 65%, oklch(0.14 0 0 / 0.55) 100%), linear-gradient(180deg, oklch(0.14 0 0 / 0) 55%, oklch(0.14 0 0 / 0.75) 100%)",
+        }}
+      />
+      {/* subtle animated color pulses to feel alive */}
+      {!reduce && (
+        <>
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute -left-10 top-1/3 h-40 w-40 rounded-full blur-3xl"
+            style={{ background: "oklch(0.72 0.17 200 / 0.45)" }}
+            animate={{ opacity: [0.35, 0.7, 0.35], scale: [1, 1.15, 1] }}
+            transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute -right-10 bottom-1/4 h-40 w-40 rounded-full blur-3xl"
+            style={{ background: "oklch(0.72 0.20 25 / 0.45)" }}
+            animate={{ opacity: [0.35, 0.7, 0.35], scale: [1, 1.15, 1] }}
             transition={{
-              duration: 2.4,
-              delay: i * 0.35,
+              duration: 3.6,
               repeat: Infinity,
               ease: "easeInOut",
+              delay: 1.2,
             }}
           />
-        ))}
-
-      {/* stylized running silhouette (right-facing sprinter) */}
-      <motion.g
-        style={{ transformOrigin: "300px 170px" }}
-        animate={reduce ? undefined : { y: [0, -5, 0] }}
-        transition={{ duration: 1.3, repeat: Infinity, ease: "easeInOut" }}
-      >
-        {/* head */}
-        <circle cx="320" cy="78" r="14" fill="url(#ci-runner)" />
-        {/* torso, arms, legs — thick strokes for a bold silhouette */}
-        <path
-          d="M320 92 L306 150 L286 172 M320 92 L340 138 L360 118 M306 150 L282 210 L262 232 M306 150 L332 200 L360 218 M282 210 L296 244"
-          fill="none"
-          stroke="url(#ci-runner)"
-          strokeWidth="16"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        {/* small dark accents */}
-        <circle cx="286" cy="172" r="5" fill="oklch(0.20 0.02 260)" />
-        <circle cx="360" cy="118" r="5" fill="oklch(0.20 0.02 260)" />
-        <circle cx="262" cy="232" r="6" fill="oklch(0.20 0.02 260)" />
-        <circle cx="360" cy="218" r="6" fill="oklch(0.20 0.02 260)" />
-      </motion.g>
-    </svg>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -677,6 +606,29 @@ function CustomerInsightsScene({
   pulls: readonly string[];
 }) {
   const reduce = !!useReducedMotion();
+
+  // Sports-tech metrics panel to fill the previously empty side.
+  const disciplines = [
+    {
+      label: "Swim",
+      pct: 88,
+      hint: "Escuta social de comunidade aquática",
+      color: "oklch(0.72 0.17 200)",
+    },
+    {
+      label: "Bike",
+      pct: 92,
+      hint: "Feedback de performance & equipamento",
+      color: "oklch(0.78 0.19 55)",
+    },
+    {
+      label: "Run",
+      pct: 95,
+      hint: "Sinais de treino, corrida de rua e prova",
+      color: "oklch(0.72 0.20 25)",
+    },
+  ];
+
   return (
     <article className="relative overflow-hidden border border-hairline bg-graphite/40">
       <div
@@ -687,14 +639,40 @@ function CustomerInsightsScene({
             "radial-gradient(circle at 20% 30%, oklch(0.78 0.16 200 / 0.15), transparent 55%), radial-gradient(circle at 85% 80%, oklch(0.72 0.11 45 / 0.15), transparent 55%)",
         }}
       />
-      <div className="relative grid gap-10 p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-16 md:p-14">
+
+      {/* Full-bleed triathlon hero */}
+      <div className="relative aspect-[16/7] w-full overflow-hidden md:aspect-[21/8]">
+        <TriathlonScene reduce={reduce} />
+        <div className="absolute bottom-0 left-0 right-0 flex flex-wrap items-end justify-between gap-4 p-6 md:p-10">
+          <div>
+            <div className="text-eyebrow text-copper">{theme}</div>
+            <h3 className="mt-2 font-display text-4xl leading-[1.02] text-foreground md:text-6xl">
+              {name}
+            </h3>
+            <div className="mt-2 font-mono text-sm text-silver-dim">{role}</div>
+          </div>
+          <div className="flex gap-2">
+            {["SWIM", "BIKE", "RUN"].map((d, i) => (
+              <span
+                key={d}
+                className="rounded-full border px-3 py-1 font-mono text-xs tracking-widest"
+                style={{
+                  borderColor: disciplines[i].color,
+                  color: disciplines[i].color,
+                  background: "oklch(0.14 0 0 / 0.55)",
+                }}
+              >
+                {d}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Body — 3 columns so the right side stops being empty */}
+      <div className="relative grid gap-10 p-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)_minmax(0,0.9fr)] md:gap-12 md:p-14">
         <div>
-          <div className="text-eyebrow text-copper">{theme}</div>
-          <h3 className="mt-3 font-display text-4xl leading-[1.05] text-foreground md:text-6xl">
-            {name}
-          </h3>
-          <div className="mt-3 font-mono text-sm text-silver-dim">{role}</div>
-          <p className="mt-6 max-w-md text-silver-dim md:text-lg">{body}</p>
+          <p className="max-w-md text-silver-dim md:text-lg">{body}</p>
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
             {pulls.map((p) => (
               <span key={p} className="font-display text-xl text-foreground">
@@ -703,13 +681,113 @@ function CustomerInsightsScene({
             ))}
           </div>
         </div>
-        <div className="relative flex min-h-[300px] items-center justify-center">
-          <CommunityPulse reduce={reduce} />
+
+        <div className="space-y-5">
+          <div className="text-eyebrow text-silver-dim">
+            Sinais por disciplina
+          </div>
+          {disciplines.map((d, i) => (
+            <motion.div
+              key={d.label}
+              initial={reduce ? undefined : { opacity: 0, x: -12 }}
+              whileInView={reduce ? undefined : { opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{
+                duration: 0.6,
+                delay: i * 0.1,
+                ease: [0.2, 0.7, 0.2, 1],
+              }}
+            >
+              <div className="flex items-baseline justify-between">
+                <span
+                  className="font-display text-lg"
+                  style={{ color: d.color }}
+                >
+                  {d.label}
+                </span>
+                <span className="font-mono text-xs text-silver-dim">
+                  {d.pct}%
+                </span>
+              </div>
+              <div className="mt-1 h-[3px] w-full overflow-hidden rounded-full bg-hairline">
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{ background: d.color }}
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${d.pct}%` }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 1.1,
+                    delay: 0.2 + i * 0.1,
+                    ease: [0.2, 0.7, 0.2, 1],
+                  }}
+                />
+              </div>
+              <div className="mt-1.5 text-xs text-silver-dim">{d.hint}</div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="space-y-6 border-l border-hairline pl-8">
+          <div>
+            <div className="text-eyebrow text-silver-dim">
+              O que a comunidade revela
+            </div>
+            <ul className="mt-4 space-y-3 text-sm text-silver">
+              <li className="flex gap-3">
+                <span
+                  aria-hidden
+                  className="mt-2 h-[6px] w-[6px] flex-none rounded-full"
+                  style={{ background: "oklch(0.72 0.17 200)" }}
+                />
+                Dor de treino vira roadmap: fricção real no equipamento e no
+                app de performance.
+              </li>
+              <li className="flex gap-3">
+                <span
+                  aria-hidden
+                  className="mt-2 h-[6px] w-[6px] flex-none rounded-full"
+                  style={{ background: "oklch(0.78 0.19 55)" }}
+                />
+                Ritual pré-prova como janela de conversão — patrocínio, kit,
+                nutrição, wearable.
+              </li>
+              <li className="flex gap-3">
+                <span
+                  aria-hidden
+                  className="mt-2 h-[6px] w-[6px] flex-none rounded-full"
+                  style={{ background: "oklch(0.72 0.20 25)" }}
+                />
+                Pós-prova: NPS emocional altíssimo, hora certa para pedir
+                review e indicação.
+              </li>
+            </ul>
+          </div>
+          <div className="grid grid-cols-3 gap-3 text-center">
+            {[
+              { k: "3", v: "disciplinas" },
+              { k: "1", v: "atleta" },
+              { k: "∞", v: "insights" },
+            ].map((m) => (
+              <div
+                key={m.v}
+                className="rounded-md border border-hairline bg-background/60 p-3"
+              >
+                <div className="font-display text-2xl text-foreground">
+                  {m.k}
+                </div>
+                <div className="mt-1 font-mono text-[10px] uppercase tracking-widest text-silver-dim">
+                  {m.v}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </article>
   );
 }
+
 
 /* ============================================================
    GERANDO FALCÕES · flapping falcon
