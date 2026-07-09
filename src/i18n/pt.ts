@@ -390,42 +390,64 @@ export const pt = {
         title: "Mestrado em Project Management",
         inst: "Universidade Federal de Minas Gerais",
         period: "2025–2029 · Em andamento",
+        focus:
+          "Pesquisa aplicada em governança de projetos complexos, PMO orientado a dados, gestão de portfólio, métodos híbridos (PMBOK + ágil) e métricas de valor entregue. Base para decisões estratégicas com evidência.",
       },
       {
         title: "Engenharia de IA",
         inst: "Atlanta College of Liberal Arts and Sciences",
         period: "2026",
+        focus:
+          "Fundamentos de machine learning, LLMs, engenharia de prompts, RAG, avaliação de modelos e desenho de sistemas com IA em produção — do protótipo ao deploy responsável.",
       },
       {
         title: "MBA em Gerenciamento de Projetos",
         inst: "CENES",
         period: "2025",
+        focus:
+          "Planejamento, execução e controle de projetos com foco em escopo, cronograma, custos, riscos e stakeholders. Ferramentas práticas para liderar times multidisciplinares.",
       },
       {
         title: "MBA em User Experience e UI Design",
         inst: "Faculdade de Minas",
         period: "2024–2025",
+        focus:
+          "Pesquisa com usuário, arquitetura de informação, design system, prototipação e métricas de experiência. Ponte entre negócio, produto e interface.",
       },
       {
         title: "MBA em Varejo e Mercado de Consumo",
         inst: "Fundação Getulio Vargas",
         period: "2024–2025",
+        focus:
+          "Comportamento do consumidor, jornada omnichannel, trade marketing, precificação e operações de varejo. Visão de negócio aplicada ao ponto de venda físico e digital.",
       },
       {
         title: "MBA em Marketing Digital",
         inst: "Faculdade de Minas",
         period: "2023–2024",
+        focus:
+          "Growth, mídia paga, SEO, CRM, funil de aquisição e mensuração. Estratégias de canal com foco em ROI e ciclo de vida do cliente.",
       },
-      { title: "MBA em Ciência dos Dados", inst: "IGTI", period: "2018" },
+      {
+        title: "MBA em Ciência dos Dados",
+        inst: "IGTI",
+        period: "2018",
+        focus:
+          "Estatística aplicada, modelagem preditiva, SQL, visualização e storytelling com dados. Base para operações orientadas a métricas e experimentação.",
+      },
       {
         title: "Marketing",
         inst: "Universidade Anhembi Morumbi",
         period: "2019–2024",
+        focus:
+          "Fundamentos de marca, posicionamento, comunicação integrada, pesquisa de mercado e planejamento estratégico. Formação de base para atuação em produto e negócio.",
       },
       {
         title: "Engenharia de Telecomunicações",
         inst: "Universidade FUMEC",
         period: "2011–2016",
+        focus:
+          "Redes, sistemas de transmissão, protocolos, projeto e operação de infraestrutura crítica. Raiz técnica que sustenta a leitura sistêmica de operações e dados.",
       },
     ],
   },
