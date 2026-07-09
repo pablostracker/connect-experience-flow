@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useT } from "@/i18n";
 import { SectionShell } from "./SectionShell";
+import triathlonImg from "@/assets/triathlon-splash.jpg.asset.json";
 
 export function SideQuests() {
   const t = useT();
