@@ -95,60 +95,59 @@ function PullRow({ items, mono }: { items: readonly string[]; mono?: boolean }) 
    KONOHA · metallic animated leaf symbol
    ============================================================ */
 function KonohaSymbol({ reduce }: { reduce: boolean }) {
+  // Canonical Konohagakure symbol: a bold spiral with a horizontal tail
+  // cutting through the lower half. Built with SVG mask + evenodd so the
+  // metallic fill sits inside the glyph silhouette.
   return (
     <motion.svg
       viewBox="0 0 400 400"
       className="h-full w-full max-w-[440px]"
-      initial={reduce ? undefined : { opacity: 0, scale: 0.9, rotate: -4 }}
+      initial={reduce ? undefined : { opacity: 0, scale: 0.9, rotate: -6 }}
       whileInView={reduce ? undefined : { opacity: 1, scale: 1, rotate: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 1.6, ease: [0.2, 0.7, 0.2, 1] }}
+      transition={{ duration: 1.4, ease: [0.2, 0.7, 0.2, 1] }}
       aria-hidden
     >
       <defs>
         <linearGradient id="k-metal" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="oklch(0.95 0.02 250)" />
-          <stop offset="35%" stopColor="oklch(0.55 0.01 260)" />
-          <stop offset="65%" stopColor="oklch(0.28 0.005 260)" />
+          <stop offset="40%" stopColor="oklch(0.60 0.01 260)" />
+          <stop offset="70%" stopColor="oklch(0.30 0.005 260)" />
           <stop offset="100%" stopColor="oklch(0.72 0.11 45)" />
         </linearGradient>
         <linearGradient id="k-shimmer" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="oklch(1 0 0 / 0)" />
-          <stop offset="45%" stopColor="oklch(1 0 0 / 0.55)" />
-          <stop offset="55%" stopColor="oklch(1 0 0 / 0.55)" />
+          <stop offset="50%" stopColor="oklch(1 0 0 / 0.6)" />
           <stop offset="100%" stopColor="oklch(1 0 0 / 0)" />
         </linearGradient>
-        <radialGradient id="k-glow" cx="0.5" cy="0.55" r="0.55">
+        <radialGradient id="k-glow" cx="0.5" cy="0.5" r="0.6">
           <stop offset="0%" stopColor="oklch(0.72 0.11 45 / 0.45)" />
           <stop offset="100%" stopColor="oklch(0.72 0.11 45 / 0)" />
         </radialGradient>
-        <filter id="k-inner">
-          <feGaussianBlur stdDeviation="1.4" />
-        </filter>
-        <mask id="k-mask">
-          {/* Konoha leaf: rounded body with a pointed hook tail to lower-right */}
-          <path
-            d="M 130 260
-               C 90 210, 100 120, 195 92
-               C 285 68, 330 140, 312 218
-               L 348 250
-               C 358 262, 350 278, 332 278
-               L 285 278
-               C 240 300, 165 302, 138 282
-               C 118 268, 118 268, 130 260 Z"
-            fill="white"
-          />
+
+        <mask id="k-mask" maskUnits="userSpaceOnUse">
+          <rect width="400" height="400" fill="black" />
+          <g fill="white" fillRule="evenodd">
+            {/* outer ring (donut) */}
+            <path d="M 200 60 a 140 140 0 1 1 -0.01 0 Z M 200 110 a 90 90 0 1 0 0.01 0 Z" />
+            {/* inner ring */}
+            <path d="M 200 150 a 50 50 0 1 1 -0.01 0 Z M 200 178 a 22 22 0 1 0 0.01 0 Z" />
+            {/* solid pupil */}
+            <circle cx="200" cy="200" r="14" />
+            {/* horizontal tail bars breaking to the right (two stems) */}
+            <path d="M 200 214 L 372 214 L 372 232 L 200 232 Z" />
+            <path d="M 200 246 L 372 246 L 372 264 L 200 264 Z" />
+          </g>
         </mask>
       </defs>
 
       {/* atmospheric glow */}
-      <circle cx="215" cy="200" r="180" fill="url(#k-glow)" />
+      <circle cx="200" cy="215" r="180" fill="url(#k-glow)" />
 
-      {/* metallic fill inside konoha silhouette */}
+      {/* metallic fill inside the konoha silhouette */}
       <g mask="url(#k-mask)">
         <rect x="0" y="0" width="400" height="400" fill="url(#k-metal)" />
-        {/* diagonal brushed lines for metal texture */}
-        {Array.from({ length: 36 }).map((_, i) => (
+        {Array.from({ length: 40 }).map((_, i) => (
           <line
             key={i}
             x1={-40 + i * 14}
@@ -159,10 +158,9 @@ function KonohaSymbol({ reduce }: { reduce: boolean }) {
             strokeWidth="0.7"
           />
         ))}
-        {/* shimmer sweep */}
         {!reduce && (
           <motion.rect
-            x="-200"
+            x="0"
             y="0"
             width="180"
             height="400"
@@ -172,56 +170,37 @@ function KonohaSymbol({ reduce }: { reduce: boolean }) {
             transition={{
               duration: 3.2,
               repeat: Infinity,
-              repeatDelay: 2.4,
+              repeatDelay: 2.2,
               ease: "easeInOut",
             }}
           />
         )}
       </g>
 
-      {/* etched outline */}
-      <path
-        d="M 130 260
-           C 90 210, 100 120, 195 92
-           C 285 68, 330 140, 312 218
-           L 348 250
-           C 358 262, 350 278, 332 278
-           L 285 278
-           C 240 300, 165 302, 138 282
-           C 118 268, 118 268, 130 260 Z"
-        fill="none"
-        stroke="oklch(0.95 0.02 250 / 0.55)"
-        strokeWidth="1.2"
-        filter="url(#k-inner)"
-      />
+      {/* etched outlines for definition */}
+      <g fill="none" stroke="oklch(0.95 0.02 250 / 0.5)" strokeWidth="1.1">
+        <circle cx="200" cy="200" r="140" />
+        <circle cx="200" cy="200" r="90" />
+        <circle cx="200" cy="200" r="50" />
+        <circle cx="200" cy="200" r="22" />
+        <path d="M 200 214 L 372 214 M 200 232 L 372 232 M 200 246 L 372 246 M 200 264 L 372 264" />
+      </g>
 
-
-      {/* animated spiral inside */}
-      <motion.path
-        d="M205 208
-           m -46 0
-           a 46 46 0 1 0 92 0
-           a 36 36 0 1 1 -72 0
-           a 26 26 0 1 0 52 0
-           a 16 16 0 1 1 -32 0
-           a 8 8 0 1 0 16 0"
-        fill="none"
-        stroke="oklch(0.98 0.02 80)"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        initial={{ pathLength: reduce ? 1 : 0, opacity: 0 }}
-        whileInView={{ pathLength: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 2.4, delay: 0.4, ease: [0.2, 0.7, 0.2, 1] }}
-      />
-      {/* faint copper spiral echo */}
-      <path
-        d="M205 208 m -46 0 a 46 46 0 1 0 92 0 a 36 36 0 1 1 -72 0 a 26 26 0 1 0 52 0 a 16 16 0 1 1 -32 0 a 8 8 0 1 0 16 0"
-        fill="none"
-        stroke="oklch(0.72 0.11 45 / 0.35)"
-        strokeWidth="0.8"
-        transform="translate(1.5,1.5)"
-      />
+      {!reduce && (
+        <motion.circle
+          cx="200"
+          cy="200"
+          r="152"
+          fill="none"
+          stroke="oklch(0.98 0.02 80 / 0.3)"
+          strokeWidth="1"
+          strokeDasharray="6 14"
+          initial={{ rotate: 0 }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "200px 200px" }}
+        />
+      )}
     </motion.svg>
   );
 }
