@@ -32,12 +32,14 @@ export function AILab() {
                   {c.name}
                 </div>
               </div>
-              <div className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm text-silver-dim">
+              <div className="flex min-w-0 flex-wrap gap-2 font-mono text-xs">
                 {c.tools.map((tool) => (
                   <span
                     key={tool}
-                    className={`transition-colors duration-500 ${
-                      isActive ? "text-foreground" : ""
+                    className={`inline-flex items-center rounded-full border px-3 py-1 leading-none transition-colors duration-300 ${
+                      isActive
+                        ? "border-copper/60 bg-copper/10 text-foreground"
+                        : "border-hairline text-silver-dim"
                     }`}
                   >
                     {tool}
