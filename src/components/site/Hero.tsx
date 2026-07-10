@@ -25,6 +25,8 @@ export function Hero() {
         }}
       />
       <StarfieldBackground className="opacity-80" />
+      <CosmicBodies />
+
       <div className="relative mx-auto max-w-[1440px]">
         <motion.div
           initial={reduce ? undefined : { opacity: 0, y: 12 }}
