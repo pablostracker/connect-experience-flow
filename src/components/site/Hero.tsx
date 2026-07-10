@@ -7,6 +7,68 @@ import { StarfieldBackground } from "./StarfieldBackground";
 
 const words = ["PEOPLE", "OPERATIONS", "DATA", "AI"] as const;
 
+function CosmicBodies() {
+  return (
+    <svg
+      aria-hidden
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-70"
+      viewBox="0 0 1440 900"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <defs>
+        <radialGradient id="saturn-body" cx="0.4" cy="0.35" r="0.7">
+          <stop offset="0%" stopColor="oklch(0.85 0.09 70)" />
+          <stop offset="55%" stopColor="oklch(0.55 0.09 55)" />
+          <stop offset="100%" stopColor="oklch(0.18 0.02 45)" />
+        </radialGradient>
+        <radialGradient id="planet-blue" cx="0.35" cy="0.35" r="0.7">
+          <stop offset="0%" stopColor="oklch(0.72 0.12 240)" />
+          <stop offset="70%" stopColor="oklch(0.30 0.06 250)" />
+          <stop offset="100%" stopColor="oklch(0.14 0.02 250)" />
+        </radialGradient>
+        <radialGradient id="planet-copper" cx="0.5" cy="0.5" r="0.6">
+          <stop offset="0%" stopColor="oklch(0.78 0.14 45)" />
+          <stop offset="100%" stopColor="oklch(0.20 0.02 45)" />
+        </radialGradient>
+        <radialGradient id="nebula" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stopColor="oklch(0.60 0.15 300 / 0.35)" />
+          <stop offset="100%" stopColor="oklch(0.14 0 0 / 0)" />
+        </radialGradient>
+      </defs>
+
+      {/* Nebula */}
+      <ellipse cx="1100" cy="220" rx="360" ry="220" fill="url(#nebula)" />
+
+      {/* Distant blue planet */}
+      <circle cx="220" cy="180" r="28" fill="url(#planet-blue)" opacity="0.85" />
+
+      {/* Copper micro-planet */}
+      <circle cx="1320" cy="720" r="14" fill="url(#planet-copper)" opacity="0.9" />
+
+      {/* Saturn with rings */}
+      <g transform="translate(1180 640)" opacity="0.9">
+        <ellipse cx="0" cy="0" rx="110" ry="14" fill="none" stroke="oklch(0.75 0.09 60 / 0.55)" strokeWidth="2" />
+        <ellipse cx="0" cy="0" rx="86" ry="10" fill="none" stroke="oklch(0.85 0.06 70 / 0.35)" strokeWidth="1" />
+        <circle cx="0" cy="0" r="46" fill="url(#saturn-body)" />
+        <ellipse cx="0" cy="4" rx="110" ry="14" fill="none" stroke="oklch(0.28 0.02 45 / 0.7)" strokeWidth="1" />
+      </g>
+
+      {/* Constellation lines */}
+      <g stroke="oklch(0.86 0.008 250 / 0.22)" strokeWidth="0.6" fill="none">
+        <path d="M 90 500 L 190 560 L 310 520 L 380 620 L 470 590" />
+        <path d="M 780 120 L 860 180 L 940 140 L 1000 220" />
+      </g>
+      {[
+        [90, 500], [190, 560], [310, 520], [380, 620], [470, 590],
+        [780, 120], [860, 180], [940, 140], [1000, 220],
+      ].map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r="1.6" fill="oklch(0.92 0.01 80)" opacity="0.85" />
+      ))}
+    </svg>
+  );
+}
+
+
 export function Hero() {
   const t = useT();
   const reduce = useReducedMotion();
@@ -25,6 +87,8 @@ export function Hero() {
         }}
       />
       <StarfieldBackground className="opacity-80" />
+      <CosmicBodies />
+
       <div className="relative mx-auto max-w-[1440px]">
         <motion.div
           initial={reduce ? undefined : { opacity: 0, y: 12 }}

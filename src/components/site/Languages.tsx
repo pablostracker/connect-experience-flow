@@ -23,15 +23,29 @@ export function Languages() {
             transition={{ duration: 0.7, delay: i * 0.08, ease: [0.2, 0.7, 0.2, 1] }}
             className="group relative overflow-hidden border border-hairline bg-graphite/30 p-6 backdrop-blur-sm md:p-7"
           >
-            <div className="flex items-baseline justify-between gap-4">
-              <div className="font-display text-2xl leading-none text-foreground md:text-3xl">
-                {lang.name}
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <span
+                  aria-hidden
+                  className="grid h-12 w-12 place-items-center rounded-full border border-hairline bg-background/60 text-2xl leading-none shadow-inner md:h-14 md:w-14 md:text-3xl"
+                >
+                  {lang.flag}
+                </span>
+                <div>
+                  <div className="font-display text-2xl leading-none text-foreground md:text-3xl">
+                    {lang.name}
+                  </div>
+                  <div className="mt-2 font-mono text-[0.6rem] uppercase tracking-[0.24em] text-copper">
+                    {lang.code}
+                  </div>
+                </div>
               </div>
               <div className="font-mono text-[0.6rem] uppercase tracking-[0.24em] text-silver-dim">
                 {String(i + 1).padStart(2, "0")}
               </div>
             </div>
             <div className="mt-3 text-sm text-silver-dim">{lang.level}</div>
+
 
             <div className="mt-6 h-[3px] w-full overflow-hidden bg-hairline">
               <motion.div
