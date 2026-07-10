@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useT } from "@/i18n";
 import { ContactStrip } from "./ContactStrip";
