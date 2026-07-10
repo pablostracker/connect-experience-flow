@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useT } from "@/i18n";
 import { ContactStrip } from "./ContactStrip";
@@ -71,7 +72,11 @@ function CosmicBodies() {
 
 export function Hero() {
   const t = useT();
-  const reduce = useReducedMotion();
+  const prefersReduce = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduce = !mounted || prefersReduce;
+
 
   return (
     <section
