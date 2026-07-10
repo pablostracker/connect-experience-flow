@@ -72,7 +72,11 @@ function CosmicBodies() {
 
 export function Hero() {
   const t = useT();
-  const reduce = useReducedMotion();
+  const prefersReduce = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduce = !mounted || prefersReduce;
+
 
   return (
     <section
