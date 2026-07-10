@@ -209,7 +209,7 @@ export const pt = {
           "Acompanhamento das etapas de expansão.",
         ],
         result:
-          "Case Hicryo: 5 franquias comercializadas, R$ 16 mil de capital por unidade, ~R$ 80 mil em negócios gerados.",
+          "Case Hicryo: 5 franquias comercializadas, R$ 160 mil de capital por unidade, ~R$ 800 mil em negócios gerados.",
       },
       {
         id: "ambev",
@@ -279,11 +279,11 @@ export const pt = {
     intro:
       "Comunicação real com times, clientes e comunidades — do compliance regulatório em iGaming à sala de aula em Libras.",
     items: [
-      { name: "Português", level: "Nativo", pct: 1.0 },
-      { name: "Italiano", level: "Nativo", pct: 1.0 },
-      { name: "Inglês", level: "Fluente profissional", pct: 0.92 },
-      { name: "Espanhol", level: "Profissional avançado", pct: 0.82 },
-      { name: "Libras", level: "Fluente profissional", pct: 0.9 },
+      { name: "Português", level: "Nativo", pct: 1.0, flag: "🇧🇷", code: "PT" },
+      { name: "Italiano", level: "Nativo", pct: 1.0, flag: "🇮🇹", code: "IT" },
+      { name: "Inglês", level: "Fluente profissional", pct: 0.92, flag: "🇬🇧", code: "EN" },
+      { name: "Espanhol", level: "Profissional avançado", pct: 0.82, flag: "🇪🇸", code: "ES" },
+      { name: "Libras", level: "Fluente profissional", pct: 0.9, flag: "🤟", code: "LIBRAS" },
     ],
   },
 
@@ -469,7 +469,15 @@ export const pt = {
       email: "E-mail",
       linkedin: "LinkedIn",
       portfolio: "Portfólio",
+      discord: "Discord",
+      telegram: "Telegram",
+      xbox: "Xbox Live",
     },
+    discord: "pablodutra",
+    telegram: "@pablodutra",
+    telegramHref: "https://t.me/pablodutra",
+    xbox: "PabloDutra",
+    xboxHref: "https://account.xbox.com/profile?gamertag=PabloDutra",
   },
   footer: {
     tagline: "Pessoas · Operação · Dados · IA",
