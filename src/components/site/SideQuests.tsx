@@ -93,12 +93,14 @@ function PullRow({ items, mono }: { items: readonly string[]; mono?: boolean }) 
 }
 
 /* ============================================================
-   KONOHA · metallic animated leaf symbol
+   KONOHA · true Village-Hidden-in-the-Leaf spiral + shadow sweep
    ============================================================ */
 function KonohaSymbol({ reduce }: { reduce: boolean }) {
-  // Canonical Konohagakure symbol: a bold spiral with a horizontal tail
-  // cutting through the lower half. Built with SVG mask + evenodd so the
-  // metallic fill sits inside the glyph silhouette.
+  // Path approximates the classic Konohagakure swirl: an outer sweep
+  // opening to the right, a curled spiral, and a small triangular tail
+  // at the lower-left — the way it reads in the show, not a donut.
+  const konohaPath =
+    "M 200 60 C 130 60 70 120 70 200 C 70 280 130 340 210 340 C 300 340 340 280 340 220 C 340 170 305 130 260 130 C 220 130 190 160 190 200 C 190 235 215 260 250 260 C 275 260 295 245 295 220 C 295 205 285 195 270 195 C 258 195 250 205 252 218 L 236 218 C 232 190 252 170 278 172 C 314 175 335 205 330 240 C 322 285 280 310 232 302 C 178 292 148 245 158 195 C 168 145 210 112 258 120 C 320 130 355 180 350 230 C 344 300 285 348 210 348 C 128 348 62 285 62 200 C 62 118 128 52 210 52 C 214 52 218 52 222 54 L 214 76 L 178 108 L 200 60 Z";
   return (
     <motion.svg
       viewBox="0 0 400 400"
@@ -111,100 +113,115 @@ function KonohaSymbol({ reduce }: { reduce: boolean }) {
     >
       <defs>
         <linearGradient id="k-metal" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="oklch(0.95 0.02 250)" />
-          <stop offset="40%" stopColor="oklch(0.60 0.01 260)" />
-          <stop offset="70%" stopColor="oklch(0.30 0.005 260)" />
-          <stop offset="100%" stopColor="oklch(0.72 0.11 45)" />
+          <stop offset="0%" stopColor="oklch(0.96 0.02 250)" />
+          <stop offset="35%" stopColor="oklch(0.70 0.008 260)" />
+          <stop offset="65%" stopColor="oklch(0.32 0.005 260)" />
+          <stop offset="100%" stopColor="oklch(0.88 0.05 250)" />
+        </linearGradient>
+        <linearGradient id="k-shadow" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="oklch(0.10 0 0 / 0)" />
+          <stop offset="45%" stopColor="oklch(0.05 0 0 / 0.85)" />
+          <stop offset="55%" stopColor="oklch(0.05 0 0 / 0.85)" />
+          <stop offset="100%" stopColor="oklch(0.10 0 0 / 0)" />
         </linearGradient>
         <linearGradient id="k-shimmer" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="oklch(1 0 0 / 0)" />
-          <stop offset="50%" stopColor="oklch(1 0 0 / 0.6)" />
+          <stop offset="50%" stopColor="oklch(1 0 0 / 0.55)" />
           <stop offset="100%" stopColor="oklch(1 0 0 / 0)" />
         </linearGradient>
         <radialGradient id="k-glow" cx="0.5" cy="0.5" r="0.6">
-          <stop offset="0%" stopColor="oklch(0.72 0.11 45 / 0.45)" />
+          <stop offset="0%" stopColor="oklch(0.72 0.11 45 / 0.35)" />
           <stop offset="100%" stopColor="oklch(0.72 0.11 45 / 0)" />
         </radialGradient>
-
         <mask id="k-mask" maskUnits="userSpaceOnUse">
           <rect width="400" height="400" fill="black" />
-          <g fill="white" fillRule="evenodd">
-            {/* outer ring (donut) */}
-            <path d="M 200 60 a 140 140 0 1 1 -0.01 0 Z M 200 110 a 90 90 0 1 0 0.01 0 Z" />
-            {/* inner ring */}
-            <path d="M 200 150 a 50 50 0 1 1 -0.01 0 Z M 200 178 a 22 22 0 1 0 0.01 0 Z" />
-            {/* solid pupil */}
-            <circle cx="200" cy="200" r="14" />
-            {/* horizontal tail bars breaking to the right (two stems) */}
-            <path d="M 200 214 L 372 214 L 372 232 L 200 232 Z" />
-            <path d="M 200 246 L 372 246 L 372 264 L 200 264 Z" />
-          </g>
+          <path d={konohaPath} fill="white" fillRule="evenodd" />
         </mask>
+        <filter id="k-emboss" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="0.6" />
+        </filter>
       </defs>
 
-      {/* atmospheric glow */}
-      <circle cx="200" cy="215" r="180" fill="url(#k-glow)" />
+      {/* ambient glow */}
+      <circle cx="200" cy="210" r="180" fill="url(#k-glow)" />
 
-      {/* metallic fill inside the konoha silhouette */}
+      {/* metallic body inside the silhouette */}
       <g mask="url(#k-mask)">
         <rect x="0" y="0" width="400" height="400" fill="url(#k-metal)" />
-        {Array.from({ length: 40 }).map((_, i) => (
+        {/* brushed lines */}
+        {Array.from({ length: 32 }).map((_, i) => (
           <line
             key={i}
-            x1={-40 + i * 14}
+            x1={-40 + i * 16}
             y1="0"
-            x2={40 + i * 14}
+            x2={40 + i * 16}
             y2="400"
             stroke="oklch(1 0 0 / 0.05)"
             strokeWidth="0.7"
           />
         ))}
+        {/* metallic shimmer sweep */}
         {!reduce && (
           <motion.rect
             x="0"
             y="0"
-            width="180"
+            width="150"
             height="400"
             fill="url(#k-shimmer)"
-            initial={{ x: -220 }}
+            initial={{ x: -180 }}
             animate={{ x: 420 }}
+            transition={{ duration: 3.2, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
+          />
+        )}
+        {/* passing SHADOW — someone moving in the dark behind the symbol */}
+        {!reduce && (
+          <motion.rect
+            x="0"
+            y="0"
+            width="220"
+            height="400"
+            fill="url(#k-shadow)"
+            initial={{ x: -260 }}
+            animate={{ x: 440 }}
             transition={{
-              duration: 3.2,
+              duration: 5.5,
               repeat: Infinity,
-              repeatDelay: 2.2,
-              ease: "easeInOut",
+              repeatDelay: 3.5,
+              ease: [0.2, 0.7, 0.2, 1],
             }}
           />
         )}
       </g>
 
-      {/* etched outlines for definition */}
-      <g fill="none" stroke="oklch(0.95 0.02 250 / 0.5)" strokeWidth="1.1">
-        <circle cx="200" cy="200" r="140" />
-        <circle cx="200" cy="200" r="90" />
-        <circle cx="200" cy="200" r="50" />
-        <circle cx="200" cy="200" r="22" />
-        <path d="M 200 214 L 372 214 M 200 232 L 372 232 M 200 246 L 372 246 M 200 264 L 372 264" />
-      </g>
+      {/* etched silhouette outline for definition */}
+      <path
+        d={konohaPath}
+        fill="none"
+        stroke="oklch(0.95 0.02 250 / 0.55)"
+        strokeWidth="1.2"
+        filter="url(#k-emboss)"
+      />
 
+      {/* orbiting hidden-runes ring */}
       {!reduce && (
         <motion.circle
           cx="200"
           cy="200"
-          r="152"
+          r="172"
           fill="none"
-          stroke="oklch(0.98 0.02 80 / 0.3)"
-          strokeWidth="1"
-          strokeDasharray="6 14"
+          stroke="oklch(0.98 0.02 80 / 0.28)"
+          strokeWidth="0.8"
+          strokeDasharray="4 12"
           initial={{ rotate: 0 }}
           animate={{ rotate: 360 }}
-          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
           style={{ transformOrigin: "200px 200px" }}
         />
       )}
     </motion.svg>
   );
 }
+
 
 /* ============================================================
    Capability chips — micro visualizations of "what I make"
