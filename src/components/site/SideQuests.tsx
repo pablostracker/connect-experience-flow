@@ -811,7 +811,7 @@ function CustomerInsightsScene({
           ))}
         </div>
 
-        <div className="space-y-6 border-l border-hairline pl-8">
+        <div className="space-y-6 border-hairline pt-8 md:border-l md:pl-8 md:pt-0">
           <div>
             <div className="text-eyebrow text-silver-dim">
               O que a comunidade revela
