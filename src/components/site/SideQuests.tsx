@@ -867,9 +867,137 @@ function CustomerInsightsScene({
           </div>
         </div>
       </div>
+
+      {/* Partners strip — Garmin, Wellhub, Federação Mineira de Triathlon */}
+      <div className="hairline-t relative border-t border-hairline p-8 md:p-14 md:pt-12">
+        <div className="flex items-baseline justify-between">
+          <div className="text-eyebrow text-copper">Ecossistema do atleta</div>
+          <div className="font-mono text-[0.6rem] uppercase tracking-[0.24em] text-silver-dim">
+            Wearable · Wellness · Federação
+          </div>
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              brand: "Garmin",
+              tag: "Wearable",
+              claim: "Dado bruto do corpo, do treino e da prova.",
+              color: "oklch(0.72 0.17 200)",
+              node: (
+                <svg viewBox="0 0 120 60" className="h-full w-full">
+                  <defs>
+                    <linearGradient id="grm" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="oklch(0.5 0.14 200)" />
+                      <stop offset="100%" stopColor="oklch(0.85 0.16 195)" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="120" height="60" fill="oklch(0.10 0 0)" />
+                  <motion.polyline
+                    points="0,42 12,42 18,28 26,52 34,20 44,38 56,10 68,44 80,30 92,36 104,22 120,32"
+                    fill="none"
+                    stroke="url(#grm)"
+                    strokeWidth="1.6"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.8, ease: [0.2, 0.7, 0.2, 1] }}
+                  />
+                  <motion.circle
+                    cx="56"
+                    cy="10"
+                    r="2.4"
+                    fill="oklch(0.9 0.18 200)"
+                    animate={{ opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 1.8, repeat: Infinity }}
+                  />
+                </svg>
+              ),
+            },
+            {
+              brand: "Wellhub",
+              tag: "Wellness",
+              claim: "Rotina, recuperação e bem-estar como jornada.",
+              color: "oklch(0.78 0.19 145)",
+              node: (
+                <svg viewBox="0 0 120 60" className="h-full w-full">
+                  <rect width="120" height="60" fill="oklch(0.10 0 0)" />
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <motion.circle
+                      key={i}
+                      cx={20 + i * 20}
+                      cy="30"
+                      r="6"
+                      fill="none"
+                      stroke="oklch(0.78 0.19 145)"
+                      strokeWidth="1.2"
+                      animate={{ r: [4, 10, 4], opacity: [0.4, 0.9, 0.4] }}
+                      transition={{ duration: 2.4, delay: i * 0.25, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  ))}
+                </svg>
+              ),
+            },
+            {
+              brand: "FMTri · MG",
+              tag: "Federação",
+              claim: "Comunidade oficial: prova, ranking e legado do esporte.",
+              color: "oklch(0.75 0.15 65)",
+              node: (
+                <svg viewBox="0 0 120 60" className="h-full w-full">
+                  <rect width="120" height="60" fill="oklch(0.10 0 0)" />
+                  <motion.polygon
+                    points="60,10 90,50 30,50"
+                    fill="none"
+                    stroke="oklch(0.75 0.15 65)"
+                    strokeWidth="1.4"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    whileInView={{ pathLength: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.6 }}
+                  />
+                  <motion.circle
+                    cx="60"
+                    cy="34"
+                    r="4"
+                    fill="oklch(0.9 0.15 65)"
+                    animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    style={{ transformOrigin: "60px 34px" }}
+                  />
+                </svg>
+              ),
+            },
+          ].map((p, i) => (
+            <motion.div
+              key={p.brand}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.2, 0.7, 0.2, 1] }}
+              className="group relative overflow-hidden border border-hairline bg-background/60 p-4 transition-colors hover:border-[color:var(--pc)]"
+              style={{ ["--pc" as string]: p.color } as React.CSSProperties}
+            >
+              <div className="aspect-[2/1] w-full overflow-hidden rounded-sm border border-hairline">
+                {p.node}
+              </div>
+              <div className="mt-4 flex items-baseline justify-between">
+                <div className="font-display text-xl text-foreground">{p.brand}</div>
+                <div
+                  className="font-mono text-[0.6rem] uppercase tracking-[0.22em]"
+                  style={{ color: p.color }}
+                >
+                  {p.tag}
+                </div>
+              </div>
+              <p className="mt-2 text-sm text-silver-dim">{p.claim}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </article>
   );
 }
+
 
 
 /* ============================================================
