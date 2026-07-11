@@ -324,9 +324,75 @@ function HyperrealPortrait({ reduce }: { reduce: boolean }) {
           />
         );
       })}
+      {/* Kunai — hyper-real metallic throwing knife slicing across the frame */}
+      <defs>
+        <linearGradient id="kunai-blade" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="oklch(0.98 0.005 250)" />
+          <stop offset="45%" stopColor="oklch(0.62 0.005 260)" />
+          <stop offset="80%" stopColor="oklch(0.22 0.005 260)" />
+          <stop offset="100%" stopColor="oklch(0.86 0.008 250)" />
+        </linearGradient>
+        <linearGradient id="kunai-edge" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="oklch(1 0 0 / 0)" />
+          <stop offset="50%" stopColor="oklch(1 0 0 / 0.9)" />
+          <stop offset="100%" stopColor="oklch(1 0 0 / 0)" />
+        </linearGradient>
+      </defs>
+      <motion.g
+        initial={reduce ? { x: 0, opacity: 1 } : { x: -30, opacity: 0, rotate: -8 }}
+        whileInView={
+          reduce
+            ? undefined
+            : { x: 0, opacity: 1, rotate: 0 }
+        }
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 1.2, delay: 0.4, ease: [0.2, 0.7, 0.2, 1] }}
+        style={{ transformOrigin: "60px 60px" }}
+      >
+        <g transform="translate(20 34) rotate(-18)">
+          {/* blade */}
+          <path
+            d="M 0 6 L 44 0 L 60 6 L 44 12 Z"
+            fill="url(#kunai-blade)"
+            stroke="oklch(0.05 0 0 / 0.7)"
+            strokeWidth="0.3"
+          />
+          {/* center ridge */}
+          <path d="M 4 6 L 56 6" stroke="oklch(1 0 0 / 0.4)" strokeWidth="0.3" />
+          {/* wrapped grip */}
+          <rect x="-14" y="4" width="16" height="4" rx="1" fill="oklch(0.16 0.005 260)" />
+          {[0, 1, 2, 3].map((k) => (
+            <line
+              key={k}
+              x1={-13 + k * 4}
+              y1="4"
+              x2={-11 + k * 4}
+              y2="8"
+              stroke="oklch(0.72 0.11 45 / 0.6)"
+              strokeWidth="0.3"
+            />
+          ))}
+          {/* pommel ring */}
+          <circle cx="-18" cy="6" r="3" fill="none" stroke="oklch(0.86 0.008 250)" strokeWidth="0.6" />
+          {/* moving edge glint */}
+          {!reduce && (
+            <motion.rect
+              x="0"
+              y="4"
+              width="12"
+              height="4"
+              fill="url(#kunai-edge)"
+              initial={{ x: -4 }}
+              animate={{ x: 56 }}
+              transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 1.6, ease: "easeInOut" }}
+            />
+          )}
+        </g>
+      </motion.g>
     </svg>
   );
 }
+
 
 function GenerativeGrid({ reduce }: { reduce: boolean }) {
   // prompt → 4 candidate frames appearing
