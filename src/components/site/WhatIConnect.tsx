@@ -31,7 +31,6 @@ export function WhatIConnect() {
       id="connect"
       label={t.connect.label}
       title={t.connect.title}
-      intro={t.connect.intro}
     >
       <div className="relative isolate overflow-hidden border border-hairline bg-black">
         {/* deep-space background */}
