@@ -42,14 +42,36 @@ export function WhatIConnect() {
               "radial-gradient(circle at 50% 40%, oklch(0.2 0.02 260 / 0.6), transparent 65%), radial-gradient(circle at 15% 90%, oklch(0.28 0.04 30 / 0.25), transparent 55%)",
           }}
         />
+        {/* drifting nebula for constant motion */}
+        {!reduce && (
+          <>
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute -inset-x-10 -top-10 h-72 rounded-full blur-3xl"
+              style={{ background: "oklch(0.55 0.14 260 / 0.25)" }}
+              animate={{ x: [-20, 30, -20], y: [-10, 20, -10], opacity: [0.4, 0.7, 0.4] }}
+              transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute -bottom-16 right-0 h-80 w-80 rounded-full blur-3xl"
+              style={{ background: "oklch(0.60 0.15 30 / 0.22)" }}
+              animate={{ x: [10, -30, 10], y: [0, -20, 0], opacity: [0.35, 0.65, 0.35] }}
+              transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </>
+        )}
         <Starfield reduce={reduce} />
 
-        {/* Constellation lines overlay */}
-        <svg
+        {/* Constellation lines overlay — subtle continuous drift on the whole SVG */}
+        <motion.svg
           aria-hidden
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
           className="pointer-events-none absolute inset-0 h-full w-full"
+          animate={reduce ? undefined : { rotate: [0, 1.2, 0, -1.2, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+          style={{ transformOrigin: "50% 50%" }}
         >
           <defs>
             <linearGradient id="line-copper" x1="0" y1="0" x2="1" y2="0">
@@ -78,33 +100,33 @@ export function WhatIConnect() {
               />
             );
           })}
-          {/* Traveling pulses along diagonals */}
+          {/* Traveling pulses on every link — always in motion */}
           {!reduce &&
-            LINKS.slice(0, 3).map(([a, b], i) => {
+            LINKS.map(([a, b], i) => {
               const na = NODES[a];
               const nb = NODES[b];
               return (
                 <motion.circle
                   key={`pulse-${i}`}
-                  r="0.6"
-                  fill="oklch(0.9 0.14 60)"
+                  r="0.7"
+                  fill="oklch(0.92 0.14 60)"
                   initial={{ cx: na.x, cy: na.y, opacity: 0 }}
                   animate={{
-                    cx: [na.x, nb.x],
-                    cy: [na.y, nb.y],
-                    opacity: [0, 1, 0],
+                    cx: [na.x, nb.x, na.x],
+                    cy: [na.y, nb.y, na.y],
+                    opacity: [0, 1, 0.6, 1, 0],
                   }}
                   transition={{
-                    duration: 4.5,
-                    delay: 2 + i * 1.2,
+                    duration: 6 + i * 0.6,
+                    delay: 1 + i * 0.5,
                     repeat: Infinity,
-                    repeatDelay: 3,
                     ease: "easeInOut",
                   }}
                 />
               );
             })}
-        </svg>
+        </motion.svg>
+
 
         {/* Territory nodes absolutely positioned over the constellation */}
         <div className="relative grid grid-cols-1 gap-px sm:grid-cols-2">
