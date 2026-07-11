@@ -1033,11 +1033,25 @@ function FalcoesScene({
 }
 
 
-function FlyingBird({ reduce }: { reduce: boolean }) {
+function FlyingBird({
+  reduce,
+  delay = 0,
+  top = "-1rem",
+  duration = 9,
+  size = "sm",
+}: {
+  reduce: boolean;
+  delay?: number;
+  top?: string;
+  duration?: number;
+  size?: "sm" | "lg";
+}) {
+  const sizeCls = size === "lg" ? "h-6 w-10 md:h-8 md:w-12" : "h-4 w-7 md:h-5 md:w-9";
   return (
     <motion.div
       aria-hidden
-      className="pointer-events-none absolute -top-4 left-0 text-copper"
+      className="pointer-events-none absolute left-0 text-copper"
+      style={{ top }}
       initial={reduce ? undefined : { x: -40, y: 0, opacity: 0 }}
       animate={
         reduce
@@ -1049,7 +1063,8 @@ function FlyingBird({ reduce }: { reduce: boolean }) {
             }
       }
       transition={{
-        duration: 9,
+        duration,
+        delay,
         repeat: Infinity,
         ease: "easeInOut",
         times: [0, 0.15, 0.5, 0.85, 1],
@@ -1057,7 +1072,7 @@ function FlyingBird({ reduce }: { reduce: boolean }) {
     >
       <motion.svg
         viewBox="0 0 40 24"
-        className="h-6 w-10 md:h-8 md:w-12"
+        className={sizeCls}
         animate={reduce ? undefined : { rotate: [-4, 4, -4] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
@@ -1084,6 +1099,7 @@ function FlyingBird({ reduce }: { reduce: boolean }) {
     </motion.div>
   );
 }
+
 
 /* ============================================================
    LOUD · gaming / short-video / iGame capability scene
