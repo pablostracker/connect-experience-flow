@@ -1320,7 +1320,36 @@ function LoudHexShield({ reduce }: { reduce: boolean }) {
 
       <path d={hex} fill="none" stroke="oklch(0.95 0.04 220 / 0.55)" strokeWidth="1.2" />
 
-      {/* inner LOUD-style diamond mark */}
+      {/* Green rune ring — LoL Summoner's Rift vibe */}
+      <g style={{ transformOrigin: "200px 210px" }}>
+        <motion.circle
+          cx="200"
+          cy="210"
+          r="88"
+          fill="none"
+          stroke="oklch(0.78 0.19 155 / 0.55)"
+          strokeWidth="1.2"
+          strokeDasharray="3 7"
+          initial={{ rotate: 0 }}
+          animate={reduce ? undefined : { rotate: 360 }}
+          transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "200px 210px" }}
+        />
+        <motion.circle
+          cx="200"
+          cy="210"
+          r="70"
+          fill="none"
+          stroke="oklch(0.62 0.17 155 / 0.35)"
+          strokeWidth="0.8"
+          initial={{ rotate: 0 }}
+          animate={reduce ? undefined : { rotate: -360 }}
+          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "200px 210px" }}
+        />
+      </g>
+
+      {/* Emerald hex core */}
       <motion.g
         style={{ transformOrigin: "200px 210px" }}
         initial={reduce ? undefined : { scale: 0.85, opacity: 0 }}
@@ -1329,22 +1358,44 @@ function LoudHexShield({ reduce }: { reduce: boolean }) {
         transition={{ duration: 1.4, delay: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
       >
         <polygon
-          points="200,140 260,210 200,280 140,210"
-          fill="oklch(0.14 0.01 260 / 0.6)"
-          stroke="oklch(0.95 0.04 220 / 0.8)"
-          strokeWidth="1.4"
+          points="200,150 254,180 254,240 200,270 146,240 146,180"
+          fill="oklch(0.18 0.06 155 / 0.75)"
+          stroke="oklch(0.82 0.19 150 / 0.9)"
+          strokeWidth="1.6"
         />
         <polygon
-          points="200,168 240,210 200,252 160,210"
+          points="200,170 236,190 236,230 200,250 164,230 164,190"
           fill="none"
-          stroke="oklch(0.72 0.16 220 / 0.8)"
+          stroke="oklch(0.90 0.20 150 / 0.6)"
           strokeWidth="0.9"
         />
-        <circle cx="200" cy="210" r="6" fill="oklch(0.9 0.14 220)" />
+        {/* Crossed swords — game emblem */}
+        <g stroke="oklch(0.94 0.13 90)" strokeLinecap="round">
+          <g transform="translate(200 210) rotate(45) translate(-200 -210)">
+            <line x1="200" y1="160" x2="200" y2="260" strokeWidth="3" />
+            <polygon points="200,150 194,168 206,168" fill="oklch(0.94 0.13 90)" />
+            <rect x="192" y="256" width="16" height="4" fill="oklch(0.72 0.11 55)" />
+          </g>
+          <g transform="translate(200 210) rotate(-45) translate(-200 -210)">
+            <line x1="200" y1="160" x2="200" y2="260" strokeWidth="3" />
+            <polygon points="200,150 194,168 206,168" fill="oklch(0.94 0.13 90)" />
+            <rect x="192" y="256" width="16" height="4" fill="oklch(0.72 0.11 55)" />
+          </g>
+        </g>
+        {/* pulsing emerald core */}
+        <motion.circle
+          cx="200"
+          cy="210"
+          r="8"
+          fill="oklch(0.88 0.20 150)"
+          animate={reduce ? undefined : { opacity: [0.6, 1, 0.6], r: [7, 10, 7] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+        />
       </motion.g>
     </svg>
   );
 }
+
 
 function LoudScene({
   name,
