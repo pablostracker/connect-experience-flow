@@ -93,12 +93,14 @@ function PullRow({ items, mono }: { items: readonly string[]; mono?: boolean }) 
 }
 
 /* ============================================================
-   KONOHA · metallic animated leaf symbol
+   KONOHA · true Village-Hidden-in-the-Leaf spiral + shadow sweep
    ============================================================ */
 function KonohaSymbol({ reduce }: { reduce: boolean }) {
-  // Canonical Konohagakure symbol: a bold spiral with a horizontal tail
-  // cutting through the lower half. Built with SVG mask + evenodd so the
-  // metallic fill sits inside the glyph silhouette.
+  // Path approximates the classic Konohagakure swirl: an outer sweep
+  // opening to the right, a curled spiral, and a small triangular tail
+  // at the lower-left — the way it reads in the show, not a donut.
+  const konohaPath =
+    "M 200 60 C 130 60 70 120 70 200 C 70 280 130 340 210 340 C 300 340 340 280 340 220 C 340 170 305 130 260 130 C 220 130 190 160 190 200 C 190 235 215 260 250 260 C 275 260 295 245 295 220 C 295 205 285 195 270 195 C 258 195 250 205 252 218 L 236 218 C 232 190 252 170 278 172 C 314 175 335 205 330 240 C 322 285 280 310 232 302 C 178 292 148 245 158 195 C 168 145 210 112 258 120 C 320 130 355 180 350 230 C 344 300 285 348 210 348 C 128 348 62 285 62 200 C 62 118 128 52 210 52 C 214 52 218 52 222 54 L 214 76 L 178 108 L 200 60 Z";
   return (
     <motion.svg
       viewBox="0 0 400 400"
@@ -111,100 +113,115 @@ function KonohaSymbol({ reduce }: { reduce: boolean }) {
     >
       <defs>
         <linearGradient id="k-metal" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="oklch(0.95 0.02 250)" />
-          <stop offset="40%" stopColor="oklch(0.60 0.01 260)" />
-          <stop offset="70%" stopColor="oklch(0.30 0.005 260)" />
-          <stop offset="100%" stopColor="oklch(0.72 0.11 45)" />
+          <stop offset="0%" stopColor="oklch(0.96 0.02 250)" />
+          <stop offset="35%" stopColor="oklch(0.70 0.008 260)" />
+          <stop offset="65%" stopColor="oklch(0.32 0.005 260)" />
+          <stop offset="100%" stopColor="oklch(0.88 0.05 250)" />
+        </linearGradient>
+        <linearGradient id="k-shadow" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="oklch(0.10 0 0 / 0)" />
+          <stop offset="45%" stopColor="oklch(0.05 0 0 / 0.85)" />
+          <stop offset="55%" stopColor="oklch(0.05 0 0 / 0.85)" />
+          <stop offset="100%" stopColor="oklch(0.10 0 0 / 0)" />
         </linearGradient>
         <linearGradient id="k-shimmer" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="oklch(1 0 0 / 0)" />
-          <stop offset="50%" stopColor="oklch(1 0 0 / 0.6)" />
+          <stop offset="50%" stopColor="oklch(1 0 0 / 0.55)" />
           <stop offset="100%" stopColor="oklch(1 0 0 / 0)" />
         </linearGradient>
         <radialGradient id="k-glow" cx="0.5" cy="0.5" r="0.6">
-          <stop offset="0%" stopColor="oklch(0.72 0.11 45 / 0.45)" />
+          <stop offset="0%" stopColor="oklch(0.72 0.11 45 / 0.35)" />
           <stop offset="100%" stopColor="oklch(0.72 0.11 45 / 0)" />
         </radialGradient>
-
         <mask id="k-mask" maskUnits="userSpaceOnUse">
           <rect width="400" height="400" fill="black" />
-          <g fill="white" fillRule="evenodd">
-            {/* outer ring (donut) */}
-            <path d="M 200 60 a 140 140 0 1 1 -0.01 0 Z M 200 110 a 90 90 0 1 0 0.01 0 Z" />
-            {/* inner ring */}
-            <path d="M 200 150 a 50 50 0 1 1 -0.01 0 Z M 200 178 a 22 22 0 1 0 0.01 0 Z" />
-            {/* solid pupil */}
-            <circle cx="200" cy="200" r="14" />
-            {/* horizontal tail bars breaking to the right (two stems) */}
-            <path d="M 200 214 L 372 214 L 372 232 L 200 232 Z" />
-            <path d="M 200 246 L 372 246 L 372 264 L 200 264 Z" />
-          </g>
+          <path d={konohaPath} fill="white" fillRule="evenodd" />
         </mask>
+        <filter id="k-emboss" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="0.6" />
+        </filter>
       </defs>
 
-      {/* atmospheric glow */}
-      <circle cx="200" cy="215" r="180" fill="url(#k-glow)" />
+      {/* ambient glow */}
+      <circle cx="200" cy="210" r="180" fill="url(#k-glow)" />
 
-      {/* metallic fill inside the konoha silhouette */}
+      {/* metallic body inside the silhouette */}
       <g mask="url(#k-mask)">
         <rect x="0" y="0" width="400" height="400" fill="url(#k-metal)" />
-        {Array.from({ length: 40 }).map((_, i) => (
+        {/* brushed lines */}
+        {Array.from({ length: 32 }).map((_, i) => (
           <line
             key={i}
-            x1={-40 + i * 14}
+            x1={-40 + i * 16}
             y1="0"
-            x2={40 + i * 14}
+            x2={40 + i * 16}
             y2="400"
             stroke="oklch(1 0 0 / 0.05)"
             strokeWidth="0.7"
           />
         ))}
+        {/* metallic shimmer sweep */}
         {!reduce && (
           <motion.rect
             x="0"
             y="0"
-            width="180"
+            width="150"
             height="400"
             fill="url(#k-shimmer)"
-            initial={{ x: -220 }}
+            initial={{ x: -180 }}
             animate={{ x: 420 }}
+            transition={{ duration: 3.2, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
+          />
+        )}
+        {/* passing SHADOW — someone moving in the dark behind the symbol */}
+        {!reduce && (
+          <motion.rect
+            x="0"
+            y="0"
+            width="220"
+            height="400"
+            fill="url(#k-shadow)"
+            initial={{ x: -260 }}
+            animate={{ x: 440 }}
             transition={{
-              duration: 3.2,
+              duration: 5.5,
               repeat: Infinity,
-              repeatDelay: 2.2,
-              ease: "easeInOut",
+              repeatDelay: 3.5,
+              ease: [0.2, 0.7, 0.2, 1],
             }}
           />
         )}
       </g>
 
-      {/* etched outlines for definition */}
-      <g fill="none" stroke="oklch(0.95 0.02 250 / 0.5)" strokeWidth="1.1">
-        <circle cx="200" cy="200" r="140" />
-        <circle cx="200" cy="200" r="90" />
-        <circle cx="200" cy="200" r="50" />
-        <circle cx="200" cy="200" r="22" />
-        <path d="M 200 214 L 372 214 M 200 232 L 372 232 M 200 246 L 372 246 M 200 264 L 372 264" />
-      </g>
+      {/* etched silhouette outline for definition */}
+      <path
+        d={konohaPath}
+        fill="none"
+        stroke="oklch(0.95 0.02 250 / 0.55)"
+        strokeWidth="1.2"
+        filter="url(#k-emboss)"
+      />
 
+      {/* orbiting hidden-runes ring */}
       {!reduce && (
         <motion.circle
           cx="200"
           cy="200"
-          r="152"
+          r="172"
           fill="none"
-          stroke="oklch(0.98 0.02 80 / 0.3)"
-          strokeWidth="1"
-          strokeDasharray="6 14"
+          stroke="oklch(0.98 0.02 80 / 0.28)"
+          strokeWidth="0.8"
+          strokeDasharray="4 12"
           initial={{ rotate: 0 }}
           animate={{ rotate: 360 }}
-          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
           style={{ transformOrigin: "200px 200px" }}
         />
       )}
     </motion.svg>
   );
 }
+
 
 /* ============================================================
    Capability chips — micro visualizations of "what I make"
@@ -307,9 +324,75 @@ function HyperrealPortrait({ reduce }: { reduce: boolean }) {
           />
         );
       })}
+      {/* Kunai — hyper-real metallic throwing knife slicing across the frame */}
+      <defs>
+        <linearGradient id="kunai-blade" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="oklch(0.98 0.005 250)" />
+          <stop offset="45%" stopColor="oklch(0.62 0.005 260)" />
+          <stop offset="80%" stopColor="oklch(0.22 0.005 260)" />
+          <stop offset="100%" stopColor="oklch(0.86 0.008 250)" />
+        </linearGradient>
+        <linearGradient id="kunai-edge" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="oklch(1 0 0 / 0)" />
+          <stop offset="50%" stopColor="oklch(1 0 0 / 0.9)" />
+          <stop offset="100%" stopColor="oklch(1 0 0 / 0)" />
+        </linearGradient>
+      </defs>
+      <motion.g
+        initial={reduce ? { x: 0, opacity: 1 } : { x: -30, opacity: 0, rotate: -8 }}
+        whileInView={
+          reduce
+            ? undefined
+            : { x: 0, opacity: 1, rotate: 0 }
+        }
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 1.2, delay: 0.4, ease: [0.2, 0.7, 0.2, 1] }}
+        style={{ transformOrigin: "60px 60px" }}
+      >
+        <g transform="translate(20 34) rotate(-18)">
+          {/* blade */}
+          <path
+            d="M 0 6 L 44 0 L 60 6 L 44 12 Z"
+            fill="url(#kunai-blade)"
+            stroke="oklch(0.05 0 0 / 0.7)"
+            strokeWidth="0.3"
+          />
+          {/* center ridge */}
+          <path d="M 4 6 L 56 6" stroke="oklch(1 0 0 / 0.4)" strokeWidth="0.3" />
+          {/* wrapped grip */}
+          <rect x="-14" y="4" width="16" height="4" rx="1" fill="oklch(0.16 0.005 260)" />
+          {[0, 1, 2, 3].map((k) => (
+            <line
+              key={k}
+              x1={-13 + k * 4}
+              y1="4"
+              x2={-11 + k * 4}
+              y2="8"
+              stroke="oklch(0.72 0.11 45 / 0.6)"
+              strokeWidth="0.3"
+            />
+          ))}
+          {/* pommel ring */}
+          <circle cx="-18" cy="6" r="3" fill="none" stroke="oklch(0.86 0.008 250)" strokeWidth="0.6" />
+          {/* moving edge glint */}
+          {!reduce && (
+            <motion.rect
+              x="0"
+              y="4"
+              width="12"
+              height="4"
+              fill="url(#kunai-edge)"
+              initial={{ x: -4 }}
+              animate={{ x: 56 }}
+              transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 1.6, ease: "easeInOut" }}
+            />
+          )}
+        </g>
+      </motion.g>
     </svg>
   );
 }
+
 
 function GenerativeGrid({ reduce }: { reduce: boolean }) {
   // prompt → 4 candidate frames appearing
@@ -728,7 +811,7 @@ function CustomerInsightsScene({
           ))}
         </div>
 
-        <div className="space-y-6 border-l border-hairline pl-8">
+        <div className="space-y-6 border-hairline pt-8 md:border-l md:pl-8 md:pt-0">
           <div>
             <div className="text-eyebrow text-silver-dim">
               O que a comunidade revela
@@ -784,96 +867,232 @@ function CustomerInsightsScene({
           </div>
         </div>
       </div>
+
+      {/* Partners strip — Garmin, Wellhub, Federação Mineira de Triathlon */}
+      <div className="hairline-t relative border-t border-hairline p-8 md:p-14 md:pt-12">
+        <div className="flex items-baseline justify-between">
+          <div className="text-eyebrow text-copper">Ecossistema do atleta</div>
+          <div className="font-mono text-[0.6rem] uppercase tracking-[0.24em] text-silver-dim">
+            Wearable · Wellness · Federação
+          </div>
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              brand: "Garmin",
+              tag: "Wearable",
+              claim: "Dado bruto do corpo, do treino e da prova.",
+              color: "oklch(0.72 0.17 200)",
+              node: (
+                <svg viewBox="0 0 120 60" className="h-full w-full">
+                  <defs>
+                    <linearGradient id="grm" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="oklch(0.5 0.14 200)" />
+                      <stop offset="100%" stopColor="oklch(0.85 0.16 195)" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="120" height="60" fill="oklch(0.10 0 0)" />
+                  <motion.polyline
+                    points="0,42 12,42 18,28 26,52 34,20 44,38 56,10 68,44 80,30 92,36 104,22 120,32"
+                    fill="none"
+                    stroke="url(#grm)"
+                    strokeWidth="1.6"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.8, ease: [0.2, 0.7, 0.2, 1] }}
+                  />
+                  <motion.circle
+                    cx="56"
+                    cy="10"
+                    r="2.4"
+                    fill="oklch(0.9 0.18 200)"
+                    animate={{ opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 1.8, repeat: Infinity }}
+                  />
+                </svg>
+              ),
+            },
+            {
+              brand: "Wellhub",
+              tag: "Wellness",
+              claim: "Rotina, recuperação e bem-estar como jornada.",
+              color: "oklch(0.78 0.19 145)",
+              node: (
+                <svg viewBox="0 0 120 60" className="h-full w-full">
+                  <rect width="120" height="60" fill="oklch(0.10 0 0)" />
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <motion.circle
+                      key={i}
+                      cx={20 + i * 20}
+                      cy="30"
+                      r="6"
+                      fill="none"
+                      stroke="oklch(0.78 0.19 145)"
+                      strokeWidth="1.2"
+                      animate={{ r: [4, 10, 4], opacity: [0.4, 0.9, 0.4] }}
+                      transition={{ duration: 2.4, delay: i * 0.25, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  ))}
+                </svg>
+              ),
+            },
+            {
+              brand: "FMTri · MG",
+              tag: "Federação",
+              claim: "Comunidade oficial: prova, ranking e legado do esporte.",
+              color: "oklch(0.75 0.15 65)",
+              node: (
+                <svg viewBox="0 0 120 60" className="h-full w-full">
+                  <rect width="120" height="60" fill="oklch(0.10 0 0)" />
+                  <motion.polygon
+                    points="60,10 90,50 30,50"
+                    fill="none"
+                    stroke="oklch(0.75 0.15 65)"
+                    strokeWidth="1.4"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    whileInView={{ pathLength: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.6 }}
+                  />
+                  <motion.circle
+                    cx="60"
+                    cy="34"
+                    r="4"
+                    fill="oklch(0.9 0.15 65)"
+                    animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    style={{ transformOrigin: "60px 34px" }}
+                  />
+                </svg>
+              ),
+            },
+          ].map((p, i) => (
+            <motion.div
+              key={p.brand}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.2, 0.7, 0.2, 1] }}
+              className="group relative overflow-hidden border border-hairline bg-background/60 p-4 transition-colors hover:border-[color:var(--pc)]"
+              style={{ ["--pc" as string]: p.color } as React.CSSProperties}
+            >
+              <div className="aspect-[2/1] w-full overflow-hidden rounded-sm border border-hairline">
+                {p.node}
+              </div>
+              <div className="mt-4 flex items-baseline justify-between">
+                <div className="font-display text-xl text-foreground">{p.brand}</div>
+                <div
+                  className="font-mono text-[0.6rem] uppercase tracking-[0.22em]"
+                  style={{ color: p.color }}
+                >
+                  {p.tag}
+                </div>
+              </div>
+              <p className="mt-2 text-sm text-silver-dim">{p.claim}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </article>
   );
 }
+
 
 
 /* ============================================================
    GERANDO FALCÕES · flapping falcon
    ============================================================ */
 function FalconWings({ reduce }: { reduce: boolean }) {
-  // Two symmetric wings + small body triangle, wings flap on Y axis.
-  const wingLeft = "M 200 130 C 150 90, 90 100, 30 140 C 90 130, 140 140, 200 150 Z";
-  const wingRight = "M 200 130 C 250 90, 310 100, 370 140 C 310 130, 260 140, 200 150 Z";
-  const flap = reduce ? {} : { scaleY: [1, 0.35, 1] };
+  // Modern minimal falcon: clean swept silhouette, layered feather cuts,
+  // subtle metallic gradient, animated wing flap + gentle bob.
   return (
-    <svg viewBox="0 0 400 260" className="h-full w-full max-w-[520px]" aria-hidden>
+    <svg viewBox="0 0 480 300" className="h-full w-full max-w-[560px]" aria-hidden>
       <defs>
-        <linearGradient id="falcon-metal" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="oklch(0.28 0.005 260)" />
-          <stop offset="50%" stopColor="oklch(0.92 0.01 80)" />
-          <stop offset="100%" stopColor="oklch(0.28 0.005 260)" />
+        <linearGradient id="fx-metal" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="oklch(0.95 0.01 250)" />
+          <stop offset="45%" stopColor="oklch(0.58 0.005 260)" />
+          <stop offset="100%" stopColor="oklch(0.22 0.005 260)" />
         </linearGradient>
-        <radialGradient id="falcon-sun" cx="0.5" cy="0.55" r="0.5">
+        <linearGradient id="fx-copper" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="oklch(0.72 0.11 45 / 0)" />
+          <stop offset="50%" stopColor="oklch(0.75 0.13 45 / 0.9)" />
+          <stop offset="100%" stopColor="oklch(0.72 0.11 45 / 0)" />
+        </linearGradient>
+        <radialGradient id="fx-sun" cx="0.5" cy="0.55" r="0.55">
           <stop offset="0%" stopColor="oklch(0.72 0.11 45 / 0.35)" />
           <stop offset="100%" stopColor="oklch(0.72 0.11 45 / 0)" />
         </radialGradient>
       </defs>
 
-      {/* warm glow behind */}
-      <circle cx="200" cy="150" r="150" fill="url(#falcon-sun)" />
+      <circle cx="240" cy="170" r="180" fill="url(#fx-sun)" />
 
-      {/* horizon line */}
-      <motion.line
-        x1="20"
-        y1="220"
-        x2="380"
-        y2="220"
-        stroke="oklch(0.86 0.008 250 / 0.15)"
-        strokeWidth="0.8"
-        initial={{ pathLength: 0 }}
-        whileInView={{ pathLength: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2, ease: [0.2, 0.7, 0.2, 1] }}
-      />
+      {/* thin horizon */}
+      <line x1="30" y1="248" x2="450" y2="248" stroke="url(#fx-copper)" strokeWidth="0.8" />
 
-      {/* trailing motion arcs */}
-      {!reduce &&
-        [0, 1, 2].map((i) => (
-          <motion.path
-            key={i}
-            d={`M ${60 + i * 8} ${180 + i * 6} Q 200 ${160 - i * 8}, ${340 - i * 8} ${180 + i * 6}`}
-            fill="none"
-            stroke="oklch(0.86 0.008 250 / 0.12)"
-            strokeWidth="0.6"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: [0, 1, 0], opacity: [0, 0.6, 0] }}
-            transition={{ duration: 3.2, delay: i * 0.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-        ))}
-
-      {/* flapping bird — wings share the same origin at 200,140 */}
+      {/* gentle vertical bob for the whole bird */}
       <motion.g
-        initial={reduce ? undefined : { y: -6 }}
-        animate={reduce ? undefined : { y: [-6, 4, -6] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-        style={{ transformOrigin: "200px 140px" }}
+        style={{ transformOrigin: "240px 160px" }}
+        initial={reduce ? undefined : { y: -4 }}
+        animate={reduce ? undefined : { y: [-6, 6, -6] }}
+        transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
       >
-        {/* left wing */}
-        <motion.path
-          d={wingLeft}
-          fill="url(#falcon-metal)"
-          animate={flap}
-          transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-          style={{ transformOrigin: "200px 140px", transformBox: "fill-box" as const }}
-        />
-        {/* right wing */}
-        <motion.path
-          d={wingRight}
-          fill="url(#falcon-metal)"
-          animate={flap}
-          transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-          style={{ transformOrigin: "200px 140px", transformBox: "fill-box" as const }}
-        />
-        {/* body / head triangle */}
+        {/* LEFT WING — pivot at body */}
+        <motion.g
+          style={{ transformOrigin: "240px 158px" }}
+          animate={reduce ? undefined : { rotate: [-6, 12, -6], scaleY: [1, 0.82, 1] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <path
+            d="M 240 152 C 200 128, 140 118, 60 132 C 130 148, 180 158, 236 168 Z"
+            fill="url(#fx-metal)"
+          />
+          {/* feather cuts */}
+          <path d="M 216 156 L 168 148" stroke="oklch(0.12 0 0 / 0.55)" strokeWidth="0.9" />
+          <path d="M 200 160 L 132 154" stroke="oklch(0.12 0 0 / 0.4)" strokeWidth="0.8" />
+          <path d="M 184 164 L 96 160" stroke="oklch(0.12 0 0 / 0.3)" strokeWidth="0.7" />
+        </motion.g>
+
+        {/* RIGHT WING */}
+        <motion.g
+          style={{ transformOrigin: "240px 158px" }}
+          animate={reduce ? undefined : { rotate: [6, -12, 6], scaleY: [1, 0.82, 1] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <path
+            d="M 240 152 C 280 128, 340 118, 420 132 C 350 148, 300 158, 244 168 Z"
+            fill="url(#fx-metal)"
+          />
+          <path d="M 264 156 L 312 148" stroke="oklch(0.12 0 0 / 0.55)" strokeWidth="0.9" />
+          <path d="M 280 160 L 348 154" stroke="oklch(0.12 0 0 / 0.4)" strokeWidth="0.8" />
+          <path d="M 296 164 L 384 160" stroke="oklch(0.12 0 0 / 0.3)" strokeWidth="0.7" />
+        </motion.g>
+
+        {/* BODY — sleek teardrop with beak */}
         <path
-          d="M 188 140 L 212 140 L 200 168 Z"
-          fill="oklch(0.18 0.005 260)"
-          stroke="oklch(0.92 0.01 80 / 0.5)"
+          d="M 240 148 C 232 148, 226 156, 226 168 L 232 200 C 236 208, 244 208, 248 200 L 254 168 C 254 156, 248 148, 240 148 Z"
+          fill="oklch(0.14 0.005 260)"
+          stroke="oklch(0.86 0.008 250 / 0.5)"
           strokeWidth="0.6"
         />
+        {/* head accent */}
+        <circle cx="240" cy="156" r="3" fill="oklch(0.72 0.11 45)" />
+        {/* beak */}
+        <path d="M 238 150 L 240 144 L 242 150 Z" fill="oklch(0.72 0.11 45)" />
       </motion.g>
+
+      {/* copper trailing sweep behind body */}
+      {!reduce && (
+        <motion.path
+          d="M 60 210 Q 240 160 420 210"
+          fill="none"
+          stroke="url(#fx-copper)"
+          strokeWidth="0.9"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: [0, 1, 0], opacity: [0, 0.7, 0] }}
+          transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
+        />
+      )}
     </svg>
   );
 }
@@ -893,7 +1112,17 @@ function FalcoesScene({
 }) {
   const reduce = !!useReducedMotion();
   return (
-    <article className="relative overflow-hidden border border-hairline bg-graphite/30">
+    <article className="group/falcao relative overflow-hidden border border-hairline bg-graphite/30 transition-all duration-500 hover:border-copper/60 hover:shadow-[0_0_0_1px_oklch(0.72_0.11_45/0.5),0_20px_80px_-20px_oklch(0.72_0.11_45/0.35)]">
+      {/* animated hover glow ring */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-500 group-hover/falcao:opacity-100"
+        style={{
+          background:
+            "conic-gradient(from 120deg, oklch(0.72 0.11 45 / 0.45), transparent 30%, oklch(0.86 0.008 250 / 0.35) 60%, transparent 85%, oklch(0.72 0.11 45 / 0.45))",
+          filter: "blur(14px)",
+        }}
+      />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -904,8 +1133,11 @@ function FalcoesScene({
       />
       <div className="relative grid gap-10 p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-16 md:p-14">
         <div className="relative">
-          {/* Small bird flying across the header */}
-          <FlyingBird reduce={reduce} />
+          {/* Flock of small birds crossing the header at varied heights */}
+          <FlyingBird reduce={reduce} delay={0} top="-1rem" duration={9} size="lg" />
+          <FlyingBird reduce={reduce} delay={2.4} top="1.2rem" duration={11} size="sm" />
+          <FlyingBird reduce={reduce} delay={4.8} top="-2.2rem" duration={10.5} size="sm" />
+          <FlyingBird reduce={reduce} delay={6.6} top="2.4rem" duration={12} size="sm" />
           <div className="text-eyebrow text-copper">{theme}</div>
           <h3 className="mt-3 font-display text-4xl leading-[1.05] text-foreground md:text-6xl">
             {name}
@@ -928,11 +1160,26 @@ function FalcoesScene({
   );
 }
 
-function FlyingBird({ reduce }: { reduce: boolean }) {
+
+function FlyingBird({
+  reduce,
+  delay = 0,
+  top = "-1rem",
+  duration = 9,
+  size = "sm",
+}: {
+  reduce: boolean;
+  delay?: number;
+  top?: string;
+  duration?: number;
+  size?: "sm" | "lg";
+}) {
+  const sizeCls = size === "lg" ? "h-6 w-10 md:h-8 md:w-12" : "h-4 w-7 md:h-5 md:w-9";
   return (
     <motion.div
       aria-hidden
-      className="pointer-events-none absolute -top-4 left-0 text-copper"
+      className="pointer-events-none absolute left-0 text-copper"
+      style={{ top }}
       initial={reduce ? undefined : { x: -40, y: 0, opacity: 0 }}
       animate={
         reduce
@@ -944,7 +1191,8 @@ function FlyingBird({ reduce }: { reduce: boolean }) {
             }
       }
       transition={{
-        duration: 9,
+        duration,
+        delay,
         repeat: Infinity,
         ease: "easeInOut",
         times: [0, 0.15, 0.5, 0.85, 1],
@@ -952,7 +1200,7 @@ function FlyingBird({ reduce }: { reduce: boolean }) {
     >
       <motion.svg
         viewBox="0 0 40 24"
-        className="h-6 w-10 md:h-8 md:w-12"
+        className={sizeCls}
         animate={reduce ? undefined : { rotate: [-4, 4, -4] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
@@ -979,6 +1227,7 @@ function FlyingBird({ reduce }: { reduce: boolean }) {
     </motion.div>
   );
 }
+
 
 /* ============================================================
    LOUD · gaming / short-video / iGame capability scene
@@ -1199,7 +1448,36 @@ function LoudHexShield({ reduce }: { reduce: boolean }) {
 
       <path d={hex} fill="none" stroke="oklch(0.95 0.04 220 / 0.55)" strokeWidth="1.2" />
 
-      {/* inner LOUD-style diamond mark */}
+      {/* Green rune ring — LoL Summoner's Rift vibe */}
+      <g style={{ transformOrigin: "200px 210px" }}>
+        <motion.circle
+          cx="200"
+          cy="210"
+          r="88"
+          fill="none"
+          stroke="oklch(0.78 0.19 155 / 0.55)"
+          strokeWidth="1.2"
+          strokeDasharray="3 7"
+          initial={{ rotate: 0 }}
+          animate={reduce ? undefined : { rotate: 360 }}
+          transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "200px 210px" }}
+        />
+        <motion.circle
+          cx="200"
+          cy="210"
+          r="70"
+          fill="none"
+          stroke="oklch(0.62 0.17 155 / 0.35)"
+          strokeWidth="0.8"
+          initial={{ rotate: 0 }}
+          animate={reduce ? undefined : { rotate: -360 }}
+          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "200px 210px" }}
+        />
+      </g>
+
+      {/* Emerald hex core */}
       <motion.g
         style={{ transformOrigin: "200px 210px" }}
         initial={reduce ? undefined : { scale: 0.85, opacity: 0 }}
@@ -1208,22 +1486,44 @@ function LoudHexShield({ reduce }: { reduce: boolean }) {
         transition={{ duration: 1.4, delay: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
       >
         <polygon
-          points="200,140 260,210 200,280 140,210"
-          fill="oklch(0.14 0.01 260 / 0.6)"
-          stroke="oklch(0.95 0.04 220 / 0.8)"
-          strokeWidth="1.4"
+          points="200,150 254,180 254,240 200,270 146,240 146,180"
+          fill="oklch(0.18 0.06 155 / 0.75)"
+          stroke="oklch(0.82 0.19 150 / 0.9)"
+          strokeWidth="1.6"
         />
         <polygon
-          points="200,168 240,210 200,252 160,210"
+          points="200,170 236,190 236,230 200,250 164,230 164,190"
           fill="none"
-          stroke="oklch(0.72 0.16 220 / 0.8)"
+          stroke="oklch(0.90 0.20 150 / 0.6)"
           strokeWidth="0.9"
         />
-        <circle cx="200" cy="210" r="6" fill="oklch(0.9 0.14 220)" />
+        {/* Crossed swords — game emblem */}
+        <g stroke="oklch(0.94 0.13 90)" strokeLinecap="round">
+          <g transform="translate(200 210) rotate(45) translate(-200 -210)">
+            <line x1="200" y1="160" x2="200" y2="260" strokeWidth="3" />
+            <polygon points="200,150 194,168 206,168" fill="oklch(0.94 0.13 90)" />
+            <rect x="192" y="256" width="16" height="4" fill="oklch(0.72 0.11 55)" />
+          </g>
+          <g transform="translate(200 210) rotate(-45) translate(-200 -210)">
+            <line x1="200" y1="160" x2="200" y2="260" strokeWidth="3" />
+            <polygon points="200,150 194,168 206,168" fill="oklch(0.94 0.13 90)" />
+            <rect x="192" y="256" width="16" height="4" fill="oklch(0.72 0.11 55)" />
+          </g>
+        </g>
+        {/* pulsing emerald core */}
+        <motion.circle
+          cx="200"
+          cy="210"
+          r="8"
+          fill="oklch(0.88 0.20 150)"
+          animate={reduce ? undefined : { opacity: [0.6, 1, 0.6], r: [7, 10, 7] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+        />
       </motion.g>
     </svg>
   );
 }
+
 
 function LoudScene({
   name,
