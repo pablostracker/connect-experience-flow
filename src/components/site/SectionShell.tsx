@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useMounted } from "@/hooks/use-mounted";
 
 export function SectionShell({
   id,
@@ -17,8 +18,9 @@ export function SectionShell({
   titleFx?: "rainbow-bounce";
 }) {
   const reduce = useReducedMotion();
+  const mounted = useMounted();
   const rise = (delay = 0) =>
-    reduce
+    reduce || !mounted
       ? {}
       : {
           initial: { opacity: 0, y: 28 },

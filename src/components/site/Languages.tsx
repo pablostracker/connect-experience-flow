@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useT } from "@/i18n";
 import { SectionShell } from "./SectionShell";
+import { useMounted } from "@/hooks/use-mounted";
 
 // Native greetings + cultural tribute per language
 const CULTURE: Record<
@@ -162,7 +163,9 @@ function WavingFlag({
 
 export function Languages() {
   const t = useT();
-  const reduce = !!useReducedMotion();
+  const reducedPref = !!useReducedMotion();
+  const mounted = useMounted();
+  const reduce = reducedPref || !mounted;
   const [open, setOpen] = useState<string | null>(null);
 
   return (
@@ -293,10 +296,6 @@ export function Languages() {
           );
         })}
       </ul>
-      <p className="mt-6 text-xs text-silver-dim">
-        <span className="font-mono uppercase tracking-[0.2em] text-copper">↕</span>{" "}
-        Clique em cada bandeira para uma saudação nativa e uma pequena homenagem.
-      </p>
     </SectionShell>
   );
 }
