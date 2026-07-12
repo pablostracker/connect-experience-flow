@@ -125,14 +125,32 @@ export function Hero() {
             >
               Silva
             </motion.span>{" "}
-            <motion.span
-              initial={reduce ? undefined : { opacity: 0, y: 30, filter: "blur(16px)", letterSpacing: "0.2em" }}
-              animate={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)", letterSpacing: "-0.03em" }}
-              transition={{ duration: 1.4, delay: 1.1, ease: [0.2, 0.7, 0.2, 1] }}
-              className="inline-block"
-            >
-              Dutra
-            </motion.span>
+            <span className="inline-block align-baseline">
+              {Array.from("Dutra").map((ch, i) => (
+                <motion.span
+                  key={i}
+                  initial={
+                    reduce
+                      ? undefined
+                      : { opacity: 0, y: 40, filter: "blur(14px)", scaleY: 0.6 }
+                  }
+                  animate={
+                    reduce
+                      ? undefined
+                      : { opacity: 1, y: 0, filter: "blur(0px)", scaleY: 1 }
+                  }
+                  transition={{
+                    duration: 0.9,
+                    delay: 1.1 + i * 0.18,
+                    ease: [0.2, 0.7, 0.2, 1],
+                  }}
+                  className="metallic-letter inline-block"
+                  style={{ transformOrigin: "50% 100%" }}
+                >
+                  {ch}
+                </motion.span>
+              ))}
+            </span>
           </span>
         </h1>
 
