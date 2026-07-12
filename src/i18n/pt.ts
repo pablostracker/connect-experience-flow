@@ -24,7 +24,7 @@ export const pt = {
   },
   profile: {
     label: "Perfil executivo",
-    title: "Estratégia, receita, cliente, dados e tecnologia — em um único sistema.",
+    title: "Estratégia, receita, cliente, dados e tecnologia, em um único sistema.",
     p1:
       "Líder de Customer Success, Customer Experience e Operações com experiência em gestão de times, carteiras e jornadas de alta complexidade. Atua conectando estratégia, receita, experiência do cliente, dados e tecnologia para diagnosticar gargalos, estruturar processos e acelerar performance.",
     p2:
@@ -44,7 +44,7 @@ export const pt = {
     label: "O que eu conecto",
     title: "Quatro territórios, um sistema.",
     intro:
-      "Não trabalho dentro de uma categoria. Trabalho na interseção — onde pessoas, operação, dados e IA deixam de competir e começam a se potencializar.",
+      "Não trabalho dentro de uma categoria. Trabalho na interseção, onde pessoas, operação, dados e IA deixam de competir e começam a se potencializar.",
     territories: [
       {
         id: "people",
@@ -105,7 +105,7 @@ export const pt = {
       company: "V4 Company · Hicryo",
       kicker: "Case franquias · medicina regenerativa",
       body:
-        "Participação na implantação da frente de franquias no segmento de medicina regenerativa — traduzindo relacionamento e diagnóstico em receita nova.",
+        "Participação na implantação da frente de franquias no segmento de medicina regenerativa, traduzindo relacionamento e diagnóstico em receita nova.",
       pulls: [
         { value: "5", caption: "Franquias comercializadas" },
         { value: "R$ 16 mil", caption: "Capital por unidade" },
@@ -139,13 +139,13 @@ export const pt = {
         { label: "Renovações", value: "0 / 62", meta: "156 oportunidades", pct: 0 },
       ],
       analysts: [
-        { name: "Breno Guimarães", carteira: 109, real: 102895.61, meta: 345033.51, status: "CRITICO" as const, insight: "Maior potencial de receita da squad — priorizar ativação de contas dormentes." },
-        { name: "Lauryen Honiele", carteira: 132, real: 86984.39, meta: 250863.66, status: "CRITICO" as const, insight: "% lojas faturando em 35,6% (meta 60%) — playbook de ativação da base." },
-        { name: "Vivian Alvarenga", carteira: 110, real: 61674.05, meta: 224452.33, status: "CRITICO" as const, insight: "Renovação parada em 55 oportunidades — rotina de contato com carteira em risco." },
-        { name: "Talles Hanrry", carteira: 14, real: 7610.64, meta: 0, status: "ATENCAO" as const, insight: "Carteira em rampagem — foco em primeira compra e onboarding." },
+        { name: "Breno Guimarães", carteira: 109, real: 102895.61, meta: 345033.51, status: "CRITICO" as const, insight: "Maior potencial de receita da squad, priorizar ativação de contas dormentes." },
+        { name: "Lauryen Honiele", carteira: 132, real: 86984.39, meta: 250863.66, status: "CRITICO" as const, insight: "% lojas faturando em 35,6% (meta 60%), playbook de ativação da base." },
+        { name: "Vivian Alvarenga", carteira: 110, real: 61674.05, meta: 224452.33, status: "CRITICO" as const, insight: "Renovação parada em 55 oportunidades, rotina de contato com carteira em risco." },
+        { name: "Talles Hanrry", carteira: 14, real: 7610.64, meta: 0, status: "ATENCAO" as const, insight: "Carteira em rampagem, foco em primeira compra e onboarding." },
       ],
       closing:
-        "O painel não é decoração. Cada indicador virou um insight e cada insight virou um próximo passo do time — do playbook de ativação à rotina de renovação.",
+        "O painel não é decoração. Cada indicador virou um insight e cada insight virou um próximo passo do time, do playbook de ativação à rotina de renovação.",
     },
   },
 
@@ -171,7 +171,7 @@ export const pt = {
           "Atuação como guardião da comunicação estratégica.",
         ],
         result:
-          "Resultados detalhados na seção de Impacto — crescimento, atingimento de meta de importação, SKUs ativos, onboarding e faturamento da base ativa.",
+          "Resultados detalhados na seção de Impacto, crescimento, atingimento de meta de importação, SKUs ativos, onboarding e faturamento da base ativa.",
       },
       {
         id: "estrelabet",
@@ -179,7 +179,7 @@ export const pt = {
         role: "Consultor de Customer Experience Pleno · iGaming",
         period: "mar/2025 – fev/2026",
         context:
-          "Atuação estratégica em uma das maiores operadoras de iGaming do país, responsável pela gestão técnica da jornada do jogador e por operações de suporte N2/N3 — com foco em integridade de apostas, compliance, retenção e satisfação.",
+          "Atuação estratégica em uma das maiores operadoras de iGaming do país, responsável pela gestão técnica da jornada do jogador e por operações de suporte N2/N3, com foco em integridade de apostas, compliance, retenção e satisfação.",
         scopeLabel: "Frentes técnicas",
         scope: [
           "Gestão técnica de Sportsbook: validação de odds, liquidação de mercados complexos (Handicap Asiático/Europeu, Totals, Player Props) e regras de Cash Out em parceria com Trading e Risco.",
@@ -205,7 +205,7 @@ export const pt = {
           "Gestão de relacionamento e satisfação.",
           "Análise de reputação e Reclame Aqui.",
           "Desenvolvimento da jornada de potenciais franqueados.",
-          "Envio da Circular de Oferta de Franquia — COF.",
+          "Envio da Circular de Oferta de Franquia, COF.",
           "Acompanhamento das etapas de expansão.",
         ],
         result:
@@ -252,7 +252,7 @@ export const pt = {
     ],
     trajectoryLabel: "Trajetória completa",
     trajectoryIntro:
-      "Dezessete passagens conectando telecom, e-commerce, mobilidade, SaaS, franquias, iGaming e economia digital — a linha do tempo por trás dos cases.",
+      "Dezessete passagens conectando telecom, e-commerce, mobilidade, SaaS, franquias, iGaming e economia digital, a linha do tempo por trás dos cases.",
     trajectory: [
       { period: "abr/2026 – atual", company: "Grupo ROI", role: "Supervisor de Sucesso do Cliente Ongoing", tag: "Liderança" },
       { period: "mar/2025 – fev/2026", company: "EstrelaBet", role: "Consultor de Customer Experience · iGaming", tag: "iGaming" },
@@ -277,7 +277,7 @@ export const pt = {
     label: "Idiomas",
     title: "Cinco idiomas, cinco portas.",
     intro:
-      "Comunicação real com times, clientes e comunidades — do compliance regulatório em iGaming à sala de aula em Libras.",
+      "Comunicação real com times, clientes e comunidades, do compliance regulatório em iGaming à sala de aula em Libras.",
     items: [
       { name: "Português", level: "Nativo", pct: 1.0, flag: "🇧🇷", code: "PT" },
       { name: "Italiano", level: "Nativo", pct: 1.0, flag: "🇮🇹", code: "IT" },
@@ -291,7 +291,7 @@ export const pt = {
     label: "Stack tecnológico",
     title: "Ferramentas viram resultado quando alguém sabe conectá-las.",
     intro:
-      "Um mapa de capacidades — o que uso, para que uso, e qual resultado de negócio isso gera.",
+      "Um mapa de capacidades, o que uso, para que uso, e qual resultado de negócio isso gera.",
     clusters: [
       {
         id: "crm",
@@ -398,7 +398,7 @@ export const pt = {
         inst: "Atlanta College of Liberal Arts and Sciences",
         period: "2026",
         focus:
-          "Fundamentos de machine learning, LLMs, engenharia de prompts, RAG, avaliação de modelos e desenho de sistemas com IA em produção — do protótipo ao deploy responsável.",
+          "Fundamentos de machine learning, LLMs, engenharia de prompts, RAG, avaliação de modelos e desenho de sistemas com IA em produção, do protótipo ao deploy responsável.",
       },
       {
         title: "MBA em Gerenciamento de Projetos",
@@ -455,7 +455,7 @@ export const pt = {
     label: "Contato",
     title: "Vamos construir algo?",
     body:
-      "Se algo aqui ressoou, o próximo passo é uma conversa curta. Escolha o canal — respondo no mesmo dia útil.",
+      "Se algo aqui ressoou, o próximo passo é uma conversa curta. Escolha o canal, respondo no mesmo dia útil.",
     email: "pablosilvautra@gmail.com",
     whatsappDisplay: "+55 31 98466-8908",
     whatsappHref: "https://wa.me/5531984668908",
