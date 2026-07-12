@@ -1,5 +1,26 @@
-import { MessageCircle, Mail, Linkedin, MessageSquare, Send, Gamepad2, Smartphone } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { MessageCircle, Mail, Linkedin, Send, Gamepad2, Smartphone } from "lucide-react";
+import type { LucideIcon, LucideProps } from "lucide-react";
+import { forwardRef } from "react";
+
+// Official Discord "Clyde" mark (simplified path, brand-accurate silhouette).
+const DiscordIcon: LucideIcon = forwardRef<SVGSVGElement, LucideProps>(
+  ({ size = 24, color = "currentColor", strokeWidth: _sw, absoluteStrokeWidth: _asw, ...rest }, ref) => (
+    <svg
+      ref={ref}
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={color}
+      aria-hidden="true"
+      {...rest}
+    >
+      <path d="M20.317 4.369A19.79 19.79 0 0 0 16.558 3.2a.075.075 0 0 0-.079.037c-.34.607-.719 1.4-.984 2.023a18.27 18.27 0 0 0-5.487 0 12.63 12.63 0 0 0-.997-2.023.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 5.176 4.37a.07.07 0 0 0-.032.027C2.03 9.045 1.17 13.579 1.59 18.057a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.028.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.105 13.11 13.11 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.009c.12.099.246.198.373.292a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.891.076.076 0 0 0-.04.106c.36.698.772 1.362 1.225 1.994a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.028.077.077 0 0 0 .032-.055c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.331c-1.183 0-2.157-1.086-2.157-2.42 0-1.334.955-2.42 2.157-2.42 1.21 0 2.176 1.096 2.157 2.42 0 1.334-.956 2.42-2.157 2.42zm7.975 0c-1.183 0-2.157-1.086-2.157-2.42 0-1.334.955-2.42 2.157-2.42 1.21 0 2.176 1.096 2.157 2.42 0 1.334-.947 2.42-2.157 2.42z" />
+    </svg>
+  )
+) as unknown as LucideIcon;
+DiscordIcon.displayName = "DiscordIcon";
+
 import { useT } from "@/i18n";
 import { SectionShell } from "./SectionShell";
 
@@ -53,7 +74,7 @@ export function Contact() {
       href: "#",
       detail: t.contact.discord,
       external: false,
-      icon: MessageSquare,
+      icon: DiscordIcon,
       color: "oklch(0.66 0.17 275)",
     },
     {

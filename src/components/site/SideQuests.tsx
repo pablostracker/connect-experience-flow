@@ -917,10 +917,10 @@ function CustomerInsightsScene({
               brand: "Wellhub",
               tag: "Wellness",
               claim: "Rotina, recuperação e bem-estar como jornada.",
-              color: "oklch(0.78 0.19 145)",
+              color: "oklch(0.72 0.28 350)",
               node: (
                 <svg viewBox="0 0 120 60" className="h-full w-full">
-                  <rect width="120" height="60" fill="oklch(0.10 0 0)" />
+                  <rect width="120" height="60" fill="oklch(0.10 0.02 350)" />
                   {[0, 1, 2, 3, 4].map((i) => (
                     <motion.circle
                       key={i}
@@ -928,9 +928,9 @@ function CustomerInsightsScene({
                       cy="30"
                       r="6"
                       fill="none"
-                      stroke="oklch(0.78 0.19 145)"
-                      strokeWidth="1.2"
-                      animate={{ r: [4, 10, 4], opacity: [0.4, 0.9, 0.4] }}
+                      stroke="oklch(0.75 0.28 350)"
+                      strokeWidth="1.4"
+                      animate={{ r: [4, 10, 4], opacity: [0.4, 1, 0.4] }}
                       transition={{ duration: 2.4, delay: i * 0.25, repeat: Infinity, ease: "easeInOut" }}
                     />
                   ))}

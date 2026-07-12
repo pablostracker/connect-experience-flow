@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useT } from "@/i18n";
 import { SectionShell } from "./SectionShell";
+import { useMounted } from "@/hooks/use-mounted";
 
 // Node positions in a 4x2 grid, in normalized SVG coords (0-100)
 const NODES = [
@@ -23,7 +24,10 @@ const LINKS: [number, number][] = [
 
 export function WhatIConnect() {
   const t = useT();
-  const reduce = !!useReducedMotion();
+  const reducedPref = !!useReducedMotion();
+  const mounted = useMounted();
+  // Only enable motion after mount, so SSR + first client render agree.
+  const reduce = reducedPref || !mounted;
   const [active, setActive] = useState<string | null>(null);
 
   return (
