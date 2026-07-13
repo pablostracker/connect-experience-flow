@@ -33,7 +33,7 @@ export function AILab() {
               transition={{ duration: 0.9, delay: i * 0.12, ease: [0.2, 0.7, 0.2, 1] }}
               onMouseEnter={() => setActive(c.id)}
               onMouseLeave={() => setActive(null)}
-              className={`grid grid-cols-1 gap-8 bg-background p-8 transition-opacity duration-500 md:grid-cols-[minmax(0,1.1fr)_minmax(0,2.6fr)_minmax(0,0.9fr)] md:items-start md:gap-12 md:p-12 ${
+              className={`grid grid-cols-1 gap-10 bg-background p-8 transition-opacity duration-500 md:grid-cols-[minmax(0,0.9fr)_minmax(0,2.4fr)_minmax(0,0.9fr)] md:items-start md:gap-20 md:p-14 ${
                 dim ? "opacity-40" : "opacity-100"
               }`}
             >
