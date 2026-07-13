@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useT } from "@/i18n";
 import { SectionShell } from "./SectionShell";
 import { useMounted } from "@/hooks/use-mounted";
@@ -22,13 +22,54 @@ const LINKS: [number, number][] = [
   [2, 3],
 ];
 
+const CONTEXT = {
+  people: {
+    eyebrow: "01 · Pessoas",
+    title: "Liderança que transforma repertório em ritmo de execução.",
+    body:
+      "Conecto desenvolvimento, comunicação e leitura de contexto para criar times com autonomia, clareza de prioridade e maturidade para lidar com carteira, conflito e evolução de jornada.",
+    points: ["Rituais de desenvolvimento", "Alinhamento entre áreas", "Comunicação executiva"],
+  },
+  ops: {
+    eyebrow: "02 · Operação",
+    title: "Processos vivos para receita, escala e previsibilidade.",
+    body:
+      "Ao clicar em Operação, o foco abre em desenho de processo, cadência, diagnóstico de gargalos e gestão de performance. É onde a estratégia vira rotina mensurável.",
+    points: ["Playbooks e rotinas", "Gestão de carteira", "Priorização por impacto"],
+  },
+  data: {
+    eyebrow: "03 · Dados",
+    title: "Dashboards que contam uma história acionável.",
+    body:
+      "Dados entram como camada de leitura: comportamento, sentimento, tickets, funil, adoção e performance. O objetivo não é só reportar, é decidir o próximo movimento.",
+    points: ["Painéis executivos", "Insights operacionais", "Leitura de tendência"],
+  },
+  ai: {
+    eyebrow: "04 · IA",
+    title: "Inteligência artificial aplicada ao trabalho real.",
+    body:
+      "Ao clicar em IA, a camada contextual mostra automação, agentes, LLMs e inteligência criativa conectados ao negócio, sem perder o senso operacional e humano da experiência.",
+    points: ["Agentes e automações", "Análise de texto e sentimento", "Produtividade assistida"],
+  },
+  "ops-ai": {
+    eyebrow: "Conexão · Operação + IA",
+    title: "Onde processos ganham inteligência contínua.",
+    body:
+      "A linha entre Operação e IA representa a transformação de rotinas manuais em sistemas assistidos: triagem, diagnóstico, playbooks, alertas, priorização e geração de próximos passos.",
+    points: ["Automação de rotinas", "Alertas de risco", "Recomendação de ação"],
+  },
+} as const;
+
+type ContextKey = keyof typeof CONTEXT;
+
 export function WhatIConnect() {
   const t = useT();
   const reducedPref = !!useReducedMotion();
   const mounted = useMounted();
   // Only enable motion after mount, so SSR + first client render agree.
   const reduce = reducedPref || !mounted;
-  const [active, setActive] = useState<string | null>(null);
+  const [active, setActive] = useState<ContextKey | null>(null);
+  const activePanel = active ? CONTEXT[active] : CONTEXT["ops-ai"];
 
   return (
     <SectionShell
@@ -39,7 +80,7 @@ export function WhatIConnect() {
       <div className="relative isolate overflow-hidden border border-hairline bg-black">
         {/* deep-space background */}
         <div
-          aria-hidden
+          aria-label="Constelação interativa entre Pessoas, Operação, Dados e IA"
           className="pointer-events-none absolute inset-0"
           style={{
             background:
@@ -87,21 +128,24 @@ export function WhatIConnect() {
           {LINKS.map(([a, b], i) => {
             const na = NODES[a];
             const nb = NODES[b];
+            const isOpsAi = [na.id, nb.id].includes("ops") && [na.id, nb.id].includes("ai");
+            const isActiveLink = active === "ops-ai" || active === na.id || active === nb.id;
             return (
-              <motion.line
-                key={`${a}-${b}`}
-                x1={na.x}
-                y1={na.y}
-                x2={nb.x}
-                y2={nb.y}
-                stroke="url(#line-copper)"
-                strokeWidth="0.18"
-                vectorEffect="non-scaling-stroke"
-                initial={{ pathLength: reduce ? 1 : 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 2.2, delay: 0.3 + i * 0.18, ease: [0.2, 0.7, 0.2, 1] }}
-              />
+              <g key={`${a}-${b}`}>
+                <motion.line
+                  x1={na.x}
+                  y1={na.y}
+                  x2={nb.x}
+                  y2={nb.y}
+                  stroke={isActiveLink ? "oklch(0.78 0.11 45 / 0.95)" : "url(#line-copper)"}
+                  strokeWidth={isActiveLink ? "0.34" : "0.18"}
+                  vectorEffect="non-scaling-stroke"
+                  initial={{ pathLength: reduce ? 1 : 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: isActiveLink ? 1 : 0.72 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 2.2, delay: 0.3 + i * 0.18, ease: [0.2, 0.7, 0.2, 1] }}
+                />
+              </g>
             );
           })}
           {/* Traveling pulses on every link — always in motion */}
@@ -109,43 +153,80 @@ export function WhatIConnect() {
             LINKS.map(([a, b], i) => {
               const na = NODES[a];
               const nb = NODES[b];
+              const isOpsAi = [na.id, nb.id].includes("ops") && [na.id, nb.id].includes("ai");
               return (
-                <motion.circle
-                  key={`pulse-${i}`}
-                  r="0.7"
-                  fill="oklch(0.92 0.14 60)"
-                  initial={{ cx: na.x, cy: na.y, opacity: 0 }}
-                  animate={{
-                    cx: [na.x, nb.x, na.x],
-                    cy: [na.y, nb.y, na.y],
-                    opacity: [0, 1, 0.6, 1, 0],
-                  }}
-                  transition={{
-                    duration: 6 + i * 0.6,
-                    delay: 1 + i * 0.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
+                <g key={`pulse-${i}`}>
+                  <motion.circle
+                    r={isOpsAi ? "1.15" : "0.72"}
+                    fill={isOpsAi ? "oklch(0.86 0.13 165)" : "oklch(0.92 0.14 60)"}
+                    initial={{ cx: na.x, cy: na.y, opacity: 0 }}
+                    animate={{
+                      cx: [na.x, nb.x, na.x],
+                      cy: [na.y, nb.y, na.y],
+                      opacity: [0, 1, 0.55, 1, 0],
+                    }}
+                    transition={{
+                      duration: isOpsAi ? 3.8 : 6 + i * 0.6,
+                      delay: isOpsAi ? 0 : 1 + i * 0.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                  {isOpsAi && (
+                    <motion.circle
+                      r="0.55"
+                      fill="oklch(0.96 0.02 80)"
+                      initial={{ cx: nb.x, cy: nb.y, opacity: 0 }}
+                      animate={{
+                        cx: [nb.x, na.x, nb.x],
+                        cy: [nb.y, na.y, nb.y],
+                        opacity: [0, 0.95, 0.45, 0.95, 0],
+                      }}
+                      transition={{ duration: 4.6, delay: 0.9, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  )}
+                </g>
               );
             })}
         </motion.svg>
+
+        <button
+          type="button"
+          aria-label="Abrir contexto da conexão entre Operação e IA"
+          onClick={() => setActive("ops-ai")}
+          onMouseEnter={() => setActive("ops-ai")}
+          className="group absolute z-20 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-copper/50 bg-background/80 shadow-[0_0_28px_oklch(0.72_0.11_45/0.35)] backdrop-blur-sm transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-copper"
+          style={{ left: "87%", top: "54%" }}
+        >
+          <span className="sr-only">Operação conectada com IA</span>
+          {!reduce && (
+            <motion.span
+              aria-hidden
+              className="absolute inset-0 rounded-full border border-copper/60"
+              animate={{ scale: [1, 1.9, 1], opacity: [0.75, 0, 0.75] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+          )}
+          <span className="h-2.5 w-2.5 rounded-full bg-copper shadow-[0_0_18px_oklch(0.72_0.11_45/0.95)] transition-colors group-hover:bg-silver" />
+        </button>
 
 
         {/* Territory nodes absolutely positioned over the constellation */}
         <div className="relative grid grid-cols-1 gap-px sm:grid-cols-2">
           {t.connect.territories.map((ter, i) => {
-            const isActive = active === ter.id;
+            const contextKey = ter.id as ContextKey;
+            const isActive = active === ter.id || (active === "ops-ai" && (ter.id === "ops" || ter.id === "ai"));
             const dim = active && !isActive;
             const node = NODES[i];
             return (
               <motion.button
                 key={ter.id}
                 type="button"
-                onMouseEnter={() => setActive(ter.id)}
-                onMouseLeave={() => setActive(null)}
-                onFocus={() => setActive(ter.id)}
-                onBlur={() => setActive(null)}
+                aria-pressed={isActive}
+                aria-label={`Abrir contexto de ${ter.name}`}
+                onMouseEnter={() => setActive(contextKey)}
+                onClick={() => setActive(contextKey)}
+                onFocus={() => setActive(contextKey)}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
@@ -218,6 +299,44 @@ export function WhatIConnect() {
               </motion.button>
             );
           })}
+        </div>
+        <div className="relative border-t border-hairline bg-graphite/35 p-6 md:p-8">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active ?? "ops-ai-default"}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.32, ease: [0.2, 0.7, 0.2, 1] }}
+              className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(16rem,0.42fr)] md:items-end"
+            >
+              <div>
+                <div className="font-mono text-xs uppercase tracking-[0.24em] text-copper">
+                  {activePanel.eyebrow}
+                </div>
+                <h3 className="mt-3 max-w-4xl font-display text-2xl text-foreground md:text-4xl">
+                  {activePanel.title}
+                </h3>
+                <p className="mt-4 max-w-3xl text-base leading-relaxed text-silver-dim md:text-lg">
+                  {activePanel.body}
+                </p>
+              </div>
+              <div className="grid gap-2">
+                {activePanel.points.map((point, index) => (
+                  <motion.div
+                    key={point}
+                    initial={{ opacity: 0, x: 8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.35, delay: index * 0.06 }}
+                    className="flex items-center gap-3 border border-hairline bg-background/50 px-4 py-3 text-sm text-silver"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-copper shadow-[0_0_16px_oklch(0.72_0.11_45/0.85)]" />
+                    {point}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </SectionShell>
