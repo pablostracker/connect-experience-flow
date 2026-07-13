@@ -18,7 +18,7 @@ const CULTURE: Record<
 > = {
   PT: {
     greeting: "E aí, tudo certo?",
-    tribute: "Da bossa ao samba, do sertão à laje — a língua que me criou.",
+    tribute: "Da bossa ao samba, do sertão à laje, a língua que me criou.",
     accent: "oklch(0.72 0.19 145)",
     stripes: ["oklch(0.55 0.16 145)", "oklch(0.82 0.17 90)", "oklch(0.45 0.14 250)"],
     orientation: "horizontal",
@@ -26,7 +26,7 @@ const CULTURE: Record<
   IT: {
     greeting: "Ciao, come stai?",
     phonetic: "tchau, kome stai",
-    tribute: "Roma, Firenze, Napoli — a herança de família que virou segunda casa.",
+    tribute: "Roma, Firenze, Napoli: a herança de família que virou segunda casa.",
     accent: "oklch(0.68 0.18 145)",
     stripes: [
       "oklch(0.72 0.17 145)",
@@ -48,7 +48,7 @@ const CULTURE: Record<
   },
   ES: {
     greeting: "¡Hola! ¿Qué tal?",
-    tribute: "LATAM inteira em uma conversa — do México ao Cone Sul.",
+    tribute: "LATAM inteira em uma conversa, do México ao Cone Sul.",
     accent: "oklch(0.72 0.20 45)",
     stripes: [
       "oklch(0.62 0.22 25)",
@@ -58,7 +58,7 @@ const CULTURE: Record<
     orientation: "horizontal",
   },
   LIBRAS: {
-    greeting: "👋 Olá — sinal aberto",
+    greeting: "👋 Olá, sinal aberto",
     tribute:
       "A língua brasileira de sinais: acessibilidade não é acessório, é ponto de partida.",
     accent: "oklch(0.78 0.14 200)",

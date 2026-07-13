@@ -833,7 +833,7 @@ function CustomerInsightsScene({
                   className="mt-2 h-[6px] w-[6px] flex-none rounded-full"
                   style={{ background: "oklch(0.78 0.19 55)" }}
                 />
-                Ritual pré-prova como janela de conversão — patrocínio, kit,
+                Ritual pré-prova como janela de conversão: patrocínio, kit,
                 nutrição, wearable.
               </li>
               <li className="flex gap-3">
@@ -1544,7 +1544,7 @@ function LoudScene({
   const capabilities = [
     { title: "Sinal do jogador", caption: "Meta, patch, comportamento in-game em tempo real.", node: <HextechCrystal reduce={reduce} /> },
     { title: "Mapa de atenção", caption: "Onde o público reage, luta e converte no mapa.", node: <HeatmapMinimap reduce={reduce} /> },
-    { title: "Funil de engajamento", caption: "Do impression ao lead — leitura por etapa.", node: <EngagementFunnel reduce={reduce} /> },
+    { title: "Funil de engajamento", caption: "Do impression ao lead, leitura por etapa.", node: <EngagementFunnel reduce={reduce} /> },
     { title: "Short Video stack", caption: "Formatos verticais testados, medidos e ranqueados.", node: <ShortVideoStack reduce={reduce} /> },
   ];
 
