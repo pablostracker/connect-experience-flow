@@ -220,7 +220,7 @@ export function WhatIConnect() {
                 aria-pressed={isActive}
                 aria-label={`Abrir contexto de ${ter.name}`}
                 onMouseEnter={() => setActive(contextKey)}
-                onClick={() => setActive((current) => (current === contextKey ? null : contextKey))}
+                onClick={() => setActive(contextKey)}
                 onFocus={() => setActive(contextKey)}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
