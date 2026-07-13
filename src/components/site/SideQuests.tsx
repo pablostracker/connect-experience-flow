@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
 import { useT } from "@/i18n";
 import { SectionShell } from "./SectionShell";
 import triathlonImg from "@/assets/triathlon-splash.jpg.asset.json";
@@ -555,7 +556,7 @@ function NarutoScene({
   body: string;
   value: readonly string[];
 }) {
-  const reduce = !!useReducedMotion();
+  const reduce = useSafeReducedMotion();
 
   const capabilities = [
     { title: "Retrato hiper-real", caption: "Iluminação, rim light e pele fotográfica.", node: <HyperrealPortrait reduce={reduce} /> },
@@ -688,7 +689,7 @@ function CustomerInsightsScene({
   body: string;
   pulls: readonly string[];
 }) {
-  const reduce = !!useReducedMotion();
+  const reduce = useSafeReducedMotion();
 
   // Sports-tech metrics panel to fill the previously empty side.
   const disciplines = [
@@ -832,7 +833,7 @@ function CustomerInsightsScene({
                   className="mt-2 h-[6px] w-[6px] flex-none rounded-full"
                   style={{ background: "oklch(0.78 0.19 55)" }}
                 />
-                Ritual pré-prova como janela de conversão — patrocínio, kit,
+                Ritual pré-prova como janela de conversão: patrocínio, kit,
                 nutrição, wearable.
               </li>
               <li className="flex gap-3">
@@ -917,10 +918,17 @@ function CustomerInsightsScene({
               brand: "Wellhub",
               tag: "Wellness",
               claim: "Rotina, recuperação e bem-estar como jornada.",
-              color: "oklch(0.72 0.28 350)",
+              color: "#FF1493",
               node: (
                 <svg viewBox="0 0 120 60" className="h-full w-full">
-                  <rect width="120" height="60" fill="oklch(0.10 0.02 350)" />
+                  <defs>
+                    <radialGradient id="wh-glow" cx="50%" cy="50%" r="60%">
+                      <stop offset="0%" stopColor="#FF1493" stopOpacity="0.35" />
+                      <stop offset="100%" stopColor="#FF1493" stopOpacity="0" />
+                    </radialGradient>
+                  </defs>
+                  <rect width="120" height="60" fill="#160009" />
+                  <rect width="120" height="60" fill="url(#wh-glow)" />
                   {[0, 1, 2, 3, 4].map((i) => (
                     <motion.circle
                       key={i}
@@ -928,9 +936,9 @@ function CustomerInsightsScene({
                       cy="30"
                       r="6"
                       fill="none"
-                      stroke="oklch(0.75 0.28 350)"
-                      strokeWidth="1.4"
-                      animate={{ r: [4, 10, 4], opacity: [0.4, 1, 0.4] }}
+                      stroke="#FF3AA3"
+                      strokeWidth="1.6"
+                      animate={{ r: [4, 12, 4], opacity: [0.35, 1, 0.35] }}
                       transition={{ duration: 2.4, delay: i * 0.25, repeat: Infinity, ease: "easeInOut" }}
                     />
                   ))}
@@ -1110,7 +1118,7 @@ function FalcoesScene({
   body: string;
   pulls: readonly string[];
 }) {
-  const reduce = !!useReducedMotion();
+  const reduce = useSafeReducedMotion();
   return (
     <article className="group/falcao relative overflow-hidden border border-hairline bg-graphite/30 transition-all duration-500 hover:border-copper/60 hover:shadow-[0_0_0_1px_oklch(0.72_0.11_45/0.5),0_20px_80px_-20px_oklch(0.72_0.11_45/0.35)]">
       {/* animated hover glow ring */}
@@ -1538,12 +1546,12 @@ function LoudScene({
   body: string;
   pulls: readonly string[];
 }) {
-  const reduce = !!useReducedMotion();
+  const reduce = useSafeReducedMotion();
 
   const capabilities = [
     { title: "Sinal do jogador", caption: "Meta, patch, comportamento in-game em tempo real.", node: <HextechCrystal reduce={reduce} /> },
     { title: "Mapa de atenção", caption: "Onde o público reage, luta e converte no mapa.", node: <HeatmapMinimap reduce={reduce} /> },
-    { title: "Funil de engajamento", caption: "Do impression ao lead — leitura por etapa.", node: <EngagementFunnel reduce={reduce} /> },
+    { title: "Funil de engajamento", caption: "Do impression ao lead, leitura por etapa.", node: <EngagementFunnel reduce={reduce} /> },
     { title: "Short Video stack", caption: "Formatos verticais testados, medidos e ranqueados.", node: <ShortVideoStack reduce={reduce} /> },
   ];
 

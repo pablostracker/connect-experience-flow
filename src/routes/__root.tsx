@@ -20,7 +20,7 @@ function NotFoundComponent() {
         <div className="text-eyebrow">404</div>
         <h1 className="mt-4 font-display text-4xl text-foreground">Página não encontrada</h1>
         <p className="mt-3 text-silver-dim">
-          O caminho que você tentou abrir não existe — ou não existe mais.
+          O caminho que você tentou abrir não existe. Ou não existe mais.
         </p>
         <div className="mt-8">
           <Link
@@ -67,7 +67,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-const SITE_TITLE = "Pablo Silva Dutra — Pessoas, Operação, Dados & IA";
+const SITE_TITLE = "Pablo Silva Dutra · Pessoas, Operação, Dados & IA";
 const SITE_DESC =
   "Portfólio de Pablo Silva Dutra. Customer Success, operação, experiência do cliente, dados e IA trabalhando como um único sistema.";
 

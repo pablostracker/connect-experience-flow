@@ -1,43 +1,60 @@
-# Backlog — pendências agendadas
+# Pending high-priority tasks (next credit cycle)
 
-Feito neste turno:
-- Hidratação corrigida (SectionShell, WhatIConnect, Languages) via `useMounted` — resolve travamento do header e clique nos idiomas.
-- Removidos todos os "—" de `src/i18n/pt.ts`.
-- Removida a instrução "↕ Clique em cada bandeira…" em Languages.
-- Wellhub agora usa rosa choque no strip de parceiros.
-- Discord passa a usar o mark oficial (SVG inline) no Contato.
-- AI Lab: espaçamento entre cluster/tools corrigido; chips viram metalizados ao **clicar** (toggle), preservam estado.
+Iteration goal: motion, interaction and organization polish.
+Items below could not be shipped in the current turn and are queued as **P0** for the next round.
 
-Pendências agendadas (para os próximos créditos):
+## P0 · Interaction gaps (must ship first)
 
-1. **WhatIConnect interativo**
-   - Clique nos nós (People/Ops/Data/AI) e nas linhas abre painel explicando como atuo naquela interseção.
-   - Bola de energia percorrendo as linhas ao clicar (hoje já pulsa contínuo; falta o "shot" no clique).
+1. **WhatIConnect — clickable constellation + flowing particles**
+   - Make each connecting line and each node (People, Operations, Data, AI) clickable.
+   - On click open a side-drawer / modal with contextual content: *what I do in Operations*, *how I apply AI*, etc. Content pulled from `src/i18n/pt.ts` under a new `connect.details` block.
+   - Add a continuous moving ball travelling along every link (SVG `<animateMotion>` or framer-motion pathLength ping-pong).
+   - Keep the current nebula drift; layer particles on top.
 
-2. **Journey — trajetória completa clicável**
-   - Cada empresa do timeline abre modal com transição suave listando escopo completo de atividades.
-   - Conteúdo por empresa precisa ser adicionado em `src/i18n/pt.ts` (`journey.trajectory[i].scope`).
+2. **Journey — full-scope modal per company**
+   - Replace the current accordion in the "Trajetória completa" list with a proper modal (`Dialog` from `@/components/ui/dialog`) opened on click.
+   - Each modal shows: period, role, full scope bullet list, key results, and stack used.
+   - Extend `t.journey.trajectory[i]` with `scope[]` and `result` fields for the remaining 13 roles.
+   - Elegant transition: fade + scale-in, backdrop blur, close on ESC / overlay click.
 
-3. **SideQuests — Gerando Falcões**
-   - Redesenhar `FalconWings` mais fino/moderno e em movimento contínuo (flap loop sempre ativo, não só no hover).
-   - Os 4 pássaros menores em loop constante de travessia, com paths variados.
+## P0 · Continuous motion (currently static)
 
-4. **SideQuests — LOUD**
-   - Restaurar card com altura cheia (voltar TA/título completo).
-   - Ícones de Sinal do Jogador / Mapa de Atenção / Funil / Short Videos com animação contínua (hoje só animam no viewport enter).
+3. **Gerando Falcões**
+   - Slim down `FalconWings` main silhouette (thinner strokes, longer wing arc).
+   - Ensure `animate` loops run without `whileInView` gate so motion never pauses.
+   - Same for the 4 small `FlyingBird` instances.
 
-5. **SideQuests — Naruto**
-   - Redesenhar `KonohaSymbol` a partir da referência anexada (espiral canônica + textura metalizada + sombra "alguém passando").
-   - Kunai no HyperrealPortrait com animação de "edição" (grid de ajuste, sliders, glint contínuo).
-   - Todos os cards de repertório em movimento contínuo.
+4. **LOUD scene**
+   - Restore "TA" mention in the copy (currently trimmed).
+   - Restore taller card proportions (min-height +25%).
+   - Convert the 4 capability icons (`HextechCrystal`, `HeatmapMinimap`, `EngagementFunnel`, `ShortVideoStack`) to always-on loops instead of `whileInView`.
 
-6. **SideQuests — Customer Insights**
-   - Garantir capa (`triathlon-splash.jpg`) 100% visível no mobile e desktop.
-   - Garmin: animação contínua da linha de batimento (hoje anima só uma vez no viewport).
-   - FMTri: reorganizar layout, título "Federação Mineira de Triathlon" em duas linhas com hierarquia clara.
+5. **Naruto Brasil**
+   - Replace `KonohaSymbol` path with the canonical Hidden Leaf spiral (reference: user-provided PNG).
+   - Add continuous shadow sweep across the metal.
+   - `HyperrealPortrait` kunai: add "editing" micro-animations (crop handles pulsing, dashed marching-ants selection, slider knobs drifting) to sell the "being edited" idea.
 
-7. **Wellhub extra**
-   - Migrar o rosa choque para tokens semânticos em `src/styles.css` (`--wellhub`).
+6. **Customer Insights / Sports Tech**
+   - Garmin card: add continuous heartbeat pulse behind the line chart.
+   - FMTri card: rework hierarchy (federation logo top, ranking podium middle, race calendar bottom).
+   - Wellhub: DONE this turn (switched to hot pink #FF1493).
 
-8. **Nav header**
-   - Verificar que backdrop-blur não bloqueia cliques após a correção de hidratação. Se persistir, mover blur para `::before` com `pointer-events:none`.
+## P0 · Tech Stack polish
+
+7. **AILab metallic chip state**
+   - Current selected state is a copper gradient; upgrade to a true brushed-metal look (layered linear-gradient + inset shadow + subtle noise mask).
+   - Spacing: DONE this turn (increased `gap` to `md:gap-20`, tightened cluster column).
+
+## P0 · Icons / branding
+
+8. Audit remaining lucide icons on Contact rows for brand accuracy (Xbox uses generic `Gamepad2` — consider custom SVG for the Xbox sphere).
+
+---
+
+## Shipped this turn
+
+- SSR-safe motion hook (`useSafeReducedMotion`) wired across `SideQuests`; fixes the hydration mismatch that was killing clicks in `Languages` and the top nav.
+- Removed every user-visible `—` from Languages, Education, SideQuests, Nav, `__root.tsx`.
+- Wellhub accent switched to hot pink (#FF1493) with glow + amplified pulse.
+- AILab column gap widened so clusters no longer touch the skill chips.
+- Discord icon confirmed as the official brand mark.

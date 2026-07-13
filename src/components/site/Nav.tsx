@@ -24,7 +24,7 @@ export function Nav() {
         <Link
           to="/"
           className="flex items-baseline gap-2 font-display text-lg tracking-tight text-foreground"
-          aria-label="Pablo Silva Dutra — Início"
+          aria-label="Pablo Silva Dutra · Início"
         >
           <span className="font-black">PSD</span>
           <span className="hidden text-eyebrow sm:inline">Pablo Silva Dutra</span>

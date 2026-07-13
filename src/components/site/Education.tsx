@@ -129,7 +129,7 @@ export function Education() {
                   className="mt-4 text-eyebrow opacity-60 transition-opacity group-hover:opacity-100"
                   style={{ color: isActive ? color : undefined }}
                 >
-                  {isActive ? "— fechar" : "+ o que estudo"}
+                  {isActive ? "× fechar" : "+ o que estudo"}
                 </div>
               </button>
             </motion.li>
