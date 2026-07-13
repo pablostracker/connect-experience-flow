@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
 import { useT } from "@/i18n";
 import { SectionShell } from "./SectionShell";
 import triathlonImg from "@/assets/triathlon-splash.jpg.asset.json";
@@ -555,7 +556,7 @@ function NarutoScene({
   body: string;
   value: readonly string[];
 }) {
-  const reduce = !!useReducedMotion();
+  const reduce = useSafeReducedMotion();
 
   const capabilities = [
     { title: "Retrato hiper-real", caption: "Iluminação, rim light e pele fotográfica.", node: <HyperrealPortrait reduce={reduce} /> },
@@ -688,7 +689,7 @@ function CustomerInsightsScene({
   body: string;
   pulls: readonly string[];
 }) {
-  const reduce = !!useReducedMotion();
+  const reduce = useSafeReducedMotion();
 
   // Sports-tech metrics panel to fill the previously empty side.
   const disciplines = [
@@ -1110,7 +1111,7 @@ function FalcoesScene({
   body: string;
   pulls: readonly string[];
 }) {
-  const reduce = !!useReducedMotion();
+  const reduce = useSafeReducedMotion();
   return (
     <article className="group/falcao relative overflow-hidden border border-hairline bg-graphite/30 transition-all duration-500 hover:border-copper/60 hover:shadow-[0_0_0_1px_oklch(0.72_0.11_45/0.5),0_20px_80px_-20px_oklch(0.72_0.11_45/0.35)]">
       {/* animated hover glow ring */}
@@ -1538,7 +1539,7 @@ function LoudScene({
   body: string;
   pulls: readonly string[];
 }) {
-  const reduce = !!useReducedMotion();
+  const reduce = useSafeReducedMotion();
 
   const capabilities = [
     { title: "Sinal do jogador", caption: "Meta, patch, comportamento in-game em tempo real.", node: <HextechCrystal reduce={reduce} /> },
