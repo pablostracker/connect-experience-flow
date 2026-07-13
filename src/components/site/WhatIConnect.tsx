@@ -62,11 +62,6 @@ const CONTEXT = {
 
 type ContextKey = keyof typeof CONTEXT;
 
-const NODE_ID_TO_INDEX = NODES.reduce<Record<string, number>>((acc, node, index) => {
-  acc[node.id] = index;
-  return acc;
-}, {});
-
 export function WhatIConnect() {
   const t = useT();
   const reducedPref = !!useReducedMotion();
@@ -85,7 +80,7 @@ export function WhatIConnect() {
       <div className="relative isolate overflow-hidden border border-hairline bg-black">
         {/* deep-space background */}
         <div
-          aria-hidden
+          aria-label="Constelação interativa entre Pessoas, Operação, Dados e IA"
           className="pointer-events-none absolute inset-0"
           style={{
             background:
@@ -150,28 +145,6 @@ export function WhatIConnect() {
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 2.2, delay: 0.3 + i * 0.18, ease: [0.2, 0.7, 0.2, 1] }}
                 />
-                {isOpsAi && (
-                  <line
-                    role="button"
-                    aria-label="Abrir contexto de Operação e IA"
-                    tabIndex={0}
-                    x1={na.x}
-                    y1={na.y}
-                    x2={nb.x}
-                    y2={nb.y}
-                    stroke="transparent"
-                    strokeWidth="8"
-                    vectorEffect="non-scaling-stroke"
-                    className="pointer-events-auto cursor-pointer"
-                    onClick={() => setActive("ops-ai")}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter" || event.key === " ") {
-                        event.preventDefault();
-                        setActive("ops-ai");
-                      }
-                    }}
-                  />
-                )}
               </g>
             );
           })}
@@ -216,6 +189,21 @@ export function WhatIConnect() {
               );
             })}
         </motion.svg>
+
+        <button
+          type="button"
+          aria-label="Abrir contexto da conexão entre Operação e IA"
+          onClick={() => setActive("ops-ai")}
+          onMouseEnter={() => setActive("ops-ai")}
+          className="absolute z-10 h-7 origin-left -translate-y-1/2 cursor-pointer bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-copper"
+          style={{
+            left: "88%",
+            top: "30%",
+            width: "48.4%",
+            transform: "translateY(-50%) rotate(86deg)",
+            transformOrigin: "left center",
+          }}
+        />
 
 
         {/* Territory nodes absolutely positioned over the constellation */}
