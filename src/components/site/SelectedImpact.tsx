@@ -192,7 +192,15 @@ function IndicatorRing({
             transition={{ duration: 1.6, delay: 0.15 + index * 0.1, ease: [0.2, 0.7, 0.2, 1] }}
           />
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center font-display text-2xl text-foreground">
+        <div
+          className="absolute inset-0 flex items-center justify-center font-display text-2xl"
+          style={{
+            backgroundImage: "linear-gradient(135deg, oklch(0.78 0.16 200), oklch(0.72 0.18 45))",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            color: "transparent",
+          }}
+        >
           {suffix ? `${Math.round(n)}${suffix}` : Math.round(n)}
         </div>
       </div>
