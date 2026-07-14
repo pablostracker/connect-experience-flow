@@ -26,20 +26,22 @@ export const pt = {
     label: "Perfil executivo",
     title: "Estratégia, receita, cliente, dados e tecnologia, em um único sistema.",
     p1:
-      "Líder de Customer Success, Customer Experience e Operações com experiência em gestão de times, carteiras e jornadas de alta complexidade. Atua conectando estratégia, receita, experiência do cliente, dados e tecnologia para diagnosticar gargalos, estruturar processos e acelerar performance.",
+      "Líder de Customer Success, Customer Experience e Operações com experiência em gestão de times, carteiras e jornadas de alta complexidade. Foco em excelência em resultado, atendimento ao cliente e alavancagem de indicadores de performance, conectando estratégia, receita, experiência do cliente, dados e tecnologia para diagnosticar gargalos, estruturar processos e acelerar performance.",
     p2:
-      "Trajetória construída em operações de tecnologia, e-commerce, consumo, mobilidade, franquias e economia digital, com experiência em liderança, onboarding e ongoing, Revenue Operations, projetos, dashboards executivos, automação e inteligência artificial aplicada ao negócio.",
+      "Trajetória de mais de 15 anos construída em telecom, engenharia, SaaS, fintech, e-commerce, mobilidade, aviação, iGaming, franquias e economia digital, com passagens por Oracle, Ambev, Ze Delivery, EstrelaBet, V4 Company, PicPay, Azul, Claro, Vivo, TIM, Oi, Atento e AeC. Liderança, onboarding e ongoing, Revenue Operations, projetos, dashboards executivos, automação e inteligência artificial aplicada ao negócio.",
     areasLabel: "Áreas de atuação",
     areas: [
       "Customer Success",
       "Customer Experience",
       "Operations",
       "Revenue Operations",
-      "Projetos",
+      "Risk Management",
+      "Projetos & PMO",
       "Dados & Performance",
       "AI & Automation",
     ],
   },
+
   connect: {
     label: "O que eu conecto",
     title: "Quatro territórios, um sistema.",
