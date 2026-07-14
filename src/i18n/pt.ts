@@ -484,7 +484,7 @@ export const pt = {
     title: "Vamos construir algo?",
     body:
       "Se algo aqui ressoou, o próximo passo é uma conversa curta. Escolha o canal, respondo no mesmo dia útil.",
-    email: "pablosilvautra@gmail.com",
+    email: "pablosilvadutra@yahoo.com.br",
     whatsappDisplay: "+55 31 98466-8908",
     whatsappHref: "https://wa.me/5531984668908",
     smsHref: "sms:+5531984668908",
