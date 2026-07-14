@@ -110,8 +110,8 @@ export const pt = {
         "Participação na implantação da frente de franquias no segmento de medicina regenerativa, traduzindo relacionamento e diagnóstico em receita nova.",
       pulls: [
         { value: "5", caption: "Franquias comercializadas" },
-        { value: "R$ 16 mil", caption: "Capital por unidade" },
-        { value: "~R$ 80 mil", caption: "Capital gerado" },
+        { value: "R$ 160 mil", caption: "Capital por unidade" },
+        { value: "~R$ 800 mil", caption: "Capital gerado" },
       ],
     },
     ambev: {
