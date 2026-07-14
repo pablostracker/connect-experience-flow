@@ -307,11 +307,11 @@ export const pt = {
     intro:
       "Comunicação real com times, clientes e comunidades, do compliance regulatório em iGaming à sala de aula em Libras.",
     items: [
-      { name: "Português", level: "Nativo", pct: 1.0, flag: "🇧🇷", code: "PT" },
-      { name: "Italiano", level: "Nativo", pct: 1.0, flag: "🇮🇹", code: "IT" },
-      { name: "Inglês", level: "Fluente profissional", pct: 0.92, flag: "🇬🇧", code: "EN" },
+      { name: "Português", level: "Nativo / Bilíngue", pct: 1.0, flag: "🇧🇷", code: "PT" },
+      { name: "Italiano", level: "Nativo / Bilíngue", pct: 1.0, flag: "🇮🇹", code: "IT" },
+      { name: "Inglês", level: "Fluência profissional plena", pct: 0.95, flag: "🇬🇧", code: "EN" },
+      { name: "Libras", level: "Fluência profissional plena", pct: 0.92, flag: "🤟", code: "LIBRAS" },
       { name: "Espanhol", level: "Profissional avançado", pct: 0.82, flag: "🇪🇸", code: "ES" },
-      { name: "Libras", level: "Fluente profissional", pct: 0.9, flag: "🤟", code: "LIBRAS" },
     ],
   },
 
