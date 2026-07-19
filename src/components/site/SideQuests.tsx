@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
 import { useT } from "@/i18n";
 import { SectionShell } from "./SectionShell";
+import { ProjectGallery } from "./ProjectGallery";
 import triathlonImg from "@/assets/triathlon-splash.jpg.asset.json";
 
 export function SideQuests() {
@@ -9,6 +10,7 @@ export function SideQuests() {
   const q = t.quests.items;
   return (
     <SectionShell id="projects" label={t.quests.label} title={t.quests.title}>
+      <ProjectGallery />
       <div className="space-y-24">
         <FalcoesScene
           name={q.falcoes.name}
